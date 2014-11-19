@@ -1,0 +1,36 @@
+package net.neurolab.musicmap.db;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+@Table (name = "FavoriteEvent")
+public class FavoriteEvent extends Model{
+
+	@Column (name = "idUser")
+	private long idUser;
+	
+	@Column (name = "idEvent")
+	private long idEvent;
+
+	public FavoriteEvent() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public FavoriteEvent(long idUser, long idEvent) {
+		super();
+		this.idUser = idUser;
+		this.idEvent = idEvent;
+	}
+
+	public long getIdUser() {
+		return idUser;
+	}
+
+	public long getIdEvent() {
+		return idEvent;
+	}
+	
+	
+}
