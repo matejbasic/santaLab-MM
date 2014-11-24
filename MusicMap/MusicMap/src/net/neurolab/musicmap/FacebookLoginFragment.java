@@ -1,15 +1,8 @@
 package net.neurolab.musicmap;
 
-import com.facebook.Request;
-import com.facebook.RequestBatch;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
-import com.facebook.widget.LoginButton;
-
-import android.support.v4.app.Fragment;
+import net.neurolab.musicmap.ws.FacebookWS;
+//import android.app.Fragment;
+import android.support.v4.app.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.neurolab.musicmap.ws.FacebookWS;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 
 public class FacebookLoginFragment extends Fragment {
 	
@@ -103,5 +99,6 @@ public class FacebookLoginFragment extends Fragment {
 		super.onSaveInstanceState(outState);
 		uiHelper.onSaveInstanceState(outState);
 	}
+	
 }
 
