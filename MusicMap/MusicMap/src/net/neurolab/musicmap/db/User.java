@@ -13,32 +13,70 @@ public class User extends Model{
 	@Column (name = "firstLastName")
 	private String firstLastName;
 	
-	@Column (name = "email")
-	private String email;
+	@Column (name = "facebookId")
+	private String facebookId;
+	
+	@Column (name = "mmApiKey")
+	private String mmApiKey;
+	
+	@Column (name = "password")
+	private String password;
 
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(long userId, String firstLastName, String email) {
+	public User(long userId, String firstLastName, String facebookId, String mmApiKey, String password) {
 		super();
 		this.userId = userId;
 		this.firstLastName = firstLastName;
-		this.email = email;
+		this.facebookId = facebookId;
+		this.mmApiKey = mmApiKey;
+		this.password = password;
 	}
 
 	public long getUserId() {
 		return userId;
 	}
 
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
 	public String getFirstLastName() {
 		return firstLastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setFirstLastName(String firstLastName) {
+		this.firstLastName = firstLastName;
 	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+	public String getMmApiKey() {
+		return mmApiKey;
+	}
+
+	public void setMmApiKey(String mmApiKey) {
+		this.mmApiKey = mmApiKey;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 	
 	
 }
