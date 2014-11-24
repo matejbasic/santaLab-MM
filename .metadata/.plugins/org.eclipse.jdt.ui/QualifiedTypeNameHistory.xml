@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.view.ViewGroup"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.R.layout"/>
+<fullyQualifiedTypeName name="android.support.v4.app.Fragment"/>
+<fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.MainActivity"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.FbLoginFragment"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.id"/>
+<fullyQualifiedTypeName name="android.service.textservice.SpellCheckerService.Session"/>
+<fullyQualifiedTypeName name="com.facebook.SessionState"/>
+<fullyQualifiedTypeName name="com.facebook.Session.StatusCallback"/>
+<fullyQualifiedTypeName name="com.facebook.UiLifecycleHelper"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.R.id"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.ws.FacebookHandler"/>
+<fullyQualifiedTypeName name="com.facebook.widget.LoginButton"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="java.sql.Array"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.facebook.Session"/>
+<fullyQualifiedTypeName name="com.facebook.Request"/>
+<fullyQualifiedTypeName name="com.facebook.Request.GraphUserCallback"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+</qualifiedTypeNameHistroy>

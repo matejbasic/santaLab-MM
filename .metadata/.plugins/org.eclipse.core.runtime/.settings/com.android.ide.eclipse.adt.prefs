@@ -1,3 +1,5 @@
+com.android.ide.eclipse.adt.attrSort=logical
+com.android.ide.eclipse.adt.autoPickTarget=false
 com.android.ide.eclipse.adt.fixLegacyEditors=1
-com.android.ide.eclipse.adt.sdk=d\:\\Users\\Ljiljana\\android-sdks
+com.android.ide.eclipse.adt.sdk=E\:\\android dev\\sdk
 eclipse.preferences.version=1
