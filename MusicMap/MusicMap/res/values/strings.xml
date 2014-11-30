@@ -4,7 +4,14 @@
     <string name="app_name">MusicMap</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="facebook_app_id">794938350563937</string>
     <string name="title_activity_login">LoginActivity</string>
+    
+    <string name="facebook_app_id">794938350563937</string>
+    <string name="facebook_login_failed">Facebook login failed</string>
+    <string name="facebook_login_error">Facebook login error</string>
+    
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="LoginAsGuest">Use app as guest</string>
+    <string name="service_name">MusicMap Web Service</string>
 
 </resources>

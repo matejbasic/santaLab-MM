@@ -1,8 +1,11 @@
 package net.neurolab.musicmap.db;
 
+import java.util.List;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 @Table (name = "User")
 public class User extends Model{
@@ -24,7 +27,7 @@ public class User extends Model{
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public User(long userId, String firstLastName, String facebookId, String mmApiKey, String password) {
@@ -35,11 +38,27 @@ public class User extends Model{
 		this.mmApiKey = mmApiKey;
 		this.password = password;
 	}
-
+	
+	public List<User> getAll() {
+		return new Select().from(User.class).execute();
+	}
+	
+	/**
+	 * todo: delete before it spreads :D
+	 * @author Deng
+	 */
+	public void DeleteAll() {
+		List<User> users = this.getAll();
+		for (User user : users) {
+			user.delete();
+		}
+	}
+	
 	public long getUserId() {
 		return userId;
 	}
 
+	
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
@@ -76,7 +95,4 @@ public class User extends Model{
 		this.password = password;
 	}
 
-	
-	
-	
 }

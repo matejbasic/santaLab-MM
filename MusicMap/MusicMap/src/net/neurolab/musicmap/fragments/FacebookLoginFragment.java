@@ -1,14 +1,21 @@
-package net.neurolab.musicmap;
+package net.neurolab.musicmap.fragments;
 
-import net.neurolab.musicmap.ws.FacebookWS;
-//import android.app.Fragment;
-import android.support.v4.app.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+import net.neurolab.musicmap.R;
+import net.neurolab.musicmap.interfaces.LoginView;
+import net.neurolab.musicmap.ws.FacebookAsyncTask;
+import net.neurolab.musicmap.ws.FacebookResultHandler;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+//import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -17,17 +24,16 @@ import com.facebook.widget.LoginButton;
 
 public class FacebookLoginFragment extends Fragment {
 	
-	private static final String TAG = "FbFragment";
 	private UiLifecycleHelper uiHelper;
-	private FacebookWS facebookWS;
 	private LoginButton authButton;
+	private List<String> readPermissions = Arrays.asList("public_profile");
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		uiHelper = new UiLifecycleHelper(getActivity(), callback);
 		uiHelper.onCreate(savedInstanceState);
-		facebookWS = new FacebookWS();
+		
 	}
 	
 	@Override
@@ -38,21 +44,37 @@ public class FacebookLoginFragment extends Fragment {
 		try {
 			authButton = (LoginButton) view.findViewById(R.id.authButton);
 			authButton.setFragment(this);
-			facebookWS.setLoginPermissions(authButton);
+			authButton.setReadPermissions(readPermissions);
+			
 		}
 		catch(Exception exception) {
-			Log.i("Facebook login button", "fail");
+			Toast.makeText(getActivity(), R.string.facebook_login_failed, Toast.LENGTH_SHORT).show();
 		}
 		return view;
 	}
+	FacebookResultHandler getUserBasicData = new FacebookResultHandler() {
+		@Override
+		public void handleResults(HashMap<String, String> data) {
+			
+			if (data.containsKey("id") && data.containsKey("name")) {
+				//pass data to parent container/activity
+				LoginView parent = (LoginView)getActivity();
+				parent.getFbFragmentData(data);
+			}
+			else {
+				Toast.makeText(getActivity(), R.string.facebook_login_failed, Toast.LENGTH_LONG).show();
+			}
+		}
+	};
 	
 	private void onSessionStateChange(Session session, SessionState state,
 			Exception exception) {
 		if (state.isOpened()) {
-			facebookWS.saveUserId(session);
-		}
-		else {
-			Log.i(TAG, "Logged OUT!");
+			
+			FacebookAsyncTask fbTask = new FacebookAsyncTask();
+			Object params[] = new Object[]{session, "getUserData", null, null, getUserBasicData};
+			fbTask.execute(params);
+			
 		}
 	}
 	
@@ -71,7 +93,7 @@ public class FacebookLoginFragment extends Fragment {
 		super.onResume();
 		Session session = Session.getActiveSession();
 		if ( session != null && (session.isOpened() || session.isClosed()) ) {
-			onSessionStateChange(session, session.getState(), null);
+			//onSessionStateChange(session, session.getState(), null);
 		}
 		uiHelper.onResume();
 	}

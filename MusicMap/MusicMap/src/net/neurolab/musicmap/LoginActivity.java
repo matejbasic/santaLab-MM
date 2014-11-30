@@ -1,51 +1,108 @@
 package net.neurolab.musicmap;
 
-import android.os.Bundle;
-//import android.support.v4.app.*;
-import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import java.util.HashMap;
+import java.util.concurrent.Executor;
 
-public class LoginActivity extends FragmentActivity {
+import net.neurolab.musicmap.fragments.FacebookLoginFragment;
+import net.neurolab.musicmap.interfaces.LoginPresenterIntf;
+import net.neurolab.musicmap.interfaces.LoginView;
+import net.neurolab.musicmap.presenters.LoginPresenter;
+import net.neurolab.musicmap.ws.MMAsyncTask;
+import net.neurolab.musicmap.ws.MMAsyncTask;
+import android.app.ActionBar;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.activeandroid.ActiveAndroid;
+
+public class LoginActivity extends FragmentActivity implements LoginView {
 
 	private FacebookLoginFragment facebookLoginFragment;
+	private LoginPresenterIntf presenter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
+		setContentView(R.layout.activity_login);
+		
+		//active android initialization, must be in launch activity
+		ActiveAndroid.initialize(this);
+		
+		//ActionBar actionBar = getActionBar();
+		//actionBar.hide();
+		
+		this.presenter = new LoginPresenter(this);
+		
 		if (savedInstanceState == null) {
 			facebookLoginFragment = new FacebookLoginFragment();
 			getSupportFragmentManager()
 			.beginTransaction()
 			.add(android.R.id.content, facebookLoginFragment)
 			.commit();
+			
 		}
 		else {
 			facebookLoginFragment = (FacebookLoginFragment) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
 		}
 	}
-	
-	
+	public class TempAsyncTask extends AsyncTask<Object, Void, Object[]> {
 
+		@Override
+		protected Object[] doInBackground(Object... arg0) {
+			Log.i("temp task", "done");
+			return null;
+		}
+		
+	}
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
+	public void getFbFragmentData(HashMap<String, String> data) {
+		if ( data.containsKey("id") && data.containsKey("name")) {
+			
+			String response = this.presenter.checkFbUser(
+					data.get("name").toString(), data.get("id").toString(), LoginActivity.this);
+			Log.i("loginActivity", response);
+		}
+	}
+
+	
+	@Override
+	public void showProgress() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	public void hideProgress() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void setFacebookLoginError() {
+		Toast.makeText(getApplicationContext(), R.string.facebook_login_error, Toast.LENGTH_LONG).show();
+		
+	}
+
+
+
+	@Override
+	public void setMMWebServiceError() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void navigateToSetBasicPref() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
