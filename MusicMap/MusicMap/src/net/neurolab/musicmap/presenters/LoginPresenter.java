@@ -1,117 +1,83 @@
 package net.neurolab.musicmap.presenters;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.interfaces.LoginPresenterIntf;
 import net.neurolab.musicmap.interfaces.LoginView;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
-import net.neurolab.musicmap.ws.MMService;
-import net.neurolab.musicmap.ws.MMService.LocalBinder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.util.Log;
 
 public class LoginPresenter implements LoginPresenterIntf {
 	private LoginView loginView;
-	
-	MMService mmService = new MMService();
+	private String fbId = null;
+	private String idHash = null;
+	private String userName = null;
 	
 	public LoginPresenter(LoginView loginView) {
 		this.loginView = loginView;
 		
 	}
-
-	
 	@Override
 	public void checkUserData() {}
 	
-	@Override
-	public void saveFbUserToWS(String id, final Context context) {
-		
-		id += "d3ag"; //DEBUG purpose: delete when done!
-		//"{\"ApiKey\":\"zGqwh5PQZxSKlezE6KdT\"}"
-
-		String idHash = String.valueOf(id.hashCode());
-
-		final Intent intent = new Intent(context, MMService.class);
-		intent.putExtra("action", "addFbUser");
-		intent.putExtra("id", id);
-		intent.putExtra("idHash", idHash);
-		
-		String res = mmService.addFbUser(id, idHash);
-		Log.i("mmService - rez", res);
-		
-		final ServiceConnection serviceConnection = new ServiceConnection() {
-
-	        @Override
-	        public void onServiceConnected(ComponentName className, IBinder service) {
-	            // We've bound to LocalService, cast the IBinder and get LocalService instance
-	        	LocalBinder binder = (LocalBinder) service;
-	        	mmService = binder.getService();
-	            //mService = binder.getService();
-	            //mBound = true;
-	        }
-
-	        @Override
-	        public void onServiceDisconnected(ComponentName arg0) {
-	            //mBound = false;
-	        }
-
-	    };
-
-		
-		new Thread(new Runnable() {
-			public void run() {
-				try {
-					//context.startService(intent);
-					context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-				}
-				catch(Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}).start();
-	
+	public void addFbUser(String apiKey) {
+		//{"ApiKey":"1OLxYJT1ueCMIZ0Nquf7"}
+		//User user = new User(userId, firstLastName, facebookId, mmApiKey, password);
+		User user = new User(0, this.userName, this.fbId, apiKey, this.idHash);
+		user.save();
+		Log.i("addFbUser", "user saved");
 	}
-
 	
 	@Override
 	public String checkFbUser(String userName, String fbId, Activity activity) {
 		User users = new User();
+		
+		//users.DeleteAll(); //DEBUG - delete when done
+		
 		List<User> usersList = users.getAll();
-		for (User userData : usersList) {
+		if (!usersList.isEmpty()) { //if user exist
 			
-			if ( fbId.matches(userData.getFacebookId())) {
-				if ( userData.getMmApiKey() == null) {
-					
-					String id = fbId;
-					String idHash = String.valueOf(id.hashCode());
-					MMAsyncTask mmTask = new MMAsyncTask();
-					Object params[] = new Object[]{"fbUser", "add", null, checkFbUserHandler, id, idHash};
-					mmTask.execute(params);
-					
-				}
-				else {
-					
+			fbId += "d11m"; //DEBUG
+			Log.i("fbId actual", fbId);
+			
+			for (User userData : usersList) {
+				Log.i("userKey", userData.getMmApiKey());
+				Log.i("userFbId", userData.getFacebookId());
+				if ( fbId.matches(userData.getFacebookId())) {
+					if ( userData.getMmApiKey() == null) { //local DB contains user data but not the user key
+						
+						String idHash = String.valueOf(fbId.hashCode());
+						MMAsyncTask mmTask = new MMAsyncTask();
+						Object params[] = new Object[]{"fbUser", "add", null, checkFbUserHandler, fbId, idHash};
+						mmTask.execute(params);
+					}
+					else {
+						return "valid";
+					}
 				}
 			}
 		}
-		return "valid";
+		else { //user doesn't exist, add new one to MM WS and local database
+			
+			//fbId += "d11m"; //DEBUG
+			
+			this.idHash = String.valueOf(fbId.hashCode());
+			this.fbId = fbId;
+			this.userName = userName;
+			MMAsyncTask mmTask = new MMAsyncTask();
+			Object params[] = new Object[]{"fbUser", "add", null, checkFbUserHandler, this.fbId, this.idHash};
+			mmTask.execute(params);
+		}
+		
+		return "a";
 	}
 	
 	private MMAsyncResultHandler checkFbUserHandler = new MMAsyncResultHandler() {
@@ -119,7 +85,7 @@ public class LoginPresenter implements LoginPresenterIntf {
 		@Override
 		public void handleResult(String result, Boolean status) {
 			JSONObject results = null;
-			
+			Log.i("fbUserHandler", result);
 			try {
 				results = new JSONObject(result);
 			} 
@@ -129,20 +95,38 @@ public class LoginPresenter implements LoginPresenterIntf {
 			}
 			if (results != null) {
 				try {
-					Log.i("resultH", results.getString("error"));
-					String error = results.getString("error");
-					if ( error.contains("facebookId exists")) {
-						Log.i("facebookId", "exists");
-						//delete user from mm WS
-						//add user to mm WS
-						//get user api key
-						//save user api key and proceed
+					if (results.has("error")) {
+						String error = results.getString("error");
+						if ( error.contains("facebookId exists")) {
+							Log.i("facebookId", "exists");
+							//delete user from mm WS
+							//add user to mm WS
+							//get user api key
+							//save user api key and proceed
+						}
 					}
 				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					if ( results.has("ApiKey")) {
+						String apiKey = results.getString("ApiKey");
+						//add user data to local database
+						addFbUser(apiKey);
+					}
+				}
+				catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
 			
 		}
 	};
+
+	@Override
+	public void saveFbUserToWS(String id, Context context) {
+		// TODO Auto-generated method stub
+		
+	}
 }

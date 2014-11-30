@@ -1,15 +1,12 @@
 package net.neurolab.musicmap;
 
 import java.util.HashMap;
-import java.util.concurrent.Executor;
 
 import net.neurolab.musicmap.fragments.FacebookLoginFragment;
 import net.neurolab.musicmap.interfaces.LoginPresenterIntf;
 import net.neurolab.musicmap.interfaces.LoginView;
 import net.neurolab.musicmap.presenters.LoginPresenter;
-import net.neurolab.musicmap.ws.MMAsyncTask;
-import net.neurolab.musicmap.ws.MMAsyncTask;
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -65,6 +62,9 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			String response = this.presenter.checkFbUser(
 					data.get("name").toString(), data.get("id").toString(), LoginActivity.this);
 			Log.i("loginActivity", response);
+			if (response.matches("valid")) {
+				this.navigateToSetPrefLocation();
+			}
 		}
 	}
 
@@ -81,15 +81,11 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		
 	}
 
-
-
 	@Override
 	public void setFacebookLoginError() {
 		Toast.makeText(getApplicationContext(), R.string.facebook_login_error, Toast.LENGTH_LONG).show();
 		
 	}
-
-
 
 	@Override
 	public void setMMWebServiceError() {
@@ -97,11 +93,14 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		
 	}
 
-
+	@Override
+	public void navigateToSetPrefLocation() {
+		Intent intent = new Intent(LoginActivity.this, SetPrefLocationActivity.class);
+		startActivity(intent);
+	}
 
 	@Override
-	public void navigateToSetBasicPref() {
-		// TODO Auto-generated method stub
+	public void navigateToHome() {
 		
 	}
 	
