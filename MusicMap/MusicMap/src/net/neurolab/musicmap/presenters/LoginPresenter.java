@@ -89,6 +89,7 @@ public class LoginPresenter implements LoginPresenterIntf {
 	
 	}
 
+	
 	@Override
 	public String checkFbUser(String userName, String fbId, Activity activity) {
 		User users = new User();
@@ -96,9 +97,8 @@ public class LoginPresenter implements LoginPresenterIntf {
 		for (User userData : usersList) {
 			
 			if ( fbId.matches(userData.getFacebookId())) {
-				
 				if ( userData.getMmApiKey() == null) {
-					Log.i("presenter","active");
+					
 					String id = fbId;
 					String idHash = String.valueOf(id.hashCode());
 					MMAsyncTask mmTask = new MMAsyncTask();
@@ -107,11 +107,11 @@ public class LoginPresenter implements LoginPresenterIntf {
 					
 				}
 				else {
-					return "valid";
+					
 				}
 			}
 		}
-		return "";
+		return "valid";
 	}
 	
 	private MMAsyncResultHandler checkFbUserHandler = new MMAsyncResultHandler() {
@@ -119,8 +119,6 @@ public class LoginPresenter implements LoginPresenterIntf {
 		@Override
 		public void handleResult(String result, Boolean status) {
 			JSONObject results = null;
-			
-			
 			
 			try {
 				results = new JSONObject(result);
@@ -130,7 +128,19 @@ public class LoginPresenter implements LoginPresenterIntf {
 				e.printStackTrace();
 			}
 			if (results != null) {
-				Log.i("resultH", results.toString());
+				try {
+					Log.i("resultH", results.getString("error"));
+					String error = results.getString("error");
+					if ( error.contains("facebookId exists")) {
+						Log.i("facebookId", "exists");
+						//delete user from mm WS
+						//add user to mm WS
+						//get user api key
+						//save user api key and proceed
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			}
 			
 		}

@@ -14,6 +14,9 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONStringer;
+import org.json.JSONTokener;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -26,7 +29,6 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String addFbUser(String id, String idHash) {
 		String url = this.serviceUrl + "/registerFacebookUser/" + id + "/" + idHash + "/" + this.apiKey;
 		
-		Log.i("mmAsyncTask", url);
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -38,30 +40,33 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
 		    StringBuilder sb = new StringBuilder();
 
+		    
 		    String line = null;
 		    while ((line = reader.readLine()) != null)
 		    {
 		        sb.append(line + "\n");
 		    }
-		    response = sb.toString();
-
-			Log.i("calling results GET", response);
+		    
+			try {
+		        response = new JSONTokener(sb.toString()).nextValue().toString();
+		    } catch (JSONException e) {
+		        e.printStackTrace();
+		    }
+			
+			
 			httpClient.getConnectionManager().shutdown();
 			return response;
 		
 		} 
 		catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch(Error e) {
 			e.printStackTrace();
 		}
-		
 		
 		return "";
 		
