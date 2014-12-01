@@ -1,0 +1,93 @@
+package net.neurolab.musicmap.dl;
+
+import net.neurolab.musicmap.ws.MMAsyncTask;
+import android.app.Activity;
+
+public class DataLoaderMM extends DataLoader{
+
+	private boolean eventsLoaded = false;
+	//private boolean locationsLoaded = false;
+	//...
+	
+	@Override
+	public void LoadData(Activity activity) {
+		super.LoadData(activity);
+		
+		MMAsyncTask asyncTaskEvents = new MMAsyncTask();
+		Object paramsEvent[] = new Object[]{"getEvents", null, null, asyncTaskStores, null, null};
+		asyncTaskEvents.execute(paramsEvent);		
+		
+	}
+	
+	WebServiceResultHandler acceptStores = new WebServiceResultHandler() {
+		
+		@Override
+		public void handleResult(String result, boolean ok) {
+			//convert to List<Stores>
+			if (ok)
+			{
+				try {
+					stores = JsonAdapter.getStores(result);
+					for (Store s : stores) {
+						s.save();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			storesLoaded = true;
+			//showLoadedData();
+			DataLoaded();//iz DataLoadera - ako su podaci uèitani vraæa true... goto DataLoader.java :)
+		}
+	};
+	
+	WebServiceResultHandler acceptDiscounts = new WebServiceResultHandler() {
+		
+		@Override
+		public void handleResult(String result, boolean ok) {
+			//converto to List<Discounts>
+			if (ok)
+			{
+				try {
+					discounts = JsonAdapter.getDiscounts(result);
+					// save to local database
+					for (Discount d : discounts) {
+						d.save();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			discountsLoaded = true;
+			showLoadedData();
+			
+		}
+	};
+	
+	private void showLoadedData()
+	{
+		//Synchronization of results
+		if (storesLoaded && discountsLoaded)
+		{
+			bindDiscountsToStores();
+			
+			storesLoaded = false;
+			discountsLoaded = false;
+			
+			DataLoaded();
+		}
+	}
+		
+	private void bindDiscountsToStores() {//dodaje objekt store pripadajuæem objektu discount
+		for (Store s : stores) {
+			for (Discount d : discounts) {
+				if(d.getRemoteId() == s.getRemoteId()){
+					d.setStore(s);
+					d.save();
+				}
+			}
+		}
+	}
+}

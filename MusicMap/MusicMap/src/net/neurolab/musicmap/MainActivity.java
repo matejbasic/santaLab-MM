@@ -1,12 +1,15 @@
 package net.neurolab.musicmap;
 
+import java.util.ArrayList;
+
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import android.app.Activity;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnDataLoadedListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,4 +35,21 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void OnDataLoaded(ArrayList<Event> events) {
+		// data updated: (either from database, search or web service)
+		// raise the event for GoogleMapsFragment ;) so it updates the ExpandableListView   !!!!!!!!!!!!!!
+		// this is because DataLoader accepts Activity as an argument, and not Fragment
+		// therefore MainActivity acts as a data collector for Fragments
+		//if(dlf != null) dlf.OnDataChanged(stores, discounts);
+		//if(dialog != null)
+			//dialog.cancel();
+	}
+	
+	//*****************************************************************************************
+	/*
+	public interface OnDataChangedListener{//suèelje -> implementirano u nekom fragmentu (npr poèetnom koji prikazuje kartu)
+		void OnDataChanged(ArrayList<Event> events);
+	}*/
 }

@@ -1,0 +1,148 @@
+package net.neurolab.musicmap;
+
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import net.neurolab.musicmap.fragments.FacebookLoginFragment;
+import net.neurolab.musicmap.interfaces.LoginPresenterIntf;
+import net.neurolab.musicmap.interfaces.LoginView;
+import net.neurolab.musicmap.presenters.LoginPresenter;
+import net.neurolab.musicmap.ws.MMAsyncResultHandler;
+import net.neurolab.musicmap.ws.MMAsyncTask;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.activeandroid.ActiveAndroid;
+
+public class LoginActivity extends FragmentActivity implements LoginView {
+
+	private FacebookLoginFragment facebookLoginFragment;
+	private LoginPresenterIntf presenter;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login);
+		
+		//active android initialization, must be in launch activity
+		ActiveAndroid.initialize(this);
+		
+		//*********************************************************************************************
+		
+		MMAsyncTask asyncTaskStores = new MMAsyncTask();
+		Object params[] = new Object[]{"getEvents", "add", null, getEventsHandler, null, null};
+		asyncTaskStores.execute(params);
+			
+		
+			
+		//*********************************************************************************************
+		
+		//ActionBar actionBar = getActionBar();
+		//actionBar.hide();
+		
+		this.presenter = new LoginPresenter(this);
+		
+		if (savedInstanceState == null) {
+			facebookLoginFragment = new FacebookLoginFragment();
+			getSupportFragmentManager()
+			.beginTransaction()
+			.add(android.R.id.content, facebookLoginFragment)
+			.commit();
+			
+		}
+		else {
+			facebookLoginFragment = (FacebookLoginFragment) getSupportFragmentManager()
+					.findFragmentById(android.R.id.content);
+		}
+	}
+	
+	//*****************************************
+private MMAsyncResultHandler getEventsHandler = new MMAsyncResultHandler() {
+		
+		@Override
+		public void handleResult(String result, Boolean status) {
+			JSONObject results = null;
+			Log.i("getEventsHandler", result);
+			try {
+				results = new JSONObject("[{\"EventId\":4882,\"name\":\"Herbie Hancock live at K.D. Vatroslava Lisinskog\",\"desc\":\"<div class=\\\"bbcode\\\">Jedno od najveæih jazz imena u povijesti, Herbie Hancock nastupit æe 26. studenoga u KD Lisinski u Zagrebu.<br \/><br \/>Veæ od prvog albuma i hita “Watermelon Man” iz 1963. godine upisao se na kartu esencijalnih autora moderne glazbe. Uslijedila je kolaboracija s Milesom Davisom, uz kojeg je revolucionizirao jazz pravac nakon be-bop faze èesto ga spajavši s funkom, soulom pa i klasiènom glazbom. Za “River: The Joni Letters” iz 2007. osvojio je Grammy za najbolji album godine i to je tek druga jazz ploèa u povijesti kojoj je to uspjelo. Kroz karijeru je dosad sakupio 14 Grammy nagrada i jednog Oscara.<br \/><br \/>Herbie Hancock u Zagreb stiže s pravim all-stars prateæim bendom u sastavu: Vinnie Colaiuta, James Genus i Lionel Loueke.<br \/><br \/>Ulaznice su u prodaji na svim prodajnim mjestima Eventima (u Zagrebu glazbena knjižara Rockmark, te na Muzika.hr - kupovina ulaznica) i podijeljene su u 14 kategorija:<br \/>Super VIP - 579 kuna<br \/>VIP Gold - 519 kuna<br \/>VIP Silver - 549 kuna<br \/>VIP Bronze - 469 kuna<br \/>Parter - 369 kuna<br \/>Parter lijevo\/desno - 339 kuna<br \/>VIP 2 - 419 kuna<br \/>VIP 2 sa strane - 369 kuna<br \/>Terasa - 339 kuna<br \/>Terasa sa strane - 319 kuna<br \/>Terasa 2 - 299 kuna<br \/>Terasa 2 sa strane - 269 kuna<br \/>Tribina - 249 kuna<br \/>Tribina sa strane - 219 kuna<br \/><br \/>(izvor: Vatroslav Gmaz, <a href=\\\"http:\/\/www.soundguardian.com\/\\\" rel=\\\"nofollow\\\">http:\/\/www.soundguardian.com\/<\/a>)<a href=\\\"http:\/\/www.last.fm\/music\/Herbie+Hancock\\\" class=\\\"bbcode_artist\\\">Herbie Hancock<\/a><\/div>\",\"city\":\"Zagreb\",\"country\":\"Croatia\",\"address\":\"Trg Stjepana Radiæa 4\",\"venue\":\"K.D. Vatroslava Lisinskog\",\"lat\":\"45.80097\",\"lng\":\"15.979395\",\"artists\":[\"Herbie Hancock\"],\"genre\":[],\"start\":\"2014-11-26T20:00:00\",\"lastEdited\":\"2014-11-26T19:25:55.507\"}]");
+			} 
+			catch (JSONException e) {				
+				e.printStackTrace();
+			}			
+			
+			JSONArray tmp = new JSONArray();
+			tmp.put(results);
+			 
+			if(results!=null) Toast.makeText(getApplicationContext(), "not null", Toast.LENGTH_LONG).show();	
+			else Toast.makeText(getApplicationContext(), "null", Toast.LENGTH_LONG).show();	
+			Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();	
+		}
+		
+	};
+	//************************************************
+	public class TempAsyncTask extends AsyncTask<Object, Void, Object[]> {
+
+		@Override
+		protected Object[] doInBackground(Object... arg0) {
+			Log.i("temp task", "done");
+			return null;
+		}
+		
+	}
+	@Override
+	public void getFbFragmentData(HashMap<String, String> data) {
+		if ( data.containsKey("id") && data.containsKey("name")) {
+			
+			String response = this.presenter.checkFbUser(
+					data.get("name").toString(), data.get("id").toString(), LoginActivity.this);
+			Log.i("loginActivity", response);
+			if (response.matches("valid")) {
+				this.navigateToSetPrefLocation();
+			}
+		}
+	}
+
+	
+	@Override
+	public void showProgress() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hideProgress() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFacebookLoginError() {
+		Toast.makeText(getApplicationContext(), R.string.facebook_login_error, Toast.LENGTH_LONG).show();
+		
+	}
+
+	@Override
+	public void setMMWebServiceError() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void navigateToSetPrefLocation() {
+		Intent intent = new Intent(LoginActivity.this, SetPrefLocationActivity.class);
+		startActivity(intent);
+	}
+
+	@Override
+	public void navigateToHome() {
+		
+	}
+	
+}

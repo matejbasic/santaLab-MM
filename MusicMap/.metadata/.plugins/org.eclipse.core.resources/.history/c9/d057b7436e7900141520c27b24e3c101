@@ -1,0 +1,5 @@
+package net.neurolab.musicmap.ws;
+
+public interface MMAsyncResultHandler {
+	void handleResult(String result, Boolean status);	
+}

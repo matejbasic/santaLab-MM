@@ -1,6 +1,6 @@
 package net.neurolab.musicmap.db;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import com.activeandroid.Model;
@@ -10,17 +10,20 @@ import com.activeandroid.annotation.Table;
 @Table (name = "Event")
 public class Event extends Model {
 	
-	@Column (name = "eventId", unique = true, index = true, notNull = true)
+	@Column (name = "eventId", unique = true, notNull = true)
 	private long eventId;
+	
+	@Column (name = "name")
+	private String name;
 	
 	@Column (name = "description")
 	private String description;
 	
 	@Column (name = "eventTime")
-	private Timestamp eventTime;
+	private Date eventTime;
 	
 	@Column (name = "lastUpdate")
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 	
 	@Column (name = "idLocation", index = true, notNull = true)
 	private long idLocation;
@@ -34,9 +37,10 @@ public class Event extends Model {
 	
 	
 
-	public Event(long eventId, String description, Timestamp eventTime,	Timestamp lastUpdate, long idLocation) {
+	public Event(long eventId, String name, String description, Date eventTime, Date lastUpdate, long idLocation) {
 		super();
 		this.eventId = eventId;
+		this.name = name;
 		this.description = description;
 		this.eventTime = eventTime;
 		this.lastUpdate = lastUpdate;
@@ -49,15 +53,19 @@ public class Event extends Model {
 		return eventId;
 	}
 
+	public String getName() {
+		return name;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
 
-	public Timestamp getEventTime() {
+	public Date getEventTime() {
 		return eventTime;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return lastUpdate;
 	}
 

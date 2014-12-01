@@ -1,0 +1,5 @@
+package net.neurolab.musicmap.dl;
+
+public abstract class DataLoader {
+
+}

@@ -9,7 +9,7 @@ import com.activeandroid.annotation.Table;
 @Table (name = "Musician")
 public class Musician extends Model{
 
-	@Column (name = "musicianId")
+	@Column (name = "musicianId", index = true)
 	private  long musicianId;
 	
 	@Column (name = "name")
