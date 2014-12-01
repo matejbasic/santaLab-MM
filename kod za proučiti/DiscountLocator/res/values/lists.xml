@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="colors">
+   		<item>Green</item>
+   		<item>Red</item>
+   		<item>Blue</item>
+   	</string-array>
+   	<string-array name="color_values">
+   	    <item>#CCFF99</item>
+   	    <item>#FFCC99</item>
+   	    <item>#CC99FF</item>
+   	</string-array>
+   	
+   	<string-array name="radius">
+   		<item>500m</item>
+   		<item>1Km</item>
+   		<item>2Km</item>
+   		<item>10Km</item>
+   		<item>100Km</item>
+   	</string-array>
+   	<string-array name="radius_values">
+   		<item>0.5</item>
+   		<item>1</item>
+   		<item>2</item>
+   		<item>10</item>
+   		<item>100</item>
+   	</string-array>
+</resources>
