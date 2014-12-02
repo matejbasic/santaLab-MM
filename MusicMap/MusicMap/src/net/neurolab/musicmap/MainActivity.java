@@ -4,37 +4,76 @@ import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
 
-public class MainActivity extends Activity implements OnDataLoadedListener {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
+
+public class MainActivity extends SherlockFragmentActivity implements OnDataLoadedListener {
+
+	ActionBar mActionBar;
+	ViewPager mPager;
+	Tab tab;
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-	}
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+       
+        setContentView(R.layout.activity_main);
+ 
+        mActionBar = getSupportActionBar();
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+        mPager = (ViewPager) findViewById(R.id.pager);
+        FragmentManager fm = getSupportFragmentManager();
+ 
+        ViewPager.SimpleOnPageChangeListener ViewPagerListener = new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                
+                mActionBar.setSelectedNavigationItem(position);
+            }
+        };
+ 
+        mPager.setOnPageChangeListener(ViewPagerListener);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(fm);
+        mPager.setAdapter(viewPagerAdapter);
+        
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+        	
+            
+        	@Override
+            public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        	    mPager.setCurrentItem(tab.getPosition());
+            }
+ 
+            @Override
+            public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+            	
+            	
+            }
+ 
+            @Override
+            public void onTabReselected(Tab tab, FragmentTransaction ft) {
+            	mPager.setCurrentItem(tab.getPosition());
+            }
+        };
+ 
+        tab = mActionBar.newTab().setText("Map").setTabListener(tabListener);
+        mActionBar.addTab(tab);
+ 
+        tab = mActionBar.newTab().setText("List").setTabListener(tabListener);
+        mActionBar.addTab(tab);
+ 
+    }
 	
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
