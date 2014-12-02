@@ -24,12 +24,12 @@ public class Event extends Model {
 	
 	@Column (name = "lastUpdate")
 	private Date lastUpdate;
-	
+	/*
 	@Column (name = "idLocation", index = true, notNull = true)
 	private long idLocation;
-	
+	*/
 	@Column (name = "location")
-	private Location location;
+	private Location idLocation;
 	
 	public Event() {
 		super();
@@ -37,14 +37,15 @@ public class Event extends Model {
 	
 	
 
-	public Event(long eventId, String name, String description, Date eventTime, Date lastUpdate, long idLocation) {
+	public Event(long eventId, String name, String description, Date eventTime, Date lastUpdate/*, Location location*/ /*long idLocation*/) {
 		super();
 		this.eventId = eventId;
 		this.name = name;
 		this.description = description;
 		this.eventTime = eventTime;
 		this.lastUpdate = lastUpdate;
-		this.idLocation = idLocation;
+		//this.idLocation = location;
+		//this.idLocation = idLocation;
 	}
 
 
@@ -68,17 +69,17 @@ public class Event extends Model {
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
-
+/*
 	public long getIdLocation() {
+		return idLocation;
+	}*/
+
+	public Location getIdLocation() {
 		return idLocation;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setIdLocation(Location location) {
+		this.idLocation = location;
 	}
 		
 	

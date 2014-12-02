@@ -8,26 +8,34 @@ import com.activeandroid.annotation.Table;
 public class EventGenre extends Model {
 
 	@Column (name = "idEvent")
-	public long idEvent;
+	public Event idEvent;
 	
 	@Column (name = "idGenre")
-	public long idGenre;
+	public Genre idGenre;
 	
 	public EventGenre(){
 		super();
 	}
 
-	public EventGenre(long idEvent, long idGenre) {
+	public EventGenre(Event idEvent, Genre idGenre) {
 		super();
 		this.idEvent = idEvent;
 		this.idGenre = idGenre;
 	}
 
-	public long getIdEvent() {
+	public void setIdEvent(Event idEvent) {
+		this.idEvent = idEvent;
+	}
+
+	public void setIdGenre(Genre idGenre) {
+		this.idGenre = idGenre;
+	}
+
+	public Event getIdEvent() {
 		return idEvent;
 	}
 
-	public long getIdGenre() {
+	public Genre getIdGenre() {
 		return idGenre;
 	}
 	

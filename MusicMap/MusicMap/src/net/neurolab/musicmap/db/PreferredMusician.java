@@ -8,28 +8,36 @@ import com.activeandroid.annotation.Table;
 public class PreferredMusician extends Model{
 	
 	@Column (name = "idUser")
-	private long idUser;
+	private User idUser;
 	
 	@Column (name = "idMusician")
-	private long idMusician;
+	private Musician idMusician;
 
 	public PreferredMusician() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PreferredMusician(long idUser, long idMusician) {
+	public PreferredMusician(User idUser, Musician idMusician) {
 		super();
 		this.idUser = idUser;
 		this.idMusician = idMusician;
 	}
 
-	public long getIdUser() {
+	public User getIdUser() {
 		return idUser;
 	}
 
-	public long getIdMusician() {
+	public Musician getIdMusician() {
 		return idMusician;
+	}
+
+	public void setIdUser(User idUser) {
+		this.idUser = idUser;
+	}
+
+	public void setIdMusician(Musician idMusician) {
+		this.idMusician = idMusician;
 	}
 	
 	

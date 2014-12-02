@@ -8,27 +8,35 @@ import com.activeandroid.annotation.Table;
 public class FavoriteEvent extends Model{
 
 	@Column (name = "idUser")
-	private long idUser;
+	private User idUser;
 	
 	@Column (name = "idEvent")
-	private long idEvent;
+	private Event idEvent;
 
 	public FavoriteEvent() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public FavoriteEvent(long idUser, long idEvent) {
+	public FavoriteEvent(User idUser, Event idEvent) {
 		super();
 		this.idUser = idUser;
 		this.idEvent = idEvent;
 	}
 
-	public long getIdUser() {
+	public User getIdUser() {
 		return idUser;
 	}
 
-	public long getIdEvent() {
+	public void setIdUser(User idUser) {
+		this.idUser = idUser;
+	}
+
+	public void setIdEvent(Event idEvent) {
+		this.idEvent = idEvent;
+	}
+
+	public Event getIdEvent() {
 		return idEvent;
 	}
 	

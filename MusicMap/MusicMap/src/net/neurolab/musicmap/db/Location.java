@@ -6,9 +6,9 @@ import com.activeandroid.annotation.Table;
 
 @Table (name = "Location")
 public class Location extends Model {
-	
+	/*
 	@Column (name = "locationId", unique = true, index = true, notNull = true)
-	private long locationId;
+	private long locationId;*/
 	
 	@Column (name = "name")
 	private String name;
@@ -30,9 +30,8 @@ public class Location extends Model {
 	}
 	
 
-	public Location(long locationId, String name, String city, String address, double lat, double lng) {
-		super();
-		this.locationId = locationId;
+	public Location(String name, String city, String address, double lat, double lng) {
+		super();		
 		this.name = name;
 		this.city = city;
 		this.address = address;
@@ -42,10 +41,10 @@ public class Location extends Model {
 
 
 
-
+/*
 	public long getLocationId() {
 		return locationId;
-	}
+	}*/
 	
 	public String getName() {
 		return name;

@@ -8,10 +8,10 @@ import com.activeandroid.annotation.Table;
 
 @Table (name = "Genre")
 public class Genre extends Model {
-
+/*
 	@Column (name = "genreId")
 	private long genreId;
-	
+	*/
 	@Column (name = "name")
 	private String name;
 	
@@ -24,18 +24,18 @@ public class Genre extends Model {
 	}
 
 
-	public Genre(long genreId, String name, String subgenres) {
+	public Genre(/*long genreId,*/ String name, String subgenres) {
 		super();
-		this.genreId = genreId;
+		//this.genreId = genreId;
 		this.name = name;
 		this.subgenres = subgenres;
 	}
 
-
+/*
 	public long getGenreId() {
 		return genreId;
 	}
-
+*/
 
 	public String getName() {
 		return name;

@@ -7,35 +7,35 @@ import com.activeandroid.annotation.Table;
 @Table (name = "MusicianLink")
 public class MusicianLink  extends Model{
 
+	@Column (name = "idMusician")
+	private Musician idMusician;
+	
 	@Column (name = "link")
 	private String link;
-	
+	/*
 	@Column (name = "idMusician")
 	private long idMusician;
-	
-	@Column (name = "musician")
-	private Musician musician;
+	*/	
 
 	public MusicianLink() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public Musician getMusician() {
-		return musician;
+	public MusicianLink(Musician idMusician, String link) {
+		super();
+		this.idMusician = idMusician;
+		this.link = link;
 	}
-
-	public void setMusician(Musician musician) {
-		this.musician = musician;
+	public Musician getIdMusician() {
+		return idMusician;
 	}
-
+	public void setIdMusician(Musician idMusician) {
+		this.idMusician = idMusician;
+	}
 	public String getLink() {
 		return link;
 	}
 
-	public long getIdMusician() {
-		return idMusician;
-	}
+
 	
 	
 }

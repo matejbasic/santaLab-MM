@@ -8,27 +8,35 @@ import com.activeandroid.annotation.Table;
 public class EventMusician extends Model {
 
 	@Column (name = "idEvent")
-	private long idEvent;
+	private Event idEvent;
 	
 	@Column (name = "idMusician")
-	private long idMusician;
+	private Musician idMusician;
 
 	public EventMusician() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EventMusician(long idEvent, long idMusician) {
+	public EventMusician(Event idEvent, Musician idMusician) {
 		super();
 		this.idEvent = idEvent;
 		this.idMusician = idMusician;
 	}
 
-	public long getIdEvent() {
+	public void setIdEvent(Event idEvent) {
+		this.idEvent = idEvent;
+	}
+
+	public void setIdMusician(Musician idMusician) {
+		this.idMusician = idMusician;
+	}
+
+	public Event getIdEvent() {
 		return idEvent;
 	}
 
-	public long getIdMusician() {
+	public Musician getIdMusician() {
 		return idMusician;
 	}
 	

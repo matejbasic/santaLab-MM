@@ -8,24 +8,24 @@ import com.activeandroid.annotation.Table;
 public class EventPrice extends Model {
 	
 	@Column (name = "idEvent")
-	private long idEvent;
+	private Event idEvent;
 	
 	@Column (name = "description")
 	private String description;
 	
 	@Column (name = "price")
 	private String price;
-	
+	/*
 	@Column (name = "event")
 	private Event event;
-	
+	*/
 	
 	public EventPrice() {
 		super();
 	}
 
 		
-	public EventPrice(long idEvent, String description, String price) {
+	public EventPrice(Event idEvent, String description, String price) {
 		super();
 		this.idEvent = idEvent;
 		this.description = description;
@@ -34,18 +34,23 @@ public class EventPrice extends Model {
 
 
 
-
+/*
 	public Event getEvent() {
 		return event;
 	}
 
 	public void setEvent(Event event) {
 		this.event = event;
-	}
+	}*/
 
-	public long getIdEvent() {
+	public Event getIdEvent() {
 		return idEvent;
 	}
+
+	public void setIdEvent(Event idEvent) {
+		this.idEvent = idEvent;
+	}
+
 
 	public String getDescription() {
 		return description;

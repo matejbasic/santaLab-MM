@@ -8,28 +8,36 @@ import com.activeandroid.annotation.Table;
 public class PreferredLocation extends Model{
 	
 	@Column (name = "idUser")
-	private long idUser;
+	private User idUser;
 	
 	@Column (name = "idLocation")
-	private long idLocation;
+	private Location idLocation;
 
 	public PreferredLocation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PreferredLocation(long idUser, long idLocation) {
+	public PreferredLocation(User idUser, Location idLocation) {
 		super();
 		this.idUser = idUser;
 		this.idLocation = idLocation;
 	}
 
-	public long getIdUser() {
+	public User getIdUser() {
 		return idUser;
 	}
 
-	public long getIdLocation() {
+	public Location getIdLocation() {
 		return idLocation;
+	}
+
+	public void setIdUser(User idUser) {
+		this.idUser = idUser;
+	}
+
+	public void setIdLocation(Location idLocation) {
+		this.idLocation = idLocation;
 	}
 	
 	

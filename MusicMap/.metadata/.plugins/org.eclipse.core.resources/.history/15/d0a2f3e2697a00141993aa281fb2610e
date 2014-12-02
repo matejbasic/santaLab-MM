@@ -1,0 +1,100 @@
+package net.neurolab.musicmap.dl;
+
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.Location;
+import net.neurolab.musicmap.ws.JSONAdapter;
+import net.neurolab.musicmap.ws.MMAsyncResultHandler;
+import net.neurolab.musicmap.ws.MMAsyncTask;
+import android.app.Activity;
+
+public class DataLoaderMM extends DataLoader {
+
+	private boolean eventsLoaded = false;
+	private boolean locationsLoaded = false;
+
+	// ...
+
+	@Override
+	public void LoadData(Activity activity) {
+		super.LoadData(activity);
+
+		MMAsyncTask asyncTaskEvents = new MMAsyncTask();
+		Object paramsEvent[] = new Object[] { "getEvents", null, null,
+				eventsHandler, null, null };
+		asyncTaskEvents.execute(paramsEvent);
+
+		MMAsyncTask asyncTaskLocations = new MMAsyncTask();
+		Object paramsLocation[] = new Object[] { "getEvents", null, null,
+				locationsHandler, null, null };
+		asyncTaskEvents.execute(paramsEvent);
+
+	}
+
+	MMAsyncResultHandler eventsHandler = new MMAsyncResultHandler() {
+		ArrayList<Event> events = new ArrayList<Event>();
+		ArrayList<Location> locations = new ArrayList<Location>();
+		
+		@Override
+		public void handleResult(String result, Boolean status) {
+			if (status) { // PROVJERITI STATUS
+				try {
+					events = JSONAdapter.getEvents(result, events, locations);
+					for (Event e : events) {
+						// DODATI DIO S LOKACIJAMA
+						e.save();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			eventsLoaded = true;
+			showLoadedData();
+		}
+	};
+
+	MMAsyncResultHandler locationsHandler = new MMAsyncResultHandler() {
+
+		@Override
+		public void handleResult(String result, Boolean status) {
+			if (status) {
+				try {
+					locations = JSONAdapter.getLocations(result);
+					for (Location l : locations) {
+						// DODATI DIO S LOKACIJAMA
+						l.save();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			locationsLoaded = true;
+			DataLoaded();
+
+		}
+
+	};
+
+	private void showLoadedData() {
+		// Synchronization of results
+		if (eventsLoaded) {
+			bindLocationsToEvents();
+
+			eventsLoaded = false;
+
+			DataLoaded();
+		}
+	}
+
+	private void bindLocationsToEvents() {// join
+		for (Location l : locations) {
+			for (Event e : events) {
+				if (true/* Pronaæi naèin povežemo lokacije i dogaðaje */) {
+					// e.setLocation(l);
+					e.save();
+				}
+			}
+		}
+	}
+}

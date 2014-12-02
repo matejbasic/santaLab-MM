@@ -8,28 +8,36 @@ import com.activeandroid.annotation.Table;
 public class PreferredGenre extends Model{
 
 	@Column (name = "idUser")
-	private long idUser;
+	private User idUser;
 	
 	@Column (name = "idGenre")
-	private long idGenre;
+	private Genre idGenre;
 
 	public PreferredGenre() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public PreferredGenre(long idUser, long idGenre) {
+	public PreferredGenre(User idUser, Genre idGenre) {
 		super();
 		this.idUser = idUser;
 		this.idGenre = idGenre;
 	}
 
-	public long getIdUser() {
+	public User getIdUser() {
 		return idUser;
 	}
 
-	public long getIdGenre() {
+	public Genre getIdGenre() {
 		return idGenre;
+	}
+
+	public void setIdUser(User idUser) {
+		this.idUser = idUser;
+	}
+
+	public void setIdGenre(Genre idGenre) {
+		this.idGenre = idGenre;
 	}
 	
 	

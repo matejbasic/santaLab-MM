@@ -9,9 +9,14 @@ public class Comment extends Model {
 	
 	@Column (name = "commentId")
 	private long commentId;
-	
+	/*
 	@Column (name = "idEvent")
 	private long idEvent;
+	*/
+	
+	@Column (name = "idEvent")
+	private Event idEvent;
+	
 	
 	@Column (name = "event")
 	private Event event;
@@ -20,17 +25,17 @@ public class Comment extends Model {
 		super();
 	}
 
-	public Comment(long commentId, long idEvent) {
+	public Comment(long commentId, Event idEvent) {
 		super();
 		this.commentId = commentId;
 		this.idEvent = idEvent;
 	}
 
-	public long getIdEvent() {
+	public Event getIdEvent() {
 		return idEvent;
 	}
 
-	public void setIdEvent(long idEvent) {
+	public void setIdEvent(Event idEvent) {
 		this.idEvent = idEvent;
 	}
 
