@@ -1,19 +1,27 @@
 package net.neurolab.musicmap.ws;
 
-import android.annotation.SuppressLint;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.EventGenre;
+import net.neurolab.musicmap.db.EventMusician;
+import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.Location;
+import net.neurolab.musicmap.db.Musician;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.annotation.SuppressLint;
+
+import com.activeandroid.query.Select;
 
 public class JSONAdapter {
 
@@ -46,154 +54,120 @@ public class JSONAdapter {
 	 *            String containing a JSONArray of objects with all name value
 	 *            pairs.
 	 * @return ArrayList of Store objects containing the information on stores.
-	 * @throws Exception 
+	 * @throws Exception
 	 * @throws Exception
 	 *             If conversion from string to JSONObject is not possible the
 	 *             exception is raised.
 	 * 
 	 */
-	/*
-	public static ArrayList<Event> getEvents(String jsonString)
-			throws Exception {
-		ArrayList<Event> events = new ArrayList<Event>();
 
-		JSONArray jsonArr = new JSONArray(jsonString);
-		int size = jsonArr.length();
+	public static void getEvents(String jsonString, ArrayList<Event> events,
+			ArrayList<Location> locations, ArrayList<Musician> musicians,
+			ArrayList<Genre> genres, ArrayList<EventGenre> eventGenres,
+			ArrayList<EventMusician> eventMusicians) throws Exception {
+		// System.out.println(jsonString);
+		if (!(jsonString.equals("<?xml"))) {
+			JSONArray jsonArr = new JSONArray(jsonString);
+			JSONObject jsonObj = null;
+			int size = jsonArr.length();
 
-		for (int i = 0; i < size; i++) {
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
+			for (int i = 0; i < size; i++) {
+				jsonObj = jsonArr.getJSONObject(i);
 
-			Event event = new Event(jsonObj.getLong("EventId"),// eventId
-					jsonObj.getString("name"),// name
-					jsonObj.getString("desc"),// description - TODO //
-												// PARSIRATI!!!!!!!!!!!!!!!!!!!!!!
-					ConvertToTimestamp(jsonObj.getString("start")),// eventTime
-																	// TODO
-																	// ConvertToTimestamp
-					ConvertToTimestamp(jsonObj.getString("lastEdited"))// lastUpdate
+				String venue = jsonObj.getString("venue");
+				String city = jsonObj.getString("city");
+				String address = jsonObj.getString("address");
+				Double lat = jsonObj.getDouble("lat");
+				Double lng = jsonObj.getDouble("lng");
+				Long eventId = jsonObj.getLong("EventId");
+				String name = jsonObj.getString("name");
+				String desc = jsonObj.getString("desc");
+				Date start = ConvertToTimestamp(jsonObj.getString("start"));
+				Date lastEdited = ConvertToTimestamp((jsonObj
+						.getString("lastEdited")));
 
-			// jsonObj.getLong(null)// locationId (DataLoaderWS)
-			);
-			events.add(event);
-		}
+				if (city.equals("")) {
+					city = "-";
+				}
+				if (address.equals("")) {
+					address = "-";
+				}
+				if (desc.equals("")) {
+					desc = "-";
+				}
+				if (lastEdited == null) {
+					lastEdited = ConvertToTimestamp(Calendar.getInstance(
+							TimeZone.getDefault()).toString());
+				}
 
-		return events;
-	}
-	public static ArrayList<Location> getLocations(String jsonString)
-			throws Exception {
-		ArrayList<Location> locations = new ArrayList<Location>();
+				boolean eventExists = false;		
+				
+				
+				if (!(lat == null || lng == null)) {
 
-		JSONArray jsonArr = new JSONArray(jsonString);
-		int size = jsonArr.length();
+					Location location = new Location(venue, city, address, lat,
+							lng);
 
-		for (int i = 0; i < size; i++) {
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
+					locations.add(location);
+					
+				}
+				
+				Event event = null;
+				if (!(eventId == null || name.equals("") || start == null)) {
 
-			Location location = new Location(
-					jsonObj.getString("venue"),// name
-					jsonObj.getString("city"),// name
-					jsonObj.getString("address"),// address - TODO
-													// PARSIRATI!!!!!!!!!!!!!!!!!!!!!!
-													// :D
-					jsonObj.getDouble("lat"),// latitude (DataLoaderWS)
-					jsonObj.getDouble("lng")// latitude (DataLoaderWS)
+					event = new Event(eventId, name, desc, start,
+							lastEdited);
 
-			
-			);
-			locations.add(location);
-		}
+					// provjera i dodavanje lokacije
+					List<Location> loc = new Select().all()
+							.from(Location.class).where("lat = ?", lat)
+							.and("lng = ?", lng).execute();
+					if (loc.size() == 1) {
+						event.setIdLocation(loc.get(0));
+					}
+					events.add(event);
+					eventExists = true;
+				}
 
-		return locations;
-	}
+				// ArrayList<String> musiciansarray1 = new ArrayList<String>();
+				String musiciansString = jsonObj.getString("artists");
+				JSONArray musicianArray = new JSONArray(musiciansString);
 
-	public static ArrayList<String> getTheDescription(String jsonString)
-			throws Exception {
-		ArrayList<String> theRestOfTheDataBulk = new ArrayList<String>();
+				for (int j = 0; j < musicianArray.length(); j++) {
+					String musician = musicianArray.getString(j);
+					// musiciansarray1.add(musician);
+					if (!(musician.equals(""))) {
+						Musician m = new Musician(musician, "-");
+						musicians.add(m);
+						EventMusician em = new EventMusician(event, m);
+						eventMusicians.add(em);
+					}
+				}
 
-		JSONArray jsonArr = new JSONArray(jsonString);
-		int size = jsonArr.length();
+				String genresString = jsonObj.getString("genre");
+				JSONArray genreArray = new JSONArray(genresString);
 
-		for (int i = 0; i < size; i++) {
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
-
-			String theRestOfTheData = jsonObj.getString("desc"); // PARSIRATI U
-																	// DLWS
-
-			theRestOfTheDataBulk.add(theRestOfTheData);
-		}
-
-		return theRestOfTheDataBulk;
-	}
-
-	// parsirano
-	public static ArrayList<String> getTheArtists(String jsonString)
-			throws Exception {
-		ArrayList<String> theRestOfTheDataBulk = new ArrayList<String>();
-
-		JSONArray jsonArr = new JSONArray(jsonString);
-		int size = jsonArr.length();
-
-		for (int i = 0; i < size; i++) {
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
-			String theRestOfTheData = jsonObj.getString("artists");
-			JSONArray theRestOfTheDataArray = new JSONArray(theRestOfTheData);
-
-			for (int j = 0; j < theRestOfTheDataArray.length(); j++) {
-				String artist = theRestOfTheDataArray.getString(j);
-				theRestOfTheDataBulk.add(artist);
+				for (int j = 0; j < genreArray.length(); j++) {
+					String genre = genreArray.getString(j);
+					// musiciansarray1.add(musician);
+					if (!(genre.equals(""))) {
+						Genre g = new Genre(genre, "-");
+						genres.add(g);
+						EventGenre eg = new EventGenre(event, g);
+						eventGenres.add(eg);
+					}
+				}
+							
 			}
+
 		}
 
-		return theRestOfTheDataBulk;
+		System.out.println(events.size());
+		System.out.println(locations.size());
+		System.out.println(musicians.size());
+		System.out.println(genres.size());
 	}
-*/
-	
-	public static void getEvents(String jsonString, ArrayList<Event> events, ArrayList<Location> locations/*, ArrayList<Musician> musicians*/) throws Exception
-			 {
-		//ArrayList<Event> eventsArr = new ArrayList<Event>();
-	//	ArrayList<Location> locationsArr = new ArrayList<Location>();
-		System.out.println("blabla");
-		
-		JSONArray jsonArr = new JSONArray(jsonString);
-		int size = jsonArr.length();
-		
-		for (int i = 0; i < size; i++) {
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
-			
-			System.out.println(jsonObj.getString("venue"));
-			System.out.println(jsonObj.getString("city"));
-			System.out.println(jsonObj.getString("address"));
-			System.out.println(jsonObj.getString("lat"));
-			System.out.println(jsonObj.getString("lng"));
-			
-			Location location = new Location(
-					jsonObj.getString("venue"),
-					jsonObj.getString("city"),
-					jsonObj.getString("address"),
-					jsonObj.getDouble("lat"),
-					jsonObj.getDouble("lng")
-			);
-			
-			System.out.println(location.getName());
-			location.save();
-			locations.add(location);
-/*
-			Event event = new Event(
-					jsonObj.getLong("EventId"),// eventId			
-					jsonObj.getString("name"),// name
-					jsonObj.getString("desc"),// description - TODO // PARSIRATI!!!!!!!!!!!					
-					ConvertToTimestamp(jsonObj.getString("start")),
-					ConvertToTimestamp(jsonObj.getString("lastEdited"))// lastUpdate					
-			// jsonObj.getLong(null)// locationId (DataLoaderWS)
-			);		
-			events.add(event);
-			System.out.println(events.size());*/
-			System.out.println(i);
-			
-		}
-	
-	}
-	
+
 	/**
 	 * Method converts date from string to Date by using a Calendar class.
 	 * 

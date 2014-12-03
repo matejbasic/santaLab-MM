@@ -10,19 +10,17 @@ import android.provider.MediaStore.Audio.Artists;
 
 public abstract class DataLoader {
 	public ArrayList<Event> events;
-	public ArrayList<Location> locations;
-	//public ArrayList<Artists> artists;
-	//public ArrayList<Genres> genres;
+//	public ArrayList<Location> locations;
+//	public ArrayList<Musician> musicians;
+//	public ArrayList<Genre> genres;
 	//...
-	
-	//!!! razmisliti o Dohvaæanju povezanih podataka tipa lokacije, glazbenici, žanrovi, cijene i sl
-	
+		
 	OnDataLoadedListener dataLoadedListener;
 	
 	public void LoadData(Activity activity){
 		if(dataLoadedListener == null)
-			dataLoadedListener = (OnDataLoadedListener) activity; //dodjela tipa activityu, buduæi da main activity implementira ondataloaded listener
-	}
+			dataLoadedListener = (OnDataLoadedListener) activity; 
+		}
 	
 	public boolean DataLoaded(){
 		if(events == null){
@@ -33,10 +31,6 @@ public abstract class DataLoader {
 			return true;
 		}
 	}
-	
-	//Main activity implementira OnDataLoadedListener iz DataLoader.java(suèelje) - što znaèi da, kad su stores i discounts napunjeni, u jednom dataloaderu se poziva 
-	//funkcija DataLoaded koja poziva dataLoadedListener.OnDataLoaded(stores, discounts); i javlja mu da su podaci uèitani, nakon èega main activity zna da
-	//sad može raditi sa tim podacima (prikazati ih)
 	
 	public interface OnDataLoadedListener{
 		public void OnDataLoaded(ArrayList<Event> events);
