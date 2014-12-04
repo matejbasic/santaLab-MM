@@ -1,20 +1,13 @@
 package net.neurolab.musicmap.dl;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.EventGenre;
-import net.neurolab.musicmap.db.EventMusician;
-import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.Location;
-import net.neurolab.musicmap.db.Musician;
 import net.neurolab.musicmap.ws.JSONAdapter;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
 import android.app.Activity;
-
-import com.activeandroid.query.Select;
 public class DataLoaderMM extends DataLoader {
 
 	private boolean eventsLoaded = false;

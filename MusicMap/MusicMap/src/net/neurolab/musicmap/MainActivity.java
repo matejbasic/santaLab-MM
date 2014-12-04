@@ -40,7 +40,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 		}
 */
         DataLoader dl = new DataLoaderMM();
-        dl.LoadData(getParent());
+        dl.LoadData(this);
         
         
         mActionBar = getSupportActionBar();
