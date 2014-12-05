@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.Location;
 import android.app.Activity;
 import android.widget.Toast;
 
