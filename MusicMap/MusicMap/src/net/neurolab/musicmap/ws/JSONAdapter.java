@@ -10,7 +10,9 @@ import java.util.TimeZone;
 
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.EventGenre;
+import net.neurolab.musicmap.db.EventGenre_2;
 import net.neurolab.musicmap.db.EventMusician;
+import net.neurolab.musicmap.db.EventMusician_2;
 import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.Location;
 import net.neurolab.musicmap.db.Musician;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+
 public class JSONAdapter {
 
 	/**
@@ -59,9 +62,9 @@ public class JSONAdapter {
 
 	public static void getEvents(String jsonString, ArrayList<Event> events,
 			ArrayList<Location> locations, ArrayList<Musician> musicians,
-			ArrayList<Genre> genres, ArrayList<EventGenre> eventGenres,
-			ArrayList<EventMusician> eventMusicians) throws Exception {
-		System.out.println(jsonString);
+			ArrayList<Genre> genres, ArrayList<EventGenre_2> eventGenres,
+			ArrayList<EventMusician_2> eventMusicians) throws Exception {
+		// System.out.println(jsonString);
 
 		if (!(jsonString.equals("<?xml"))) {
 			JSONArray jsonArr = new JSONArray(jsonString);
@@ -89,12 +92,11 @@ public class JSONAdapter {
 							.println("This string cannot be converted to double");
 				}
 				Long eventId = (long) 0;
-				try{
+				try {
 					eventId = jsonObj.getLong("EventId");
-				}
-				catch(Exception e){
+				} catch (Exception e) {
 					System.out
-					.println("This string cannot be converted to long");
+							.println("This string cannot be converted to long");
 				}
 				String name = jsonObj.getString("name");
 				String desc = jsonObj.getString("desc");
@@ -120,13 +122,41 @@ public class JSONAdapter {
 
 				Event event = null;
 
-				if (!(lat == null || lng == null)) {
+				if (!(lat == 0 || lng == 0)) {
+
+					// System.out.println("location");
+
+					Location location = new Location(venue, city, address, lat,
+							lng);
+					// System.out.println(location.getId());
+					locations.add(location);
+					// System.out.println("addlocation");
+
+					// event.setIdLocation(location);
 
 					if (!(eventId == 0 || name.equals("") || start == null)) {
-						System.out.println("event");
-
+						/*
+						 * System.out.println("event");
+						 * 
+						 * System.out.println(eventId);
+						 * System.out.println(name); //
+						 * System.out.println(desc); System.out.println(start);
+						 * System.out.println(lastEdited);
+						 * System.out.println(lat); System.out.println(lng);
+						 */
 						event = new Event(eventId, name, desc, start,
-								lastEdited);
+								lastEdited, lat, lng);
+						/*
+						 * System.out.println(event.getId());
+						 * System.out.println(event.getEventId());
+						 * System.out.println(event.getLat());
+						 * System.out.println(event.getName());
+						 * System.out.println(event.getEventTime());
+						 * 
+						 * System.out.println("add");
+						 */
+						events.add(event);
+						eventExists = true;
 
 						// provjera i dodavanje lokacije
 						/*
@@ -139,30 +169,6 @@ public class JSONAdapter {
 						 * eventExists = true;
 						 */
 					}
-					System.out.println("location");
-
-					Location location = new Location(venue, city, address, lat,
-							lng);
-					
-
-					locations.add(location);
-					System.out.println("addlocation");
-
-					//event.setIdLocation(location);
-					System.out.println("setlocation");
-					System.out.println(event.getEventId());
-					System.out.println(event.getName());
-					System.out.println(event.getDescription());
-					System.out.println(event.getEventTime());
-					System.out.println(event.getLastUpdate());
-					System.out.println(event.getIdLocation());
-					System.out.println(event.getIdLocation().getAddress());
-					System.out.println(event.getIdLocation().getCity());
-					System.out.println(event.getIdLocation().getLat());
-					System.out.println(event.getIdLocation().getLng());
-					System.out.println(event.getIdLocation().getName());
-					events.add(event);
-					eventExists = true;
 
 				}
 
@@ -177,12 +183,13 @@ public class JSONAdapter {
 					if (!(musician.equals(""))) {
 						Musician m = new Musician(musician, "-");
 						musicians.add(m);
-						EventMusician em = new EventMusician(event, m);
+						EventMusician_2 em = new EventMusician_2(eventId,
+								musician);
 						eventMusicians.add(em);
 					}
 				}
 
-				System.out.println("genre");
+				// System.out.println("genre");
 
 				String genresString = jsonObj.getString("genre");
 				JSONArray genreArray = new JSONArray(genresString);
@@ -193,7 +200,7 @@ public class JSONAdapter {
 					if (!(genre.equals(""))) {
 						Genre g = new Genre(genre, "-");
 						genres.add(g);
-						EventGenre eg = new EventGenre(event, g);
+						EventGenre_2 eg = new EventGenre_2(eventId, genre);
 						eventGenres.add(eg);
 					}
 				}
@@ -201,14 +208,14 @@ public class JSONAdapter {
 			}
 
 		}
-
-		System.out.println(events.size());
-		System.out.println(locations.size());
-		System.out.println(musicians.size());
-		System.out.println(genres.size());
-		System.out.println(eventGenres.size());
-		System.out.println(eventMusicians.size());
-
+		/*
+		 * System.out.println(events.size());
+		 * System.out.println(locations.size());
+		 * System.out.println(musicians.size());
+		 * System.out.println(genres.size());
+		 * System.out.println(eventGenres.size());
+		 * System.out.println(eventMusicians.size());
+		 */
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package net.neurolab.musicmap.dl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
@@ -9,28 +10,28 @@ import com.activeandroid.query.Select;
 
 public class DataLoaderSearch extends DataLoader {
 
-	public void setContext(Activity activity) {
-		super.LoadData(activity);
+	public void setContext(Activity activity, String location) {
+		super.LoadData(activity, location);
 	}
 
 	public void searchData(String searchTerm) {
-		// add % for LIKE clause
 		searchTerm = "%" + searchTerm + "%";
-		List<Event> eventsFromDb = null;
+		List<Event> eventsDb = null;
 
-		// check database
 		boolean databaseQuerySuccessfull = false;
 		try {
-			eventsFromDb = new Select().all().from(Event.class)
+			eventsDb = new Select().all().from(Event.class)
 					.where("name LIKE ?", searchTerm)
 					.or("eventTime LIKE ?", searchTerm).execute();
 			databaseQuerySuccessfull = true;
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-		/*
-		 * if(databaseQuerySuccessfull == true && eventsFromDb.size() > 0 ){ }
-		 */
+
+		if (databaseQuerySuccessfull == true && eventsDb.size() > 0) {
+			events = (ArrayList<Event>) eventsDb;
+		}
+
 		DataLoaded();
 	}
 

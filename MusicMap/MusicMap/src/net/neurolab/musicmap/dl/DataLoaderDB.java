@@ -12,8 +12,8 @@ import com.activeandroid.query.Select;
 public class DataLoaderDB extends DataLoader {
 
 	@Override
-	public void LoadData(Activity activity) {
-		super.LoadData(activity);
+	public void LoadData(Activity activity, String location) {
+		super.LoadData(activity, location);
 
 		List<Event> eventsDb = null;
 

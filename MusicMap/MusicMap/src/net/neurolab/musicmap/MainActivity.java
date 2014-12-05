@@ -80,8 +80,8 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		
-		System.out.println("wooohooo");
-		System.out.println(events.size());
+		//System.out.println("wooohooo");
+		//System.out.println(events.size());
 		
 		// data updated: (either from database, search or web service)
 		// raise the event for GoogleMapsFragment ;) so it updates the ExpandableListView   !!!!!!!!!!!!!!
