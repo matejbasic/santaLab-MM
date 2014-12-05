@@ -3,6 +3,7 @@ package net.neurolab.musicmap;
 import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.dl.DataLoader;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import net.neurolab.musicmap.dl.DataLoaderMM;
@@ -27,21 +28,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
         super.onCreate(savedInstanceState);
        
         setContentView(R.layout.activity_main);
-/*
-		User l = null;
-		try {
-			l = new User(1, "blabal", "blabla", "blabla", "blabla");
-			System.out.println(l.getFirstLastName());
-			System.out.println(l.getPassword());
-		} catch (Exception e) {
-			System.out.println("HaveSomeProblems");
-			e.printStackTrace();
-
-		}
-*/
-        DataLoader dl = new DataLoaderMM();
-        dl.LoadData(this);
-        
+     
         
         mActionBar = getSupportActionBar();
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -93,6 +80,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		
+		System.out.println("wooohooo");
 		System.out.println(events.size());
 		
 		// data updated: (either from database, search or web service)

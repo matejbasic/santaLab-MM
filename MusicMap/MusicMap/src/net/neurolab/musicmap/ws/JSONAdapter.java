@@ -61,7 +61,7 @@ public class JSONAdapter {
 			ArrayList<Location> locations, ArrayList<Musician> musicians,
 			ArrayList<Genre> genres, ArrayList<EventGenre> eventGenres,
 			ArrayList<EventMusician> eventMusicians) throws Exception {
-		// System.out.println("jsonadapter");
+		System.out.println(jsonString);
 
 		if (!(jsonString.equals("<?xml"))) {
 			JSONArray jsonArr = new JSONArray(jsonString);
@@ -123,6 +123,7 @@ public class JSONAdapter {
 				if (!(lat == null || lng == null)) {
 
 					if (!(eventId == 0 || name.equals("") || start == null)) {
+						System.out.println("event");
 
 						event = new Event(eventId, name, desc, start,
 								lastEdited);
@@ -138,12 +139,28 @@ public class JSONAdapter {
 						 * eventExists = true;
 						 */
 					}
+					System.out.println("location");
 
 					Location location = new Location(venue, city, address, lat,
 							lng);
+					
 
 					locations.add(location);
-					event.setIdLocation(location);
+					System.out.println("addlocation");
+
+					//event.setIdLocation(location);
+					System.out.println("setlocation");
+					System.out.println(event.getEventId());
+					System.out.println(event.getName());
+					System.out.println(event.getDescription());
+					System.out.println(event.getEventTime());
+					System.out.println(event.getLastUpdate());
+					System.out.println(event.getIdLocation());
+					System.out.println(event.getIdLocation().getAddress());
+					System.out.println(event.getIdLocation().getCity());
+					System.out.println(event.getIdLocation().getLat());
+					System.out.println(event.getIdLocation().getLng());
+					System.out.println(event.getIdLocation().getName());
 					events.add(event);
 					eventExists = true;
 
@@ -152,6 +169,7 @@ public class JSONAdapter {
 				// ArrayList<String> musiciansarray1 = new ArrayList<String>();
 				String musiciansString = jsonObj.getString("artists");
 				JSONArray musicianArray = new JSONArray(musiciansString);
+				System.out.println("musician");
 
 				for (int j = 0; j < musicianArray.length(); j++) {
 					String musician = musicianArray.getString(j);
@@ -163,6 +181,8 @@ public class JSONAdapter {
 						eventMusicians.add(em);
 					}
 				}
+
+				System.out.println("genre");
 
 				String genresString = jsonObj.getString("genre");
 				JSONArray genreArray = new JSONArray(genresString);

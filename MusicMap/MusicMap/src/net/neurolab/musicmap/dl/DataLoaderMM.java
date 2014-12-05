@@ -27,7 +27,7 @@ public class DataLoaderMM extends DataLoader {
 		super.LoadData(activity);
 
 		MMAsyncTask asyncTaskEvents = new MMAsyncTask();
-		Object paramsEvent[] = new Object[] { "getEvents", "Zagreb", null,//parametri?
+		Object paramsEvent[] = new Object[] { "getEvents", "London", null,//parametri?
 				eventsHandler, null, null };
 		asyncTaskEvents.execute(paramsEvent);
 	}

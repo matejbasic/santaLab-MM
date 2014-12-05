@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+
 public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String serviceUrl = "http://musicmap.cloudapp.net/api";
 	private String apiKey = "2c9s1rwf7578307";
@@ -73,10 +74,10 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		
 	}
 	
-	private String getEvents() {
-		//String url = this.serviceUrl + "/events/0/0/0/0/25112014/26122018/10/0/" + this.apiKey;
-		String url = this.serviceUrl + "/events/0/zagreb/0/0/25112014/26112019/10/0/testbero=)";
+	private String getEvents(String location) {
 		
+		String url = this.serviceUrl + "/events/0/" + location + "/0/0/25112014/26112018/10000/0/testbero=)";
+		System.out.println("asynctask");
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -98,13 +99,14 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 			try {
 		        response = new JSONTokener(sb.toString()).nextValue().toString();
 		    } catch (JSONException e) {
+		    	System.out.println("Havesomeproblems");
 		        e.printStackTrace();
 		    }
 			
 			httpClient.getConnectionManager().shutdown();
+			//System.out.println(response);
 			return response;
-		
-		} 
+	}
 		catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} 
@@ -114,7 +116,6 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		catch(Error e) {
 			e.printStackTrace();
 		}
-		
 		return "";
 		
 	}
@@ -143,10 +144,13 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 			}	
 		}
 		
-		if (entity.matches("getEvents")) {			
+		if (entity.matches("getEvents")) {				
 				//if (params[4] != null && params[5] != null) {
 					//params[4] - id | params[5] - idHash
-					String response = this.getEvents();
+					String response = null;
+					String location = (String) params[1];
+					
+					response = this.getEvents(location);
 					
 					result[0] = response;
 					result[1] = true;
@@ -159,7 +163,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		
 		return result;
 	}
-	
+
 	@Override
 	protected void onPostExecute(Object[] result) {
 		if ((ProgressDialog) result[2] != null) {

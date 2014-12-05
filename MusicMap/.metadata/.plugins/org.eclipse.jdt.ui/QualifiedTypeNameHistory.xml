@@ -15,8 +15,9 @@
 <fullyQualifiedTypeName name="net.neurolab.musicmap.ws.JSONAdapter"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Location"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="net.neurolab.musicmap.db.Event"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.db.Event"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.User"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoader"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoaderMM"/>
 </qualifiedTypeNameHistroy>
