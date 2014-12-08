@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="android.content.pm.PackageInstaller.Session"/>
 <fullyQualifiedTypeName name="org.json.JSONArray"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Musician"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
@@ -18,7 +17,21 @@
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Event"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.User"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoader"/>
-<fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoaderMM"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoaderDB"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.GoogleMap"/>
+<fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.BitmapDescriptorFactory"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapFragment"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.Marker"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapView"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.MapsInitializer"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.MarkerOptions"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.MainActivity.OnDataChangedListener"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
+<fullyQualifiedTypeName name="android.preference.PreferenceManager"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.R.id"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.dl.DataLoaderMM"/>
 </qualifiedTypeNameHistroy>

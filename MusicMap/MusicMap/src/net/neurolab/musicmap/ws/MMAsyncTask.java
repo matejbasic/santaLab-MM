@@ -78,6 +78,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		
 		String url = this.serviceUrl + "/events/0/" + location + "/0/0/25112014/26112018/10000/0/testbero=)";
 		System.out.println("asynctask");
+		
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);

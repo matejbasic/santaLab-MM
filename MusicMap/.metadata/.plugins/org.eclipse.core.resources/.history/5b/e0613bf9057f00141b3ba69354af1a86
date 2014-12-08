@@ -1,0 +1,239 @@
+package net.neurolab.musicmap.fragments;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
+import net.neurolab.musicmap.R;
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.dl.DataLoader;
+import net.neurolab.musicmap.dl.DataLoaderDB;
+import net.neurolab.musicmap.dl.DataLoaderMM;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.activeandroid.query.Select;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class FragmentTabMap extends SherlockFragment implements
+		OnDataChangedListener {
+
+	private boolean mAlreadyLoaded = false;
+	private ArrayList<Event> events;
+	private GoogleMap googleMap;
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// Get the view from fragmenttab2.xml
+		View view = inflater.inflate(R.layout.fragment_tab_map, container,
+				false);
+
+		/*
+		 * FWIW, Class.newInstance() will fail if the class to be instantiated
+		 * is primitive (e.g. "int" or "float"), is an interface, is an array,
+		 * or is abstract. These four items are identified in the rather obscure
+		 * "newInstance failed: p0 i0 [0 a1" message, which in this case means
+		 * "newInstance failed because it was asked to instantiate an abstract class"
+		 * .
+		 */
+
+		// just to display the current position
+		// this can be reused to collect only shops from the preferred radius
+		/*
+		 * PositionProvider positionProvider = new PositionProvider(); Location
+		 * location = positionProvider.getLatestCoordinates(getActivity());
+		 * 
+		 * if(location != null ){ Toast.makeText(getActivity(), "Location: " +
+		 * location.getLatitude() + ", " + location.getLongitude(),
+		 * Toast.LENGTH_SHORT).show(); }else{ Toast.makeText(getActivity(),
+		 * "GPS is off", Toast.LENGTH_SHORT).show(); }
+		 */
+
+		try {
+
+			DataLoader dl = new DataLoaderDB();
+			dl.LoadData(getActivity(), "zagreb");
+
+			if (!dl.DataLoaded()) {
+				/*
+				 * preferences =
+				 * PreferenceManager.getDefaultSharedPreferences(getActivity());
+				 * boolean webservice_enabled =
+				 * preferences.getBoolean("pref_allow_web", true);
+				 * if(webservice_enabled){
+				 */
+				dl = new DataLoaderMM();
+				dl.LoadData(getActivity(), "Zagreb");
+				System.out.println("Loadano s werb servisa");
+				System.out.println(this.events.size());
+				
+			} 
+				this.events = dl.events;
+			
+				initilizeMap();
+
+				// Changing map type
+				googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+				// googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+				// googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+				// googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+				// googleMap.setMapType(GoogleMap.MAP_TYPE_NONE);
+
+				// Showing / hiding your current location
+				googleMap.setMyLocationEnabled(true);
+
+				// Enable / Disable zooming controls
+				googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+				// Enable / Disable my location button
+				googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+				// Enable / Disable Compass icon
+				googleMap.getUiSettings().setCompassEnabled(true);
+
+				// Enable / Disable Rotate gesture
+				googleMap.getUiSettings().setRotateGesturesEnabled(true);
+
+				// Enable / Disable zooming functionality
+				googleMap.getUiSettings().setZoomGesturesEnabled(true);
+
+				/*
+				 * List<Event> event = new
+				 * Select().all().from(Event.class).execute();
+				 * System.out.println(event.size());
+				 */
+				MarkerOptions marker;
+				double latitude = 0, longitude = 0;
+
+				for (int i = 0; i < events.size(); i++) {
+					latitude = events.get(i).getLat();
+					longitude = events.get(i).getLng();
+					String title = events.get(i).getIdLocation().getName();
+
+					// Adding a marker
+					marker = new MarkerOptions().position(
+							new LatLng(latitude, longitude)).title(title);
+
+					marker.icon(BitmapDescriptorFactory
+							.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+
+					googleMap.addMarker(marker);
+				}
+				// Move the camera to last position with a zoom level
+
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+						.target(new LatLng(latitude, longitude)).zoom(12)
+						.build();
+
+				googleMap.animateCamera(CameraUpdateFactory
+						.newCameraPosition(cameraPosition));
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return view;
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		// if the data is already loaded then skip this part
+		// if you don't skip it, then you will always reload the data in
+		// the ExpandableListView, e.g. if you do a search, and check the
+		// result data in DiscountDetailsFragment, when you press back, you
+		// reload the data and loose the result.
+		/*
+		 * if (savedInstanceState == null && !mAlreadyLoaded) { mAlreadyLoaded =
+		 * true; DataLoader dl = new DataLoaderDB(); dl.LoadData(getActivity(),
+		 * "zagreb");
+		 * 
+		 * /* if (!dl.DataLoaded()) { check if it is allowed to use web services
+		 * if so, get the data SharedPreferences preferences =
+		 * PreferenceManager.getDefaultSharedPreferences(getActivity()); boolean
+		 * webservice_enabled = preferences.getBoolean("pref_allow_web", true);
+		 * if(webservice_enabled){ dl = new DataLoaderMM();
+		 * dl.LoadData(getActivity(),"Zagreb"); } else{
+		 * Toast.makeText(getActivity(),
+		 * "Local database is empty. Get from web disabled.",
+		 * Toast.LENGTH_LONG).show(); } }
+		 */
+		/*
+		 * this.events = dl.events; } else { loadData(this.events); } for (int i
+		 * = 0; i < events.size(); i++) {
+		 * System.out.println(events.get(i).getLat());
+		 * System.out.println(events.get(i).getLng()); }
+		 */
+
+	}
+
+	public void loadData(ArrayList<Event> events) {
+		// now MainActivity no longer changes the list
+		// Fragment is in charge for setting the data and changing the
+		// expandable list
+		// DiscountsExpandableAdapter adapter = new
+		// DiscountsExpandableAdapter(stores, discounts);
+		// adapter.setInflater( (LayoutInflater)
+		// getActivity().getSystemService(FragmentActivity.LAYOUT_INFLATER_SERVICE),
+		// getActivity());
+		// ExpandableListView expandableList = (ExpandableListView)
+		// getView().findViewById(R.id.list);
+
+		// if(expandableList != null) {
+		// expandableList.setAdapter(adapter);
+		// }
+
+		System.out.println("load data funkacija");
+
+	}
+
+	@Override
+	public void OnDataChanged(ArrayList<Event> events) {
+		this.events = new ArrayList<Event>();
+		this.events = events;
+
+	//	loadData(events);
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		setUserVisibleHint(true);
+	}
+
+	private void initilizeMap() {
+		if (googleMap == null) {
+			googleMap = ((SupportMapFragment) getChildFragmentManager()
+					.findFragmentById(R.id.map)).getMap();
+
+			// check if map is created successfully or not
+			if (googleMap == null) {
+				Toast.makeText(getActivity(), "Sorry! unable to create maps",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private void setOptions(){
+	
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		initilizeMap();
+	}
+
+}

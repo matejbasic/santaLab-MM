@@ -41,7 +41,7 @@ public class DataLoaderMM extends DataLoader {
 		public void handleResult(String result, Boolean status) {
 			if (status) { // PROVJERITI STATUS
 				try {
-					ArrayList<Event> events = new ArrayList<Event>();
+					events = new ArrayList<Event>();
 					ArrayList<Location> locations = new ArrayList<Location>();
 					ArrayList<Genre> genres = new ArrayList<Genre>();
 					ArrayList<Musician> musicians = new ArrayList<Musician>();
@@ -95,9 +95,9 @@ public class DataLoaderMM extends DataLoader {
 								e.save();
 								}
 						}
-						//System.out.println(events.size());
+						
 					}
-					
+					System.out.println(events.size());
 					//System.out.println("eventgenres");
 					for (EventGenre_2 eg : eventGenres) {
 						List<Genre> g = null;
@@ -134,7 +134,7 @@ public class DataLoaderMM extends DataLoader {
 						}
 					}
 					
-					//System.out.println("EventMusician");
+					System.out.println("EventMusician");
 					for (EventMusician_2 em : eventMusicians) {
 
 						List<Musician> m = null;

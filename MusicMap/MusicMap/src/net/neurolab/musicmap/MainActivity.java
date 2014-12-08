@@ -3,18 +3,25 @@ package net.neurolab.musicmap;
 import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.User;
-import net.neurolab.musicmap.dl.DataLoader;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
-import net.neurolab.musicmap.dl.DataLoaderMM;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MainActivity extends SherlockFragmentActivity implements OnDataLoadedListener {
@@ -22,6 +29,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	ActionBar mActionBar;
 	ViewPager mPager;
 	Tab tab;
+
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,9 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
         tab = mActionBar.newTab().setText("List").setTabListener(tabListener);
         mActionBar.addTab(tab);
  
+        
+
+
     }
 
 	@Override
@@ -93,8 +104,10 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	}
 	
 	//*****************************************************************************************
-	/*
-	public interface OnDataChangedListener{//suèelje -> implementirano u nekom fragmentu (npr poèetnom koji prikazuje kartu)
+	
+	public interface OnDataChangedListener{
 		void OnDataChanged(ArrayList<Event> events);
-	}*/
+	}
+	
+
 }
