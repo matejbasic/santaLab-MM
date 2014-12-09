@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;MusicMap/res/xml/main_preferences.xml&apos; to &apos;preferences.xml&apos;" description="Rename resource &apos;main_preferences.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/xml/main_preferences.xml" name="preferences.xml" stamp="1418147799851" updateReferences="true"/>
+</session>

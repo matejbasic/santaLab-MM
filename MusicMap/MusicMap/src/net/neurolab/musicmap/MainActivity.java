@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 
 public class MainActivity extends SherlockFragmentActivity implements OnDataLoadedListener {
@@ -29,7 +32,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	ActionBar mActionBar;
 	ViewPager mPager;
 	Tab tab;
-
+	
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +86,32 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
         tab = mActionBar.newTab().setText("List").setTabListener(tabListener);
         mActionBar.addTab(tab);
  
-        
-
-
     }
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getSupportMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+	
+		if (id == R.id.action_settings) {
+			// load the activity which displays the PreferenceFragment with 
+			// users settings and preferences
+		    Intent settingsActivity = new Intent(this, SettingsActivity.class);
+			this.startActivity(settingsActivity);
+		}
+			return true;
+		
+	}
+	
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		
