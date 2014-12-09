@@ -57,6 +57,8 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Intent settingsActivity = new Intent(this, SettingsActivity.class);
+			this.startActivity(settingsActivity);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
