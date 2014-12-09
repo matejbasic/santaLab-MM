@@ -43,6 +43,7 @@ public class Genre extends Model {
 	
 	public void deleteAll() {
 		List<Genre> genres = this.getAll();
+		
 		for (Genre genre : genres) {
 			genre.delete();
 		}

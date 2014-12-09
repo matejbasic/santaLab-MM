@@ -10,27 +10,22 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
-import org.json.JSONStringer;
 import org.json.JSONTokener;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 
 public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String serviceUrl = "http://musicmap.cloudapp.net/api";
 	private String apiKey = "2c9s1rwf7578307";
 	
-	private String addFbUser(String id, String idHash) {
-		String url = this.serviceUrl + "/registerFacebookUser/" + id + "/" + idHash + "/" + this.apiKey;
-		
+	private String httpGetRequest(String url) {
+		Log.i("get url", url);
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -71,7 +66,29 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		}
 		
 		return "";
+	}
+	
+	private String addUser(String id, String idHash, Boolean fromFacebook) {
+		if (fromFacebook) {
+			return this.httpGetRequest(this.serviceUrl + "/registerFacebookUser/" + id + "/" + idHash + "/" + this.apiKey);
+		}
+		else {
+			return this.httpGetRequest(this.serviceUrl + "/registerUser/" + id + "/" + idHash + "/" + this.apiKey);
+		}
 		
+	}
+	
+	private String getUserKey(String id, String idHash, Boolean fromFacebook) {
+		if (fromFacebook) {
+			return httpGetRequest(this.serviceUrl + "/facebookLogin/" + id + "/" + idHash + "/" + this.apiKey);
+		}
+		else {
+			return httpGetRequest(this.serviceUrl + "/userLogin/" + id + "/" + idHash + "/" + this.apiKey);
+		}
+	}
+	
+	private String getGenres() {
+		return httpGetRequest(this.serviceUrl + "/genres/" + this.apiKey);
 	}
 	
 	private String getEvents(String location) {
@@ -133,10 +150,19 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		if (entity.matches("fbUser")) {
 			if (action.matches("add")) {
 				if (params[4] != null && params[5] != null) {
-					//params[4] - id | params[5] - idHash
-					String response = this.addFbUser(params[4].toString(), params[5].toString());
-					
-					result[0] = response;
+					//params[4] - id, params[5] - idHash
+					result[0] = this.addUser(params[4].toString(), params[5].toString(), true);
+					result[1] = true;
+				}
+				else {
+					result[1] = false;
+				}
+			}	
+			else if (action.matches("getKey")) {
+				if (params[4] != null && params[5] != null) {
+					//params[4] - id, params[5] - idHash
+					//Log.i("fbUser getKey", response);
+					result[0] = this.getUserKey(params[4].toString(), params[5].toString(), true);
 					result[1] = true;
 				}
 				else {
@@ -144,8 +170,34 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 				}
 			}	
 		}
-		
-		if (entity.matches("getEvents")) {				
+		else if (entity.matches("user")) {
+			if (action.matches("add")) {
+				if (params[4] != null && params[5] != null) {
+					result[0] = this.addUser(params[4].toString(), params[5].toString(), false);
+					result[1] = true;
+				}
+				else {
+					result[1] = false;
+				}
+			}
+			else if (action.matches("getKey")) {
+				if (params[4] != null && params[5] != null) {
+					result[0] = this.getUserKey(params[4].toString(), params[5].toString(), false);
+					result[1] = true;
+				}
+				else {
+					result[1] = false;
+				}
+			}	
+		}
+		else if (entity.matches("genres")) {
+			if (action.matches("get")) {
+				result[0] = this.getGenres();
+				result[1] = true;
+				
+			}	
+		}
+		else if (entity.matches("getEvents")) {				
 				//if (params[4] != null && params[5] != null) {
 					//params[4] - id | params[5] - idHash
 					String response = null;

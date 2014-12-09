@@ -10,6 +10,7 @@ import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.interfaces.SplashPresenter;
 import net.neurolab.musicmap.interfaces.SplashView;
+import net.neurolab.musicmap.ws.MMAsyncTask;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -90,7 +91,7 @@ public class Splash implements SplashPresenter {
 	}
 	private void checkUser() {
 		List<User> users = new User().getAll();
-		
+		Log.i("checkuser", "start");
 		if (!users.isEmpty()) { 
 			Boolean isUserValid = false;
 			for (User user : users) {
@@ -117,11 +118,19 @@ public class Splash implements SplashPresenter {
 	
 	private void checkPreferences() {
 		
-		int sumGenres = new Genre().getSum();
+		Log.i("checkPref", "start");
+		//debug
+		new Genre().deleteAll();
 		
+		int sumGenres = new Genre().getSum();
+	
 		if (sumGenres == 0) {
 			
 			//ALERT - change to MM web service call when list of genres become available 
+			
+			MMAsyncTask asyncTaskEvents = new MMAsyncTask();
+			Object paramsEvent[] = new Object[] { "genres", "get", null, null, null };
+			asyncTaskEvents.execute(paramsEvent);
 			
 			ArrayList<String> genres = new ArrayList<String>();
 			genres.add("Blues");

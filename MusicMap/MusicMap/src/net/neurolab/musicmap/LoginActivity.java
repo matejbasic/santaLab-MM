@@ -1,80 +1,77 @@
 package net.neurolab.musicmap;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.Location;
-import net.neurolab.musicmap.fragments.FacebookLoginFragment;
-import net.neurolab.musicmap.interfaces.LoginPresenterIntf;
+import net.neurolab.musicmap.fragments.FragmentFacebookLogin;
+import net.neurolab.musicmap.interfaces.LoginPresenter;
 import net.neurolab.musicmap.interfaces.LoginView;
-import net.neurolab.musicmap.presenters.LoginPresenter;
-import net.neurolab.musicmap.ws.JSONAdapter;
-import net.neurolab.musicmap.ws.MMAsyncResultHandler;
-import net.neurolab.musicmap.ws.MMAsyncTask;
+import net.neurolab.musicmap.presenters.Login;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 
 public class LoginActivity extends FragmentActivity implements LoginView {
 
-	private FacebookLoginFragment facebookLoginFragment;
-	private LoginPresenterIntf presenter;
+	private FragmentFacebookLogin fFacebookLogin;
+	private TextView loginAsGuest = null;
+	private LoginPresenter presenter;
+	private Boolean userExist = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
+		
 		// active android initialization, must be in launch activity
 		ActiveAndroid.initialize(this);
-
-		// ActionBar actionBar = getActionBar();
-		// actionBar.hide();
-
-		this.presenter = new LoginPresenter(this);
-
+		Bundle extras = getIntent().getExtras();
+		loginAsGuest = (TextView) findViewById(R.id.txtLoginAsGuest);
+		
+		if (extras != null) {
+			String reason = extras.getString("reason");
+			if ( reason == "no-key") {
+				userExist = true;
+			}
+			
+		}
+		this.presenter = new Login(this);
+		
+		loginAsGuest.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//Log.i("login as Guest", "clicked");
+				presenter.checkGuest(userExist, getApplicationContext());
+				
+			}
+		});
+		
 		if (savedInstanceState == null) {
-			facebookLoginFragment = new FacebookLoginFragment();
+			fFacebookLogin = new FragmentFacebookLogin();
 			getSupportFragmentManager().beginTransaction()
-					.add(android.R.id.content, facebookLoginFragment).commit();
+					.add(android.R.id.content, fFacebookLogin).commit();
 
 		} else {
-			facebookLoginFragment = (FacebookLoginFragment) getSupportFragmentManager()
+			fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
 		}
 	}
 
-	public class TempAsyncTask extends AsyncTask<Object, Void, Object[]> {
-
-		@Override
-		protected Object[] doInBackground(Object... arg0) {
-			Log.i("temp task", "done");
-			return null;
-		}
-
-	}
+	
 
 	@Override
 	public void getFbFragmentData(HashMap<String, String> data) {
 		if (data.containsKey("id") && data.containsKey("name")) {
-
-			String response = this.presenter.checkFbUser(data.get("name")
+			//Log.i("check fb user", "pre");
+			presenter.checkFbUser(data.get("name")
 					.toString(), data.get("id").toString(), LoginActivity.this);
-			Log.i("loginActivity", response);
-			if (response.matches("valid")) {
-				this.navigateToSetPrefLocation();
-			}
+			
 		}
 	}
 
@@ -99,20 +96,29 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 
 	@Override
 	public void setMMWebServiceError() {
-		// TODO Auto-generated method stub
+		Toast.makeText(getApplicationContext(), R.string.mm_service_login_error,
+				Toast.LENGTH_LONG).show();
 
+	}
+	@Override
+	public void setUnknownError() {
+		Toast.makeText(getApplicationContext(), R.string.unknown_error,
+				Toast.LENGTH_LONG).show();
+		
 	}
 
 	@Override
-	public void navigateToSetPrefLocation() {
+	public void navigateToPreferences() {
 		Intent intent = new Intent(LoginActivity.this,
-				SetPrefLocationActivity.class);
-		startActivity(intent);
+				SetPreferencesActivity.class);
+		startActivity(intent); 
 	}
 
 	@Override
 	public void navigateToHome() {
-
+		Intent intent = new Intent(LoginActivity.this,
+				MainActivity.class);
+		startActivity(intent); 
 	}
 
 }

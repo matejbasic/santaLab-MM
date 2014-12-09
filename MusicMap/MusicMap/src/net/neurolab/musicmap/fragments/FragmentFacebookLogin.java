@@ -22,7 +22,7 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
 
-public class FacebookLoginFragment extends Fragment {
+public class FragmentFacebookLogin extends Fragment {
 	
 	private UiLifecycleHelper uiHelper;
 	private LoginButton authButton;

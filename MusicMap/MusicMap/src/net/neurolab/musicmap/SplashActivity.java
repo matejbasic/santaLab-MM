@@ -3,9 +3,10 @@ package net.neurolab.musicmap;
 import net.neurolab.musicmap.interfaces.SplashView;
 import net.neurolab.musicmap.presenters.Splash;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -40,7 +41,7 @@ public class SplashActivity extends Activity implements SplashView {
 		});
 		
 		presenter = new Splash(this);
-		presenter.checkDependencies(getApplicationContext());
+		presenter.checkDependencies(getApplicationContext());	
 	}
 
 	@Override
@@ -63,10 +64,8 @@ public class SplashActivity extends Activity implements SplashView {
 
 	@Override
 	public void navigateToPreferences() {
-		Log.i("splash activity", "go to Pref");
-		//Intent intent = new Intent(SplashActivity.this, SetPreferences.class);
-		//startActivity(intent);
-		Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+		
+		Intent intent = new Intent(SplashActivity.this, SetPreferencesActivity.class);
 		startActivity(intent);
 		
 	}

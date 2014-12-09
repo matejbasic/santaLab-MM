@@ -8,7 +8,8 @@ public interface LoginView {
 	public void hideProgress();
 	public void setFacebookLoginError();
 	public void setMMWebServiceError();
-	public void navigateToSetPrefLocation();
+	public void setUnknownError();
+	public void navigateToPreferences();
 	public void navigateToHome();
 	public void getFbFragmentData(HashMap<String, String> data);
 }

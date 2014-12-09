@@ -11,11 +11,15 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="LoginAsGuest">Use app as guest</string>
     <string name="service_name">MusicMap Web Service</string>
-    <string name="title_activity_set_pref_location">SetPrefLocationActivity</string>
+    <string name="title_activity_set_pref_location">Set preferences</string>
 	
     <string name="app_text_logo">MusicMap Logo</string>
     <string name="no_connection_error">No Internet connection</string>
     <string name="check_connection_btn">Try again</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
+    <string name="location">Location</string>
     <string name="no_location_error">Choose a location</string>
+    
+    <string name="mm_service_login_error">Web service login error</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>
