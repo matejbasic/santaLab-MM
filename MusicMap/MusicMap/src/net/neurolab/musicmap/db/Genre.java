@@ -2,9 +2,12 @@ package net.neurolab.musicmap.db;
 
 
 
+import java.util.List;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 @Table (name = "Genre")
 public class Genre extends Model {
@@ -31,6 +34,20 @@ public class Genre extends Model {
 		this.subgenres = subgenres;
 	}
 
+	public int getSum() {
+		return new Select().from(Genre.class).count();
+	}
+	public List<Genre> getAll() {
+		return new Select().from(Genre.class).execute();
+	}
+	
+	public void deleteAll() {
+		List<Genre> genres = this.getAll();
+		for (Genre genre : genres) {
+			genre.delete();
+		}
+	}
+	
 /*
 	public long getGenreId() {
 		return genreId;

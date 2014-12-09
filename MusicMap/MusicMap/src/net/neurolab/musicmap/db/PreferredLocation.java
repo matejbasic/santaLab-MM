@@ -1,8 +1,11 @@
 package net.neurolab.musicmap.db;
 
+import java.util.List;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 @Table (name = "PreferredLocation")
 public class PreferredLocation extends Model{
@@ -22,6 +25,15 @@ public class PreferredLocation extends Model{
 		super();
 		this.idUser = idUser;
 		this.idLocation = idLocation;
+	}
+	
+	
+	public List<PreferredLocation> getAll() {
+		return new Select().from(PreferredLocation.class).execute();
+	}
+	
+	public int getSum() {
+		return new Select().from(PreferredLocation.class).count();
 	}
 
 	public User getIdUser() {

@@ -6,6 +6,7 @@ import java.util.List;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 @Table (name = "Event")
 public class Event extends Model {
@@ -57,6 +58,10 @@ public class Event extends Model {
 		//this.idLocation = idLocation;
 	}
 
+	
+	public int getSum() {
+		return new Select().from(Event.class).count();
+	}
 
 
 	public long getEventId() {

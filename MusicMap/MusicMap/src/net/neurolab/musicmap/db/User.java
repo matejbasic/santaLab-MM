@@ -42,16 +42,33 @@ public class User extends Model{
 	public List<User> getAll() {
 		return new Select().from(User.class).execute();
 	}
+	public int getSum() {
+		return new Select().from(User.class).count();
+	}
 	
-	/**
-	 * todo: delete before it spreads :D
-	 * @author Deng
-	 */
+	
 	public void DeleteAll() {
 		List<User> users = this.getAll();
 		for (User user : users) {
 			user.delete();
 		}
+	}
+	
+	/**
+	 * if fbUser is true, value is fbId
+	 * else if fbUser is false, value is IMEI
+	 * 
+	 */
+	public void setApiKeyToUser(String mmApiKey, Boolean fbUser, String value) {
+		User user = null;
+		if (fbUser) {
+			user = (User) new Select().distinct().from(User.class).where("facebookId = ?", value).execute();
+		}
+		else {
+			user = (User) new Select().distinct().from(User.class).where("firstLastName = ?", value).execute();
+		}
+		user.setMmApiKey(mmApiKey);
+		user.save();
 	}
 	
 	public long getUserId() {

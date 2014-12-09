@@ -5,7 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="D:/Users/Ljiljana/Documents/GitHub/santaLab-MM/MusicMap/MusicMap/libs/android-support-v4.jar"/>
-	<classpathentry kind="lib" path="D:/Users/Ljiljana/Documents/GitHub/santaLab-MM/MusicMap/MusicMap/libs/ActiveAndroid.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Deng/santaLab-MM/santaLab-MM/MusicMap/MusicMap/libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Deng/santaLab-MM/santaLab-MM/MusicMap/MusicMap/libs/ActiveAndroid.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
