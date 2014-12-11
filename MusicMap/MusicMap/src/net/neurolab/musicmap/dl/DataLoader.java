@@ -26,11 +26,6 @@ public abstract class DataLoader {
 			System.out.println("(events == null)");
 			return false;
 		} else {			
-			/*
-			for (int i = 0; i < events.size(); i++) {
-				System.out.println(events.get(i).getName());
-			}
-			*/
 			dataLoadedListener.OnDataLoaded(events);
 			System.out.println("kraj");
 			return true;

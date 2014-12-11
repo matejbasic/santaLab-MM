@@ -19,8 +19,8 @@ import android.app.Activity;
 import com.activeandroid.query.Select;
 public class DataLoaderMM extends DataLoader {
 
-	private boolean eventsLoaded = false;
-	private boolean locationsLoaded = false;
+	//private boolean eventsLoaded = false;
+	//private boolean locationsLoaded = false;
 
 	// ...
 
@@ -174,7 +174,7 @@ public class DataLoaderMM extends DataLoader {
 					e.printStackTrace();
 				}
 			}
-			eventsLoaded = true;
+		//	eventsLoaded = true;
 			DataLoaded();
 			//showLoadedData();
 		}
