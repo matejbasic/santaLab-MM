@@ -1,0 +1,9 @@
+package net.neurolab.musicmap.fragments;
+
+public class Markers {
+	private double lat;
+	private double lng;
+	private String title;
+	
+	
+}

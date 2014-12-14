@@ -9,6 +9,9 @@ import net.neurolab.musicmap.dl.DataLoader;
 import net.neurolab.musicmap.dl.DataLoaderDB;
 import net.neurolab.musicmap.dl.DataLoaderMM;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -27,12 +30,21 @@ public class FragmentTabMap extends SherlockFragment implements
 	 * public int position; public String name;
 	 */
 
+	private static FragmentTabMap instance;
 	private boolean mAlreadyLoaded = false;
 	public boolean fromSearch = false;
 	private ArrayList<Event> events;
 	private GoogleMap googleMap;
+	private ArrayList<Markers> markers;
 
-	public FragmentTabMap() {
+	private FragmentTabMap() {
+		markers = new ArrayList<Markers>();
+	}
+
+	public static FragmentTabMap getInstance() {
+		if (instance == null)
+			instance = new FragmentTabMap();
+		return instance;
 	}
 
 	@Override
@@ -41,35 +53,7 @@ public class FragmentTabMap extends SherlockFragment implements
 		// Get the view from fragmenttab2.xml
 		View view = inflater.inflate(R.layout.fragment_tab_map, container,
 				false);
-
-		try {
-			// Loading map
-			initilizeMap();
-
-			if (savedInstanceState == null && !mAlreadyLoaded) {
-				mAlreadyLoaded = true;
-				DataLoader dl = new DataLoaderDB();
-				dl.LoadData(getActivity(), "Zagreb");
-
-				if (!dl.DataLoaded()) {
-					// check if it is allowed to use web services if so, get the
-					// data
-					dl = new DataLoaderMM();
-					dl.LoadData(getActivity(), "zagreb");
-				}
-
-				// if (dl.events != null) {// obrisati
-				this.events = dl.events;
-				// loadData(this.events);// obrisati
-				// }
-
-			} else {
-				loadData(this.events);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		System.out.println("OnCreate");
 
 		return view;
 	}
@@ -82,6 +66,39 @@ public class FragmentTabMap extends SherlockFragment implements
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+
+		System.out.println("OnViewCreated");
+
+		if (googleMap == null)
+			initilizeMap();
+
+		try {
+
+			if (savedInstanceState == null && !mAlreadyLoaded) {
+				mAlreadyLoaded = true;
+
+				System.out.println("Loadanje iz baze");
+				DataLoader dl = new DataLoaderDB();
+				dl.LoadData(getActivity(), "Zagreb");
+
+				if (!dl.DataLoaded()) {
+					System.out.println("Loadanje sa servisa");
+					dl = new DataLoaderMM();
+					dl.LoadData(getActivity(), "zagreb");
+				}
+
+				this.events = dl.events;
+				System.out.println(events.size());
+
+			}
+
+			else {
+				loadData();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		// if the data is already loaded then skip this part
 		// if you don't skip it, then you will always reload the data in
@@ -97,44 +114,59 @@ public class FragmentTabMap extends SherlockFragment implements
 
 	}
 
-	public void loadData(ArrayList<Event> events) {
-
+	public void loadData() {
+		System.out.println(googleMap);
+		System.out.println("LoadData fja");
+		System.out.println(markers.size());
 		if (googleMap != null) {
 			MarkerOptions marker;
 			double latitude = 0, longitude = 0;
 
-			for (int i = 0; i < events.size(); i++) {
-				latitude = events.get(i).getLat();
-				longitude = events.get(i).getLng();
-				String title = events.get(i).getIdLocation().getName();
+			for (int i = 0; i < markers.size(); i++) {
+				latitude = markers.get(i).getLat();
+				longitude = markers.get(i).getLng();
+				String title = markers.get(i).getTitle();
 
 				marker = new MarkerOptions().position(
 						new LatLng(latitude, longitude)).title(title);
 
 				googleMap.addMarker(marker);
+				System.out.println("Dodan marker");
 			}
 		}
+	}
+
+	public void addMarkers(double lat, double lng, String name) {
+		System.out.println("addMarkers");
+		markers.add(new Markers(lat, lng, name));
+
 	}
 
 	@Override
 	public void OnDataChanged(ArrayList<Event> events) {
 
-		// if (events != null) {
+		System.out.println("OnDataChangedfja");
+		System.out.println(events.size());
 		this.events = events;
-		System.out.println(googleMap);
-		loadData(events);
-		// }
+		markers.clear();
+		for (int i = 0; i < events.size(); i++) {
+			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events
+					.get(i).getIdLocation().getName());
+		}
+		System.out.println("kraj ondatachanged");
+		loadData();
 	}
 
 	private void initilizeMap() {
 		if (googleMap == null) {
-			// googleMap = ((SupportMapFragment) getChildFragmentManager()
-			// .findFragmentById(R.id.map)).getMap();
-
-			MapFragment mMapFragment = (com.google.android.gms.maps.MapFragment) getActivity()
-					.getFragmentManager().findFragmentById(R.id.map);
-			googleMap = mMapFragment.getMap();
-
+			googleMap = ((SupportMapFragment) getChildFragmentManager()
+					.findFragmentById(R.id.map)).getMap();
+			/*
+			 * MapFragment mMapFragment =
+			 * (com.google.android.gms.maps.MapFragment) getActivity()
+			 * .getFragmentManager().findFragmentById(R.id.map); googleMap =
+			 * mMapFragment.getMap();
+			 */
 			System.out.println("inicijalizacija mape");
 			System.out.println(googleMap);
 
@@ -148,22 +180,10 @@ public class FragmentTabMap extends SherlockFragment implements
 			}
 		}
 	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		initilizeMap();
-	}
-/*
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		MapFragment mMapFragment = (com.google.android.gms.maps.MapFragment) getActivity()
-				.getFragmentManager().findFragmentById(R.id.map);
-		if (mMapFragment != null) {
-			getActivity().getFragmentManager().beginTransaction()
-					.remove(mMapFragment).commit();
-		}
-	}
-*/
+	/*
+	 * public void onResume(){ initilizeMap(); loadData(); }
+	 */
+	/*
+	 * public void OnDestroy(){ mAlreadyLoaded = false; }
+	 */
 }

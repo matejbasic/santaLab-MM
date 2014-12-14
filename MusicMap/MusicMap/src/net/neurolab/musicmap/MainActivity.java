@@ -29,10 +29,10 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	Tab tab;
 	
 	FragmentTabMap ftm = null;
-	OnDataChangedListener dataChanged = null;
-	OnDataChangedListener dataChangedMap = null;	
+	//OnDataChangedListener dataChanged = null;
+//	OnDataChangedListener dataChangedMap = null;	
 	
-	
+	boolean dataLoaded = false;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +85,8 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
         tab = mActionBar.newTab().setText("List").setTabListener(tabListener);
         mActionBar.addTab(tab);
         
-        ftm = new FragmentTabMap();    
-        dataChangedMap = (OnDataChangedListener) ftm;        
+        ftm =FragmentTabMap.getInstance();    
+    //    dataChangedMap = (OnDataChangedListener) ftm;        
         
     }
 

@@ -18,7 +18,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int itemNum) {
     	
         if (itemNum == 0) {
-            FragmentTabMap fragmentTabMap = new FragmentTabMap();
+            FragmentTabMap fragmentTabMap = FragmentTabMap.getInstance();
             return fragmentTabMap;
         }
         else {
