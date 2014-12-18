@@ -9,6 +9,7 @@ import net.neurolab.musicmap.presenters.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			}
 			
 		}
+		Log.i("loginActivity", "started");
 		this.presenter = new Login(this);
 		
 		loginAsGuest.setOnClickListener(new OnClickListener() {
@@ -54,6 +56,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		
 		if (savedInstanceState == null) {
 			fFacebookLogin = new FragmentFacebookLogin();
+			Log.i("facebookFragment", "started");
 			getSupportFragmentManager().beginTransaction()
 					.add(android.R.id.content, fFacebookLogin).commit();
 

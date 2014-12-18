@@ -8,6 +8,7 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 @Table (name = "PreferredLocation")
+
 public class PreferredLocation extends Model{
 	
 	@Column (name = "idUser")
@@ -15,7 +16,7 @@ public class PreferredLocation extends Model{
 	
 	@Column (name = "idLocation")
 	private Location idLocation;
-
+	
 	public PreferredLocation() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -27,7 +28,16 @@ public class PreferredLocation extends Model{
 		this.idLocation = idLocation;
 	}
 	
-	
+	public Boolean checkPreferredLocation(Location location) {
+		List<PreferredLocation> temp = new Select().from(PreferredLocation.class).where("idLocation = ?", location).execute();
+		
+		if (temp != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	public List<PreferredLocation> getAll() {
 		return new Select().from(PreferredLocation.class).execute();
 	}

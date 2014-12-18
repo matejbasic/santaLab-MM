@@ -22,4 +22,8 @@
     
     <string name="mm_service_login_error">Web service login error</string>
     <string name="unknown_error">Unknown error</string>
+    
+    <string name="select_all">Select all</string>
+    <string name="unselect_all">Unselect all</string>
+    <string name="done">Done</string>
 </resources>

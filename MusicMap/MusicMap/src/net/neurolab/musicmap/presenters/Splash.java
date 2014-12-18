@@ -1,16 +1,13 @@
 package net.neurolab.musicmap.presenters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.PreferredGenre;
 import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.interfaces.SplashPresenter;
 import net.neurolab.musicmap.interfaces.SplashView;
-import net.neurolab.musicmap.ws.MMAsyncTask;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -63,12 +60,7 @@ public class Splash implements SplashPresenter {
 		protected void onPostExecute(Void result) {
 			
 			if (isConnected) {
-				
-				//check needed data - preferences
-				checkPreferences();
-				//check user
 				checkUser();
-			
 			}
 			else {
 				
@@ -114,50 +106,6 @@ public class Splash implements SplashPresenter {
 		else {
 			splashView.navigateToLogin("no-user");
 		}
-	}
-	
-	private void checkPreferences() {
-		
-		Log.i("checkPref", "start");
-		//debug
-		new Genre().deleteAll();
-		
-		int sumGenres = new Genre().getSum();
-	
-		if (sumGenres == 0) {
-			
-			//ALERT - change to MM web service call when list of genres become available 
-			
-			MMAsyncTask asyncTaskEvents = new MMAsyncTask();
-			Object paramsEvent[] = new Object[] { "genres", "get", null, null, null };
-			asyncTaskEvents.execute(paramsEvent);
-			
-			ArrayList<String> genres = new ArrayList<String>();
-			genres.add("Blues");
-			genres.add("Classical");
-			genres.add("Electronic");
-			genres.add("Folk, World & Country");
-			genres.add("Funk/Soul");
-			genres.add("Hip Hop");
-			genres.add("Jazz");
-			genres.add("Latin");
-			genres.add("Pop");
-			genres.add("Reggae");
-			genres.add("Rock");
-			genres.add("Metal");
-			Log.i("list genres", String.valueOf(genres));
-			for (String genreName : genres) {
-				Genre genre = new Genre(genreName, null);
-				genre.save();
-			}
-			
-			List<Genre> genresDb = new Genre().getAll();
-			for (Genre genre : genresDb) {
-				Log.i("genre", String.valueOf(genre));
-			}
-			
-		}
-		
 	}
 	@Override
 	public void checkDependencies(Context context) {

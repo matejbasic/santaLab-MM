@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
+import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.fragments.FragmentTabMap;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -28,7 +28,8 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 	ViewPager mPager;
 	Tab tab;
 	
-	FragmentTabMap ftm = null;
+	private FragmentTabMap ftm = null;
+	private FragmentTabList ftl = null;
 	//OnDataChangedListener dataChanged = null;
 //	OnDataChangedListener dataChangedMap = null;	
 	
@@ -57,6 +58,11 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
  
         mPager.setOnPageChangeListener(ViewPagerListener);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(fm);
+        Log.i("mainActivity", "getFrags");
+        ftm = new FragmentTabMap();
+        ftl = new FragmentTabList();
+        viewPagerAdapter.setTabMap(ftm);
+        viewPagerAdapter.setTabList(ftl);
         mPager.setAdapter(viewPagerAdapter);
         
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
@@ -68,10 +74,7 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
             }
  
             @Override
-            public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-            	
-            	
-            }
+            public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
  
             @Override
             public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -84,11 +87,10 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
  
         tab = mActionBar.newTab().setText("List").setTabListener(tabListener);
         mActionBar.addTab(tab);
-        
-        ftm =FragmentTabMap.getInstance();    
-    //    dataChangedMap = (OnDataChangedListener) ftm;        
-        
+     
     }
+	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,5 +141,5 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 
 	}
 	
-
+	
 }

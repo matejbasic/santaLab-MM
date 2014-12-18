@@ -47,8 +47,16 @@ public class Location extends Model {
 		return new Select().from(Location.class).count();
 	}
 
-	public List<Location> getLocation(String name) {
-		return new Select().distinct().from(Location.class).where("name = ?", name).execute();
+	public Location getLocation(String name) {
+		
+		StringBuilder temp = new StringBuilder(name);
+		temp.setCharAt(0, Character.toUpperCase(temp.charAt(0)));
+		name = temp.toString();
+		return new Select().from(Location.class).where("name = ?", name).executeSingle();
+	}
+	
+	public List<Location> getAll() {
+		return new Select().from(Location.class).execute();
 	}
 	
 /*

@@ -6,16 +6,33 @@
 
     <EditText
         android:id="@+id/inputPreferedLocation"
-        android:hint="@string/location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="132dp"
         android:ems="10"
-        android:inputType="text"
+        android:inputType="textNoSuggestions"
         android:imeOptions="actionNext"
         android:imeActionId="5" />
 
-   
+    <TextView
+        android:id="@+id/txtLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/inputPreferedLocation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="36dp"
+        android:text="@string/location" />
+
+    <ProgressBar
+        android:id="@+id/pLocationProgressBar"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="111dp" />
 
 </RelativeLayout>

@@ -21,7 +21,9 @@ import android.util.Log;
 
 
 public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
-	private String serviceUrl = "http://musicmap.cloudapp.net/api";
+	private String serviceUrl = "http://musicmap.azurewebsites.net/api";
+	//private String serviceUrl = "http://musicmap.cloudapp.net/api";
+	//http://musicmap.azurewebsites.net/api/registerFacebookUser/739268242789744/-2036532200/2c9s1rwf7578307
 	private String apiKey = "2c9s1rwf7578307";
 	
 	private String httpGetRequest(String url) {
@@ -45,7 +47,9 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		    }
 		    
 			try {
-		        response = new JSONTokener(sb.toString()).nextValue().toString();
+				Log.i("mm async task", "almost done");
+				response = new JSONTokener(sb.toString()).nextValue().toString();
+				Log.i("mm async task", response.toString());
 		    } catch (JSONException e) {
 		        e.printStackTrace();
 		    }
@@ -87,8 +91,8 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		}
 	}
 	
-	private String getGenres() {
-		return httpGetRequest(this.serviceUrl + "/genres/" + this.apiKey);
+	private String getGenres(String userKey) {
+		return httpGetRequest(this.serviceUrl + "/genres/" + userKey);
 	}
 	
 	private String getEvents(String location) {
@@ -192,7 +196,8 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		}
 		else if (entity.matches("genres")) {
 			if (action.matches("get")) {
-				result[0] = this.getGenres();
+				//4 - user key
+				result[0] = this.getGenres(params[4].toString());
 				result[1] = true;
 				
 			}	
