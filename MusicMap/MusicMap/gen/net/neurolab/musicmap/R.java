@@ -1634,7 +1634,7 @@ containing a value of this type.
         public static final int abs__textButton=0x7f0b0030;
         public static final int abs__title=0x7f0b0038;
         public static final int abs__up=0x7f0b0001;
-        public static final int action_settings=0x7f0b0077;
+        public static final int action_settings=0x7f0b007c;
         public static final int activitySetPreferences=0x7f0b0052;
         public static final int authButton=0x7f0b004f;
         public static final int book_now=0x7f0b0014;
@@ -1685,10 +1685,14 @@ containing a value of this type.
         public static final int imageLogoBig=0x7f0b0054;
         public static final int inline=0x7f0b0028;
         public static final int inputPreferedLocation=0x7f0b0073;
+        public static final int itemTitle=0x7f0b007b;
         public static final int large=0x7f0b0022;
         public static final int left=0x7f0b002b;
+        public static final int listGroup=0x7f0b0079;
+        public static final int listItemLayout=0x7f0b007a;
         public static final int listMode=0x7f0b001a;
-        public static final int map=0x7f0b0076;
+        public static final int listView=0x7f0b0077;
+        public static final int map=0x7f0b0078;
         public static final int match_parent=0x7f0b0012;
         public static final int monochrome=0x7f0b0019;
         public static final int none=0x7f0b0007;
@@ -1708,6 +1712,7 @@ containing a value of this type.
         public static final int splashProgressBar=0x7f0b0053;
         public static final int standard=0x7f0b0026;
         public static final int strict_sandbox=0x7f0b000f;
+        public static final int tabListlayout=0x7f0b0076;
         public static final int tabMode=0x7f0b001b;
         public static final int terrain=0x7f0b000a;
         public static final int top=0x7f0b0029;
@@ -1766,8 +1771,10 @@ containing a value of this type.
         public static final int fragment_prefered_location=0x7f03002a;
         public static final int fragment_tab_list=0x7f03002b;
         public static final int fragment_tab_map=0x7f03002c;
-        public static final int sherlock_spinner_dropdown_item=0x7f03002d;
-        public static final int sherlock_spinner_item=0x7f03002e;
+        public static final int list_group=0x7f03002d;
+        public static final int list_item=0x7f03002e;
+        public static final int sherlock_spinner_dropdown_item=0x7f03002f;
+        public static final int sherlock_spinner_item=0x7f030030;
     }
     public static final class menu {
         public static final int login=0x7f0d0000;
@@ -1952,12 +1959,15 @@ containing a value of this type.
         public static final int create_calendar_message=0x7f060005;
         public static final int create_calendar_title=0x7f060004;
         public static final int decline=0x7f060003;
-        public static final int done=0x7f060074;
+        public static final int done=0x7f060075;
         public static final int facebook_app_id=0x7f060063;
         public static final int facebook_login_error=0x7f060065;
         public static final int facebook_login_failed=0x7f060064;
+        public static final int gmap_unable_to_create_error=0x7f060071;
         public static final int hello_world=0x7f060060;
+        public static final int list=0x7f060077;
         public static final int location=0x7f06006e;
+        public static final int map=0x7f060076;
         public static final int mm_service_login_error=0x7f060070;
         public static final int no_connection_error=0x7f06006b;
         public static final int no_location_error=0x7f06006f;
@@ -1980,15 +1990,15 @@ containing a value of this type.
         public static final int pref_locations=0x7f060050;
         public static final int pref_locations_desc=0x7f060051;
         public static final int pref_notifications=0x7f060057;
-        public static final int select_all=0x7f060072;
+        public static final int select_all=0x7f060073;
         public static final int service_name=0x7f060068;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
         public static final int title_activity_login=0x7f060062;
         public static final int title_activity_set_pref_location=0x7f060069;
         public static final int title_activity_splash=0x7f060066;
-        public static final int unknown_error=0x7f060071;
-        public static final int unselect_all=0x7f060073;
+        public static final int unknown_error=0x7f060072;
+        public static final int unselect_all=0x7f060074;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */

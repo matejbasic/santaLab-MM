@@ -3,8 +3,8 @@ package net.neurolab.musicmap.dl;
 import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
-
 import android.app.Activity;
+import android.util.Log;
 
 
 public abstract class DataLoader {
@@ -23,11 +23,9 @@ public abstract class DataLoader {
 
 	public boolean DataLoaded() {
 		if (events == null) {
-			System.out.println("(events == null)");
 			return false;
 		} else {			
 			dataLoadedListener.OnDataLoaded(events);
-			System.out.println("kraj");
 			return true;
 		}
 	}

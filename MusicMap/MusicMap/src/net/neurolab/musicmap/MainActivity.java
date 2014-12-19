@@ -3,10 +3,14 @@ package net.neurolab.musicmap;
 import java.util.ArrayList;
 
 import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.dl.DataLoader;
+import net.neurolab.musicmap.dl.DataLoaderDB;
+import net.neurolab.musicmap.dl.DataLoaderMM;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.fragments.FragmentTabMap;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,26 +24,37 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.activeandroid.ActiveAndroid;
+import com.google.android.gms.internal.lt;
 
 
 public class MainActivity extends SherlockFragmentActivity implements OnDataLoadedListener {
 
-	ActionBar mActionBar;
-	ViewPager mPager;
-	Tab tab;
+	private ActionBar mActionBar;
+	private ViewPager mPager;
+	private Tab tab;
 	
 	private FragmentTabMap ftm = null;
-	private FragmentTabList ftl = null;
-	//OnDataChangedListener dataChanged = null;
-//	OnDataChangedListener dataChangedMap = null;	
+	private FragmentTabList ftl = null;	
 	
-	boolean dataLoaded = false;
+	private OnDataChangedListener dataChangedList = null;
+	private OnDataChangedListener dataChangedMap = null;
+	
+	private Boolean dataLoaded = false;
+	
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         ActiveAndroid.initialize(this);
+        
+        ftm = new FragmentTabMap();
+        ftl = new FragmentTabList();
+        dataChangedList = (OnDataChangedListener) ftl;
+        dataChangedMap = (OnDataChangedListener) ftm;
+        
+        Log.i("fragments", "created");
         
         mActionBar = getSupportActionBar();
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -58,16 +73,13 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
  
         mPager.setOnPageChangeListener(ViewPagerListener);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(fm);
-        Log.i("mainActivity", "getFrags");
-        ftm = new FragmentTabMap();
-        ftl = new FragmentTabList();
+        
         viewPagerAdapter.setTabMap(ftm);
         viewPagerAdapter.setTabList(ftl);
         mPager.setAdapter(viewPagerAdapter);
         
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
         	
-            
         	@Override
             public void onTabSelected(Tab tab, FragmentTransaction ft) {
         	    mPager.setCurrentItem(tab.getPosition());
@@ -82,33 +94,29 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
             }
         };
  
-        tab = mActionBar.newTab().setText("Map").setTabListener(tabListener);
+        tab = mActionBar.newTab().setText(R.string.map).setTabListener(tabListener);
         mActionBar.addTab(tab);
  
-        tab = mActionBar.newTab().setText("List").setTabListener(tabListener);
+        tab = mActionBar.newTab().setText(R.string.list).setTabListener(tabListener);
         mActionBar.addTab(tab);
      
+        Log.i("mainActivity", "on create end");
     }
 	
-
-
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 	
 		if (id == R.id.action_settings) {
-			// load the activity which displays the PreferenceFragment with 
-			// users settings and preferences
 		    Intent settingsActivity = new Intent(this, SettingsActivity.class);
 			this.startActivity(settingsActivity);
 		}
@@ -116,25 +124,18 @@ public class MainActivity extends SherlockFragmentActivity implements OnDataLoad
 		
 	}
 	
-	@Override
-	public void OnDataLoaded(ArrayList<Event> events) {
-		
-		//System.out.println("wooohooo");
-		//System.out.println(events.size());
-		
-		// data updated: (either from database, search or web service)
-		// raise the event for GoogleMapsFragment ;) so it updates the ExpandableListView   !!!!!!!!!!!!!!
-		// this is because DataLoader accepts Activity as an argument, and not Fragment
-		// therefore MainActivity acts as a data collector for Fragments
-		//if(dlf != null) dlf.OnDataChanged(stores, discounts);
-		//if(dialog != null)
-			//dialog.cancel();
-		
-		if(ftm != null) ftm.OnDataChanged(events);
-		//if(mf != null) mf.OnDataChanged(stores, discounts);
-	}
 	
-	//*****************************************************************************************
+	
+	@Override
+	public void OnDataLoaded(ArrayList<Event> events) {		
+		Log.i("mainActivitiy", "onDataLoaded");
+		if(ftm != null) {
+			ftm.OnDataChanged(events);
+		}
+		if (ftl != null) {
+			ftl.OnDataChanged(events);
+		}
+	}
 	
 	public interface OnDataChangedListener{
 		void OnDataChanged(ArrayList<Event> events);

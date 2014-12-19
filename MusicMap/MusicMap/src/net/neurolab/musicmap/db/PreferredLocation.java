@@ -28,6 +28,11 @@ public class PreferredLocation extends Model{
 		this.idLocation = idLocation;
 	}
 	
+	public Location getSingleLocation() {
+		PreferredLocation prefLocation = new Select().from(PreferredLocation.class).executeSingle();
+		return prefLocation.getIdLocation();
+	}
+	
 	public Boolean checkPreferredLocation(Location location) {
 		List<PreferredLocation> temp = new Select().from(PreferredLocation.class).where("idLocation = ?", location).execute();
 		

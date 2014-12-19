@@ -28,11 +28,10 @@ public class DataLoaderDB extends DataLoader {
 		}
 
 		if (databaseQuerySuccessfull == true && eventsDb.size() > 0) {
-			Toast.makeText(activity, "Loading local data", Toast.LENGTH_SHORT)
-					.show();
+			//Toast.makeText(activity, "Loading local data", Toast.LENGTH_SHORT).show();
 			Log.i("dataLoaderDB", "query successfull");
 			events = (ArrayList<Event>) eventsDb;
-
+			
 			DataLoaded();
 
 		}
