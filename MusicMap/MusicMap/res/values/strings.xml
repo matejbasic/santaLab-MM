@@ -30,4 +30,6 @@
     
     <string name="map">Map</string>
     <string name="list">List</string>
+    <string name="dbUpdate_title">Ažuriranje</string>
+    <string name="dbUpdate_text">Stigli su novi događaji</string>
 </resources>

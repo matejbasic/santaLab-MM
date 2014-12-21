@@ -1,6 +1,7 @@
 package net.neurolab.musicmap.dl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
@@ -41,7 +42,7 @@ public class DataLoaderMM extends DataLoader {
 		public void handleResult(String result, Boolean status) {
 			if (status) { // PROVJERITI STATUS
 				try {
-					events = new ArrayList<Event>();
+					events = new ArrayList<Event>();					
 					ArrayList<Location> locations = new ArrayList<Location>();
 					ArrayList<Genre> genres = new ArrayList<Genre>();
 					ArrayList<Musician> musicians = new ArrayList<Musician>();

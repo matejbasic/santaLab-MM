@@ -1,7 +1,0 @@
-package net.neurolab.musicmap.db;
-
-import com.activeandroid.Model;
-
-public class EventGenres_2 extends Model {
-
-}

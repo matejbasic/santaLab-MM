@@ -1,0 +1,120 @@
+package net.neurolab.musicmap.fragments;
+
+import java.util.ArrayList;
+
+import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
+import net.neurolab.musicmap.R;
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.dl.DataLoader;
+import net.neurolab.musicmap.dl.DataLoaderDB;
+import net.neurolab.musicmap.dl.DataLoaderMM;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class FragmentTabList extends SherlockFragment implements OnDataChangedListener {
+	
+	
+	private static FragmentTabList instance;
+	private boolean mAlreadyLoaded = false;
+	public boolean fromSearch = false;
+	private ArrayList<Event> events;
+	
+	private FragmentTabList() {
+		
+	}
+
+	public static FragmentTabList getInstance() {
+		if (instance == null)
+			instance = new FragmentTabList();
+		return instance;
+	}
+	
+	@Override
+	 public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	            Bundle savedInstanceState) {
+	        // Get the view from fragmenttab1.xml
+		 	String debug = "debug: " + container.toString();
+	       	Log.i("container", debug);
+		 	View view = inflater.inflate(R.layout.fragment_tab_list, container, false);
+	        Log.i("tabList", "created");
+	        return view;
+	 }
+	 
+	 @Override
+		public void onViewCreated(View view, Bundle savedInstanceState) {
+			super.onViewCreated(view, savedInstanceState);
+
+			System.out.println("OnViewCreated");
+
+			
+			try {
+
+				if (savedInstanceState == null && !mAlreadyLoaded) {
+					mAlreadyLoaded = true;
+
+					System.out.println("Loadanje iz baze");
+					DataLoader dl = new DataLoaderDB();
+					dl.LoadData(getActivity(), "Zagreb");
+
+					if (!dl.DataLoaded()) {
+						System.out.println("Loadanje sa servisa");
+						dl = new DataLoaderMM();
+						dl.LoadData(getActivity(), "zagreb");
+					}
+
+					this.events = dl.events;
+					System.out.println(events.size());
+
+				}
+
+				else {
+					loadData();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// if the data is already loaded then skip this part
+			// if you don't skip it, then you will always reload the data in
+			// the ExpandableListView, e.g. if you do a search, and check the
+			// result data in DiscountDetailsFragment, when you press back, you
+			// reload the data and loose the result.
+
+			// just to display the current position
+			// this can be reused to collect only shops from the preferred radius
+			// PositionProvider positionProvider = new
+			// PositionProvider(getActivity());
+			// Location location = positionProvider.getLatestCoordinates();
+
+		}
+
+		public void loadData() {
+		
+		}
+
+
+		@Override
+		public void OnDataChanged(ArrayList<Event> events) {
+
+			System.out.println("OnDataChangedfja");
+			System.out.println(events.size());
+			this.events = events;
+		
+			System.out.println("kraj ondatachanged");
+			loadData();
+		}
+
+
+}

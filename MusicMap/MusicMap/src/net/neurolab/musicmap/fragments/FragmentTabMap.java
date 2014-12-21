@@ -64,8 +64,9 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 				Log.i("tabMap", "first load");
 				mAlreadyLoaded = true;
 				
-				cPrefLocation = new PreferredLocation().getSingleLocation();
+				cPrefLocation = new PreferredLocation().getSingleLocation();				
 				gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cPrefLocation.getLat(), cPrefLocation.getLng()), (float) 12.0));
+				
 				
 				System.out.println("Loadanje iz baze");
 				DataLoader dl = new DataLoaderDB();
@@ -88,11 +89,11 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 				Log.i("tabMap", "n-th load");
 				DataLoader dl = new DataLoaderDB();
 				dl.LoadData(getActivity(), "Zagreb");
-				/*
-				this.events = dl.events;
-				Log.i("events size", String.valueOf(events.size()));
-				addMarkersToMap();
-				*/
+				
+				//this.events = dl.events;
+				//Log.i("events size", String.valueOf(events.size()));
+			//addMarkersToMap();
+				
 			}
 
 		} catch (Exception e) {
