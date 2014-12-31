@@ -233,6 +233,7 @@ public class NotificationService extends Service {
 
 						if(updated){
 							MainActivity.sendData("updated");
+							
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

@@ -1,30 +1,44 @@
-package net.neurolab.musicmap.fragments;
+package net.neurolab.musicmap;
 
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+
 import net.neurolab.musicmap.R;
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.fragments.Group;
+import net.neurolab.musicmap.interfaces.MainView;
 import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.opengl.Visibility;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 
 	private final ArrayList<Group> groups;
-	private Activity activity;
+	private MainView activity;
 	private LayoutInflater infalter;
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd.MM.yyyy.", Locale.getDefault());
 	
 	public EventsExpandableAdapter(Activity activity, ArrayList<Group> groups) {
-		this.activity = activity;
+		this.activity = (MainView)activity;
 		this.groups = groups;
 		this.infalter = activity.getLayoutInflater();
 	}
@@ -55,7 +69,7 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public Object getChild(int groupPosition, int childPosition) {
+	public Event getChild(int groupPosition, int childPosition) {
 		return groups.get(groupPosition).getChildren().get(childPosition);
 	}
 
@@ -92,20 +106,20 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 	}
 
 	@Override
-	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-		final String children = (String) getChild(groupPosition, childPosition);
+	public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+		final Event child = (Event) getChild(groupPosition, childPosition);
 		TextView txtView = null;
 		if (convertView == null) {
 			convertView = this.infalter.inflate(R.layout.list_item, null);
 		}
 		
 		txtView = (TextView) convertView.findViewById(R.id.itemTitle);
-		txtView.setText(children);
+		txtView.setText(child.getName());
 		convertView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(activity, children, Toast.LENGTH_SHORT).show();
+				activity.navigateToSingleEvent(child.getId());
 			}
 		});
 		

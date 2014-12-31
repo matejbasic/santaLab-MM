@@ -2,15 +2,13 @@ package net.neurolab.musicmap.ns;
 
 import net.neurolab.musicmap.MainActivity;
 import net.neurolab.musicmap.R;
-import net.neurolab.musicmap.R.drawable;
-import net.neurolab.musicmap.R.string;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 public class NotificationData<PollTask> {
 
@@ -49,6 +47,7 @@ public class NotificationData<PollTask> {
 
 	public void showNotification(Context context) {
 		System.out.println("shownotification");
+		Log.i("context", context.toString());
 		String title = context.getString(R.string.dbUpdate_title);
 		String text = context.getString(R.string.dbUpdate_text);
 		

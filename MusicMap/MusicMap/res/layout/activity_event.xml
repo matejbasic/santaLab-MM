@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light" >
+  
+    <RelativeLayout 
+    	android:id="@+id/eventData"
+       	android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+   		<RelativeLayout 
+   		    android:id="@+id/eventMainHeader"
+   		    android:layout_width="match_parent"
+   		    android:layout_height="match_parent"
+   		    >
+	   		
+	   		<ImageView
+	   		    android:id="@+id/eventMainImage"
+	   		    android:layout_width="match_parent"
+	   		    android:layout_height="wrap_content"
+	   		    android:contentDescription="@string/eventMainImageDesc"
+	   		    android:src="@drawable/event_def" 
+	   		    android:cropToPadding="true"
+	   		    android:scaleType="fitXY"
+	   			/>
+
+			<TextView
+			    android:id="@+id/eventName"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"
+			    android:layout_centerHorizontal="true"
+			    android:gravity="bottom"
+			    android:layout_marginBottom="6dp"
+			    android:text="@string/eventNameDef"
+			    android:textColor="#fff"
+			    android:textSize="24sp"
+			    android:textStyle="bold" 
+			    android:textAlignment="center"
+			    android:shadowColor="#777"
+			    android:shadowDx="1"
+			    android:shadowDy="1"
+			    android:shadowRadius="1"/>
+
+		</RelativeLayout>
+		<RelativeLayout 
+   		    android:id="@+id/eventSubHeader"
+   		    android:layout_width="match_parent"
+   		    android:layout_height="match_parent"
+   		    android:layout_below="@id/eventMainHeader"
+   		    android:paddingLeft="5dp"
+   		    android:paddingRight="5dp"
+   		    android:paddingTop="6dp"
+   		    android:paddingBottom="4dp"
+   		    android:layout_marginBottom="8dp"
+   		    android:background="#fff"
+   		    >
+			
+			<ImageView
+			    android:id="@+id/eventLocationIcon"
+			    android:layout_width="20dp"
+			    android:layout_height="20dp"
+			    android:layout_alignParentLeft="true"
+			    android:layout_alignParentStart="true"
+			    android:contentDescription="@string/eventRandIcon"
+			    android:cropToPadding="true"
+			    android:src="@drawable/location" />
+			
+			<TextView
+			    android:id="@+id/eventLocation"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toRightOf="@id/eventLocationIcon"
+			    android:layout_toEndOf="@id/eventLocationIcon"
+			    android:text="@string/eventLocationDef"/>
+			
+			<ImageView
+			    android:id="@+id/eventPriceIcon"
+			    android:layout_width="20dp"
+			    android:layout_height="20dp"
+			    android:layout_toRightOf="@id/eventLocation"
+			    android:layout_toEndOf="@id/eventLocation"
+			    android:contentDescription="@string/eventRandIcon"
+			    android:cropToPadding="true"
+			    android:src="@drawable/price" />
+	
+			<TextView
+			    android:id="@+id/eventPrice"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toEndOf="@id/eventPriceIcon"
+			    android:layout_toRightOf="@id/eventPriceIcon"
+			    android:text="@string/eventPriceDef" />
+			
+			<ImageView
+			    android:id="@+id/eventTimeIcon"
+			    android:layout_width="20dp"
+			    android:layout_height="20dp"
+			    android:layout_toRightOf="@id/eventPrice"
+			    android:layout_toEndOf="@id/eventPrice"
+			    android:contentDescription="@string/eventRandIcon"
+			    android:cropToPadding="true"
+			    android:src="@drawable/time" />
+			
+			<TextView
+			    android:id="@+id/eventTime"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_toEndOf="@id/eventTimeIcon"
+			    android:layout_toRightOf="@id/eventTimeIcon"
+			    android:text="@string/eventTimeDef" />
+
+		</RelativeLayout>
+		<RelativeLayout 
+   		    android:id="@+id/eventBody"
+   		    android:layout_width="match_parent"
+   		    android:layout_height="match_parent"
+   		    android:layout_below="@id/eventSubHeader"
+   		    android:layout_marginLeft="4dp"
+   		    android:layout_marginRight="4dp">
+			
+			<TextView 
+				android:id="@+id/eventDesc"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				
+				android:text="@string/eventDescDef" />
+			
+			<LinearLayout 
+			    android:id="@+id/eventMusicians"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@id/eventDesc"
+			    android:orientation="horizontal">    
+			</LinearLayout>
+		</RelativeLayout>
+		
+
+	</RelativeLayout>
+
+</ScrollView>

@@ -1,6 +1,11 @@
 package net.neurolab.musicmap.presenters;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,14 +19,22 @@ import net.neurolab.musicmap.interfaces.SetPreferencesPresenter;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class SetPreferences implements SetPreferencesPresenter {
 
@@ -56,6 +69,55 @@ public class SetPreferences implements SetPreferencesPresenter {
 	
 	private class getAddressTask extends AsyncTask<Object, Void, Object[]> {
 		
+		private String gcFallback(String location) {
+			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+			try {
+				url += URLEncoder.encode(location, "utf-8");
+			} catch (UnsupportedEncodingException e1) {
+				url += location;
+				e1.printStackTrace();
+			}
+			
+			String response = "";
+			HttpClient httpClient = new DefaultHttpClient();
+			HttpGet httpGet = new HttpGet(url);
+			
+			try {
+				HttpResponse httpResponse = httpClient.execute(httpGet);
+				HttpEntity httpEntity = httpResponse.getEntity();
+				InputStream inputStream = httpEntity.getContent();
+				
+				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+			    StringBuilder sb = new StringBuilder();
+
+			    String line = null;
+			    while ((line = reader.readLine()) != null) {
+			        sb.append(line + "\n");
+			    }
+			    
+				try {
+					response = new JSONTokener(sb.toString()).nextValue().toString();
+			    }
+				catch (JSONException e) {
+			        e.printStackTrace();
+			    }
+				
+				httpClient.getConnectionManager().shutdown();
+				
+			}
+			catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} 
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			catch(Error e) {
+				e.printStackTrace();
+			}
+			
+			return response;
+		}
+		
 		@Override
 		protected Object[] doInBackground(Object... params) {
 			String locationName = (String) params[0];
@@ -67,32 +129,54 @@ public class SetPreferences implements SetPreferencesPresenter {
 
 			
 			try {
-				Geocoder gc = new Geocoder(context, Locale.getDefault());
-				List<Address> addresses = gc.getFromLocationName(locationName, 1);
-				//Log.i("addresses", addresses.toString());
-				if (!addresses.isEmpty()) {
-					Address address = addresses.get(0);
 				
-					//Log.i("address", address.toString());
+				Geocoder gc = new Geocoder(context, Locale.getDefault());
+
+				if (Geocoder.isPresent()){
 					
-					result[0] = address.getFeatureName();
-					result[1] = address.getLocality();
+					List<Address> addresses = gc.getFromLocationName(locationName, 1);
+					if (!addresses.isEmpty()) {
+						Address address = addresses.get(0);
 					
-					StringBuilder tempAddress = new StringBuilder();
-					int iMax = address.getMaxAddressLineIndex();
-					for (int i = 0; i <= iMax; i++) {
-						tempAddress.append(address.getAddressLine(i));
-						if ( i < iMax) {
-							tempAddress.append(", ");
+						result[0] = address.getFeatureName();
+						result[1] = address.getLocality();
+						
+						StringBuilder tempAddress = new StringBuilder();
+						int iMax = address.getMaxAddressLineIndex();
+						for (int i = 0; i <= iMax; i++) {
+							tempAddress.append(address.getAddressLine(i));
+							if ( i < iMax) {
+								tempAddress.append(", ");
+							}
 						}
+						
+						result[2] = tempAddress.toString();
+						if ( address.hasLatitude() && address.hasLongitude()) {
+							result[3] = address.getLatitude();
+							result[4] = address.getLongitude();
+						}
+						
 					}
+				}
+				else {
+					String response = gcFallback(locationName);
 					
-					result[2] = tempAddress.toString();
-					if ( address.hasLatitude() && address.hasLongitude()) {
-						result[3] = address.getLatitude();
-						result[4] = address.getLongitude();
+					try {
+						JSONObject rez = new JSONObject(response);
+						JSONArray data = rez.getJSONArray("results");
+						
+						result[0] = result[1] = locationName;
+						result[2] = data.getJSONObject(0).getString("formatted_address").toString();
+						
+						JSONObject temp = new JSONObject(data.getString(0));
+						JSONObject geometry = (JSONObject) temp.get("geometry");
+						JSONObject location = (JSONObject) geometry.get("location");
+
+						result[3] = Double.parseDouble(location.getString("lat"));
+						result[4] = Double.parseDouble(location.getString("lng"));
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
-					
 				}
 				
 			} catch (IOException e) {
@@ -171,7 +255,7 @@ public class SetPreferences implements SetPreferencesPresenter {
 	public void setLocation(String name, Context context) {
 		if (!locationCheck) {
 			locationCheck = true;
-			
+			Log.i("location", name);
 			if(name != null && !name.isEmpty()) {
 				Location location = new Location().getLocation(name);
 				//Log.i("location", String.valueOf(location));

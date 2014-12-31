@@ -3,6 +3,8 @@ package net.neurolab.musicmap.db;
 import java.util.Date;
 import java.util.List;
 
+import android.util.Log;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -58,6 +60,9 @@ public class Event extends Model {
 		//this.idLocation = idLocation;
 	}
 
+	public Event getById(long eventId) {
+		return new Select().from(Event.class).where("Id = ?", eventId).executeSingle();
+	}
 	
 	public int getSum() {
 		return new Select().from(Event.class).count();
@@ -110,7 +115,21 @@ public class Event extends Model {
 	}
 	
 	public List<EventPrice> prices(){
-		return getMany(EventPrice.class, "EventPrice");
+		try {
+			Log.i("current event ID", String.valueOf(this.getId()));
+			List<EventPrice> temp = new Select().from(EventPrice.class).execute();
+			
+			for (EventPrice eventPrice : temp) {
+				if (eventPrice.getIdEvent().getId() == this.getId()) {
+					Log.i("eventPrice", String.valueOf(eventPrice.getPrice()));
+				}
+			}
+			Log.i("tempList event prices", temp.toString());
+			return getMany(EventPrice.class, "idEvent");
+		}
+		catch(Error e) {
+			return null;
+		}
 	}
 	
 	public List<Comment> comments(){

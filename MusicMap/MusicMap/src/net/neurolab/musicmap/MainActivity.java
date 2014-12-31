@@ -6,6 +6,7 @@ import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.fragments.FragmentTabMap;
+import net.neurolab.musicmap.interfaces.MainView;
 import net.neurolab.musicmap.ns.NotificationData;
 import net.neurolab.musicmap.ns.NotificationService;
 import android.app.AlarmManager;
@@ -27,7 +28,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.activeandroid.ActiveAndroid;
 
 public class MainActivity extends SherlockFragmentActivity implements
-		OnDataLoadedListener {
+		OnDataLoadedListener, MainView {
 
 	private ActionBar mActionBar;
 	private ViewPager mPager;
@@ -154,7 +155,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		 * .getDefaultSharedPreferences(this); int minutes =
 		 * prefs.getInt("interval");
 		 */
-		int minutes = 5*60;//5sati
+		int minutes = 5*60; //5sati
 		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		Intent i = new Intent(this, NotificationService.class);
 		PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
@@ -178,10 +179,24 @@ public class MainActivity extends SherlockFragmentActivity implements
 		if (str.equalsIgnoreCase("updated")) {
 			System.out.println(str);			
 			 // create object
-			notification = new NotificationData<Object>();
-			notification.showNotification(context);
+			if (context != null) {
+				notification = new NotificationData<Object>();
+				notification.showNotification(context);
+			}
 		}
 
+	}
+
+	@Override
+	public void navigateToSingleEvent(Long eventId) {
+		//Toast.makeText(activity, children, Toast.LENGTH_SHORT).show();
+		if (eventId != null) {
+			Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+			intent.putExtra("eventId", eventId);
+		
+			startActivity(intent);
+		}
+		
 	}
 
 }

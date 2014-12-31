@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
+import net.neurolab.musicmap.EventsExpandableAdapter;
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 public class FragmentTabList extends SherlockFragment implements OnDataChangedListener {
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<Event> events;
-	private SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd.MM.yyyy.", Locale.getDefault());
+	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd.MM.yyyy.", Locale.getDefault());
 	private ExpandableListView listView = null;
 	
 	@Override
@@ -123,7 +124,7 @@ public class FragmentTabList extends SherlockFragment implements OnDataChangedLi
 			if (eDate != null) {
 				//Log.i("list event", sdf.format(eDate) + " " + event.getName());
 				i = getGroupIndex(eDate);
-				groups.get(i).getChildren().add(event.getName());
+				groups.get(i).getChildren().add(event);
 			}
 		}
 		

@@ -175,7 +175,7 @@ public class JSONAdapter {
 				// ArrayList<String> musiciansarray1 = new ArrayList<String>();
 				String musiciansString = jsonObj.getString("artists");
 				JSONArray musicianArray = new JSONArray(musiciansString);
-				System.out.println("musician");
+				//System.out.println("musician");
 
 				for (int j = 0; j < musicianArray.length(); j++) {
 					String musician = musicianArray.getString(j);

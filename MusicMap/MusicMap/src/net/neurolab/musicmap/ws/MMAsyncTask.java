@@ -23,7 +23,6 @@ import android.util.Log;
 public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String serviceUrl = "http://musicmap.azurewebsites.net/api";
 	//private String serviceUrl = "http://musicmap.cloudapp.net/api";
-	//http://musicmap.azurewebsites.net/api/registerFacebookUser/739268242789744/-2036532200/2c9s1rwf7578307
 	private String apiKey = "2c9s1rwf7578307";
 	
 	private String httpGetRequest(String url) {

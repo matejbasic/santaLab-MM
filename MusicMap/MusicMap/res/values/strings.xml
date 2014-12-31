@@ -30,6 +30,14 @@
     
     <string name="map">Map</string>
     <string name="list">List</string>
-    <string name="dbUpdate_title">Ažuriranje</string>
-    <string name="dbUpdate_text">Stigli su novi događaji</string>
+    <string name="dbUpdate_title">Updating...</string>
+    <string name="dbUpdate_text">New events matching your preferences!</string>
+    
+    <string name="eventMainImageDesc">Main Image</string>
+    <string name="eventNameDef">Event name</string>
+    <string name="eventLocationDef">Unknown location</string>
+    <string name="eventPriceDef">Unknown</string>
+    <string name="eventTimeDef">Unknown</string>
+    <string name="eventDescDef">Default description holder.\n Wonder if newline work like that!</string>
+    <string name="eventRandIcon">Event Icon</string>
 </resources>
