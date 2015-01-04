@@ -93,14 +93,14 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 		
 		
 		if (convertView == null) {
-			convertView = infalter.inflate(R.layout.list_group, null);
+			convertView = infalter.inflate(R.layout.events_list_group, null);
 		}
 		Group group = (Group) getGroup(groupPosition);
 		
 		((CheckedTextView) convertView).setText(sdf.format(group.getDate()));
 	
-		//((CheckedTextView) convertView).setChecked(isExpanded);
-		((CheckedTextView) convertView).setChecked(true);
+		((CheckedTextView) convertView).setChecked(isExpanded);
+		//((CheckedTextView) convertView).setChecked(true);
 		
 		return convertView;
 	}
@@ -110,7 +110,7 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 		final Event child = (Event) getChild(groupPosition, childPosition);
 		TextView txtView = null;
 		if (convertView == null) {
-			convertView = this.infalter.inflate(R.layout.list_item, null);
+			convertView = this.infalter.inflate(R.layout.events_list_item, null);
 		}
 		
 		txtView = (TextView) convertView.findViewById(R.id.itemTitle);

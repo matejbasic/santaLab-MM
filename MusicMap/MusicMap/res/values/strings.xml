@@ -38,6 +38,10 @@
     <string name="eventLocationDef">Unknown location</string>
     <string name="eventPriceDef">Unknown</string>
     <string name="eventTimeDef">Unknown</string>
-    <string name="eventDescDef">Default description holder.\n Wonder if newline work like that!</string>
+    <string name="eventDescDef">No information about this event.\n Please try again! :)</string>
+    <string name="eventDescTitle">Event details</string>
     <string name="eventRandIcon">Event Icon</string>
+    
+    <string name="yt_player_error">Failed to load youtube player.</string>
+    <string name="no_bio_info">"No biography for selected artist/group."</string>
 </resources>

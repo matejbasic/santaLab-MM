@@ -26,7 +26,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String apiKey = "2c9s1rwf7578307";
 	
 	private String httpGetRequest(String url) {
-		Log.i("get url", url);
+		//Log.i("get url", url);
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -46,9 +46,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		    }
 		    
 			try {
-				Log.i("mm async task", "almost done");
 				response = new JSONTokener(sb.toString()).nextValue().toString();
-				Log.i("mm async task", response.toString());
 		    } catch (JSONException e) {
 		        e.printStackTrace();
 		    }

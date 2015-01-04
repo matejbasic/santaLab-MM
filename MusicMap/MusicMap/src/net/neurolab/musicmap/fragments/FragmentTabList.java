@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
 import net.neurolab.musicmap.EventsExpandableAdapter;
+import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 public class FragmentTabList extends SherlockFragment implements OnDataChangedListener {
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<Event> events;
-	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd.MM.yyyy.", Locale.getDefault());
+	//private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd.MM.yyyy.", Locale.getDefault());
 	private ExpandableListView listView = null;
 	
 	@Override
@@ -30,25 +30,12 @@ public class FragmentTabList extends SherlockFragment implements OnDataChangedLi
 		
 	}
 	
-	private void createDebugData() {
-		/*
-		 * for (int j = 0; j < 5; j++) {
-			Group group = new Group("2" + String.valueOf(j) + ".10.2014");
-			for (int i = 0; i < 5; i++) {
-				group.getChildren().add("Sub item no. " + i);
-			}
-			groups.append(j, group);
-		}
-		*/
-	}
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	            Bundle savedInstanceState) {
 	        // Get the view from fragmenttab1.xml
 		 	View view = inflater.inflate(R.layout.fragment_tab_list, container, false);
-		
-		 	createDebugData();
+	
 			listView = (ExpandableListView) view.findViewById(R.id.listView);
 			if (listView != null) {
 				EventsExpandableAdapter adapter = new EventsExpandableAdapter(getActivity(), groups);
@@ -80,8 +67,7 @@ public class FragmentTabList extends SherlockFragment implements OnDataChangedLi
 			return Integer.parseInt(sdfDay.format(d2)) - Integer.parseInt(sdfDay.format(d1));
 		}
 		
-		return 0;
-		
+		return 0;	
 	}
 	
 	private int getGroupIndex(Date date) {
@@ -91,7 +77,6 @@ public class FragmentTabList extends SherlockFragment implements OnDataChangedLi
 		for (Group group : groups) {
 			compDate = compareDates(date, group.getDate());
 			
-			Log.i("date comparison",  sdf.format(date) + " " + sdf.format(group.getDate()) + " " + String.valueOf(compDate));
 			if (compDate > 0) {
 				Group newGroup = new Group(date);
 				groups.add(i, newGroup);
@@ -111,7 +96,7 @@ public class FragmentTabList extends SherlockFragment implements OnDataChangedLi
 	
 	@Override
 	public void OnDataChanged(ArrayList<Event> events) {
-		Log.i("tabList", "On data changed");
+		//Log.i("tabList", "On data changed");
 		this.events = events;
 		
 		// delete when data loading is corrected
@@ -128,23 +113,19 @@ public class FragmentTabList extends SherlockFragment implements OnDataChangedLi
 			}
 		}
 		
-		/*
-		//dirty hack :/
-		
-		if (listView == null) {
-			listView = (ExpandableListView) view.findViewById(R.id.listView);
-		}
-		EventsExpandableAdapter adapter = new EventsExpandableAdapter(getActivity(), groups);
-		listView.setAdapter(adapter);
-		*/
-		
-		
 	}
 	 
 	 @Override
 	 public void onSaveInstanceState(Bundle outState) {
 		 super.onSaveInstanceState(outState);
 		 //setUserVisibleHint(true);
+	 }
+	  
+	 public void setIndicatorPosition() {
+		if (listView != null) {
+			listView.setIndicatorBounds(listView.getRight() - 40, listView.getWidth());
+		}
+	
 	 }
 	 
 }

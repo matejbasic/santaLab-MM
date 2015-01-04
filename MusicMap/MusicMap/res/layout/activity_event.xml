@@ -2,17 +2,18 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light" >
+    android:background="#f2f2f2" >
   
     <RelativeLayout 
     	android:id="@+id/eventData"
        	android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
+		android:layout_height="wrap_content" 
+		android:background="#f2f2f2">
+   		
    		<RelativeLayout 
    		    android:id="@+id/eventMainHeader"
    		    android:layout_width="match_parent"
-   		    android:layout_height="match_parent"
-   		    >
+   		    android:layout_height="wrap_content" >
 	   		
 	   		<ImageView
 	   		    android:id="@+id/eventMainImage"
@@ -21,9 +22,7 @@
 	   		    android:contentDescription="@string/eventMainImageDesc"
 	   		    android:src="@drawable/event_def" 
 	   		    android:cropToPadding="true"
-	   		    android:scaleType="fitXY"
-	   			/>
-
+	   		    android:scaleType="fitXY" />
 			<TextView
 			    android:id="@+id/eventName"
 			    android:layout_width="wrap_content"
@@ -43,98 +42,120 @@
 			    android:shadowRadius="1"/>
 
 		</RelativeLayout>
+		
 		<RelativeLayout 
    		    android:id="@+id/eventSubHeader"
    		    android:layout_width="match_parent"
-   		    android:layout_height="match_parent"
+   		    android:layout_height="wrap_content"
    		    android:layout_below="@id/eventMainHeader"
    		    android:paddingLeft="5dp"
    		    android:paddingRight="5dp"
-   		    android:paddingTop="6dp"
-   		    android:paddingBottom="4dp"
+   		    android:paddingTop="10dp"
+   		    android:paddingBottom="8dp"
    		    android:layout_marginBottom="8dp"
-   		    android:background="#fff"
-   		    >
-			
+   		    android:background="#fff">
+				
 			<ImageView
 			    android:id="@+id/eventLocationIcon"
-			    android:layout_width="20dp"
-			    android:layout_height="20dp"
+			    android:layout_width="16dp"
+			    android:layout_height="16dp"
 			    android:layout_alignParentLeft="true"
 			    android:layout_alignParentStart="true"
 			    android:contentDescription="@string/eventRandIcon"
 			    android:cropToPadding="true"
 			    android:src="@drawable/location" />
-			
+				
 			<TextView
 			    android:id="@+id/eventLocation"
 			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
+			    android:layout_height="wrap_content" 
+			    android:text="@string/eventLocationDef"			   
 			    android:layout_toRightOf="@id/eventLocationIcon"
-			    android:layout_toEndOf="@id/eventLocationIcon"
-			    android:text="@string/eventLocationDef"/>
+			    android:layout_toEndOf="@id/eventLocationIcon"/>
+		
 			
-			<ImageView
-			    android:id="@+id/eventPriceIcon"
-			    android:layout_width="20dp"
-			    android:layout_height="20dp"
-			    android:layout_toRightOf="@id/eventLocation"
-			    android:layout_toEndOf="@id/eventLocation"
-			    android:contentDescription="@string/eventRandIcon"
-			    android:cropToPadding="true"
-			    android:src="@drawable/price" />
 	
 			<TextView
 			    android:id="@+id/eventPrice"
 			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_toEndOf="@id/eventPriceIcon"
-			    android:layout_toRightOf="@id/eventPriceIcon"
-			    android:text="@string/eventPriceDef" />
+			    android:layout_height="wrap_content"		    
+			    android:layout_centerHorizontal="true"		    
+			    android:text="@string/eventPriceDef" 		    
+			    android:layout_marginLeft="4dp"
+			    android:layout_marginStart="4dp"/>
 			
 			<ImageView
-			    android:id="@+id/eventTimeIcon"
-			    android:layout_width="20dp"
-			    android:layout_height="20dp"
-			    android:layout_toRightOf="@id/eventPrice"
-			    android:layout_toEndOf="@id/eventPrice"
+			    android:id="@+id/eventPriceIcon"
+			    android:layout_width="16dp"
+			    android:layout_height="16dp"
+			    android:layout_toLeftOf="@id/eventPrice"
+			    android:layout_toStartOf="@id/eventPrice"
 			    android:contentDescription="@string/eventRandIcon"
 			    android:cropToPadding="true"
-			    android:src="@drawable/time" />
+			    android:src="@drawable/price" />
+			
+			
 			
 			<TextView
 			    android:id="@+id/eventTime"
 			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_toEndOf="@id/eventTimeIcon"
-			    android:layout_toRightOf="@id/eventTimeIcon"
-			    android:text="@string/eventTimeDef" />
+			    android:layout_height="wrap_content"			   
+			    android:text="@string/eventTimeDef" 		    
+			    android:layout_alignParentRight="true"
+			    android:layout_alignParentEnd="true"		    
+			    android:layout_marginLeft="4dp"
+			    android:layout_marginStart="4dp" />
+			
+			<ImageView
+			    android:id="@+id/eventTimeIcon"
+			    android:layout_width="16dp"
+			    android:layout_height="16dp"			    
+			    android:layout_toLeftOf="@id/eventTime"
+			    android:layout_toStartOf="@id/eventTime"		    
+			    android:contentDescription="@string/eventRandIcon"
+			    android:cropToPadding="true"
+			    android:src="@drawable/time" />
 
 		</RelativeLayout>
-		<RelativeLayout 
+		
+		<LinearLayout 
    		    android:id="@+id/eventBody"
    		    android:layout_width="match_parent"
-   		    android:layout_height="match_parent"
+   		
+   		    android:layout_height="500dp"
    		    android:layout_below="@id/eventSubHeader"
+   		    android:orientation="horizontal"
    		    android:layout_marginLeft="4dp"
-   		    android:layout_marginRight="4dp">
-			
-			<TextView 
-				android:id="@+id/eventDesc"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				
-				android:text="@string/eventDescDef" />
-			
-			<LinearLayout 
-			    android:id="@+id/eventMusicians"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_below="@id/eventDesc"
-			    android:orientation="horizontal">    
-			</LinearLayout>
-		</RelativeLayout>
+   		    android:layout_marginRight="4dp"
+   		    >
 		
+		    <ExpandableListView 
+		        android:id="@+id/eventDetailsList"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:background="#f2f2f2"
+		        android:childDivider="#00000000"
+		        android:indicatorRight="0dp"        
+		        android:scrollbars="none">
+		    </ExpandableListView>
+		        
+		   
+		</LinearLayout>
+		<LinearLayout 
+		    android:id="@+id/ytPlayerContainer"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="#faaaaf"
+		    android:orientation="vertical"
+		    android:layout_below="@id/eventBody">
+			<!-- 
+		     <fragment
+		      android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+		      android:id="@+id/youtubePlayerFragment"
+		      android:layout_width="match_parent"
+		      android:layout_height="wrap_content"/>
+		    -->
+		</LinearLayout>
 
 	</RelativeLayout>
 

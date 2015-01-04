@@ -52,7 +52,6 @@ public class DataLoaderMM extends DataLoader {
 					JSONAdapter.getEvents(result, events, locations, musicians, genres, eventGenres, eventMusicians);
 				
 					//System.out.println("DLMM");
-					//System.out.println("DLMM");
 					for (Location l : locations) {
 						List<Location> locs = new Select().all()
 								.from(Location.class)

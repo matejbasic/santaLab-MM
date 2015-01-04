@@ -198,5 +198,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 		
 	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		//changes position of list indicator
+		ftl.setIndicatorPosition();
+	}
 
 }
