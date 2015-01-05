@@ -102,8 +102,7 @@ public class FlickrAsyncTask extends AsyncTask<Object, Void, Object[]> {
 						int serverId = photo.getInt("server");			
 						String id = photo.getString("id");
 						String secret = photo.getString("secret");
-						
-						//is format always .jpg?
+					
 						//https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 						returnUrl = "https://farm"+ farmId + ".staticflickr.com/" + serverId + "/" + id + "_"+ secret + ".jpg";
 						

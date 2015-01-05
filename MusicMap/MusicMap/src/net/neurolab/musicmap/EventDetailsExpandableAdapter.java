@@ -1,9 +1,7 @@
 package net.neurolab.musicmap;
 
-import java.io.InputStream;
-import java.util.Properties;
-
-import net.neurolab.musicmap.ws.YoutubeDataTask;
+import net.neurolab.musicmap.ws.YouTubeDataManager;
+import net.neurolab.musicmap.ws.YouTubeDataResultHandler;
 import net.neurolab.musicmap.ws.YouTubeDevKey;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -21,7 +19,6 @@ import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
 import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.api.services.youtube.YouTube;
 
 public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 
@@ -29,6 +26,7 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 	private LayoutInflater inflater;
 	private int lastExpandedGroupPosition = -1;
 	private ExpandableListView listView;
+	private YouTubeDataManager ytDataManager;
 	
 	public EventDetailsExpandableAdapter(Activity activity, ExpandableListView listView) {
 		this.activity = activity;
@@ -129,11 +127,24 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		ll.addView(txtDesc);
 	}
 	
-	private void getYoutubeData(String musicianName) {
-		new YoutubeDataTask(musicianName);
+	private void getYoutubeData(final LinearLayout ll, final Object[] group, final int groupPosition) {
+		if(ytDataManager == null) {
+			ytDataManager = new YouTubeDataManager();
+		}
+		//musician name = group[1].toString()
+		ytDataManager.setDataTask(group[1].toString(), new YouTubeDataResultHandler() {
+			
+			@Override
+			public void handleResult(String videoId) {
+				if (!videoId.isEmpty()) {
+					setYoutubePlayer(ll, group, groupPosition, videoId);
+				}
+				
+			}
+		});
 	}
 	
-	private void setYoutubePlayer(LinearLayout ll, Object[] group, int groupPosition) {
+	private void setYoutubePlayer(LinearLayout ll, Object[] group, int groupPosition, String videoId) {
 		//add youtube video
 		if (!(Boolean)group[3]) {
 			YouTubePlayerFragment fPlayer = new YouTubePlayerFragment();
@@ -148,6 +159,7 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 					
 			group[3] = true;
 			group[4] = fPlayer.hashCode();
+			group[5] = videoId;
 								
 			EventGroups.getInstance().listGroups.remove(groupPosition);
 			EventGroups.getInstance().listGroups.add(groupPosition, group);
@@ -168,8 +180,8 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		
 		ll.addView(txtDesc);
 		
-		setYoutubePlayer(ll, group, groupPosition);
-		getYoutubeData(group[1].toString());
+		
+		getYoutubeData(ll, group, groupPosition);
 	}
 	
 	@Override

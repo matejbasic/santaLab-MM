@@ -108,7 +108,7 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 				
 				//SET BODY
 				
-				//0 - group type, 1 - group header, 2 - item content, 3 - is fragment initialized, 4 - player hash
+				//0 - group type, 1 - group header, 2 - item content, 3 - is fragment initialized, 4 - player hash, 5 - videoId
 				EventGroups.getInstance().listGroups.add(new Object[]{"event-details", "Event details", Html.fromHtml(event.getDescription())});
 				
 				//event artist info
@@ -124,7 +124,7 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 					else {
 						musicianImgAvailable.add(musician.getName());
 					}
-					EventGroups.getInstance().listGroups.add(new Object[]{"musician-bio", musician.getName(), musician.getBiography(), false, null});
+					EventGroups.getInstance().listGroups.add(new Object[]{"musician-bio", musician.getName(), musician.getBiography(), false, null, ""});
 				}
 				
 				//expandable list
@@ -172,12 +172,13 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 			boolean wasRestored) {
 		if (!wasRestored) {
 			for (Object[] group : EventGroups.getInstance().listGroups) {
-				Log.i("g Length", String.valueOf(group.length));
 				if (group.length >= 3) {
 					try {
-						Log.i("playerOrg hash", String.valueOf(group[4]));
 						if (Integer.parseInt(group[4].toString()) == provider.hashCode()) {
-							Log.i("players hash comparsion", "win!");
+							//Log.i("players hash comparison", "match!");
+							if (!group[5].toString().isEmpty()) {
+								player.cueVideo(group[5].toString());
+							}
 						}
 					}
 					catch(Exception exc) {
@@ -185,16 +186,21 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 					}
 				}
 			}
-			player.cueVideo("nCgQDjiotG0");
+			//player.cueVideo("nCgQDjiotG0");
 		}
-		
-		
 	}
 
 	@Override
 	protected Provider getYouTubePlayerProvider() {
 		//return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtubePlayerFragment);
+		//possible reason for failed second player initialization
 		return null;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		EventGroups.getInstance().listGroups.clear();
+		super.onDestroy();
 	}
 	
 	
