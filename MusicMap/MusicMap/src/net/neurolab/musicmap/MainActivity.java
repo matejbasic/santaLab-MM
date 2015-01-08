@@ -146,13 +146,14 @@ public class MainActivity extends SherlockFragmentActivity implements
 		} catch (Exception e) {
 			Log.i("getUserFromDB", e.toString());
 		}
-		Log.i("mainActivity", "users&locations");
+		
 		if (u.size() > 0) {
-			Log.i("mainActivity", "users");
+			System.out.println(u.size());
 			id = u.get(0).getId();
 		}
 
 		if (id != 0) {
+			Log.i("mainActivity", "locations");
 			try {
 				loc = new Select().from(PreferredLocation.class)
 						.where("idUser LIKE ?", id).execute();
@@ -160,10 +161,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 			} catch (Exception e) {
 				Log.i("getPreferredLocationsFromDB", e.toString());
 			}
-			if (l.size() > 0) {
-				menu = new String[] {};
-				for (int i = 0; i < l.size(); i++) {
-					menu[i] = l.get(i).getIdLocation().getCity();
+			if (l.size() > 0) {				
+				menu = new String[l.size()];
+				for (int i = 0; i < l.size(); i++) {					
+					menu[i] = l.get(i).getSingleLocation().getCity();
+					System.out.println(menu[i]);
 				}
 			} else {
 				menu = new String[] { getResources().getString(

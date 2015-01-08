@@ -1791,17 +1791,16 @@ containing a value of this type.
         public static final int com_facebook_search_bar_layout=0x7f030027;
         public static final int com_facebook_tooltip_bubble=0x7f030028;
         public static final int com_facebook_usersettingsfragment=0x7f030029;
-        public static final int drawer_list_item=0x7f03002a;
-        public static final int event_details_list_group=0x7f03002b;
-        public static final int event_details_list_item=0x7f03002c;
-        public static final int events_list_group=0x7f03002d;
-        public static final int events_list_item=0x7f03002e;
-        public static final int fragment_prefered_genres=0x7f03002f;
-        public static final int fragment_prefered_location=0x7f030030;
-        public static final int fragment_tab_list=0x7f030031;
-        public static final int fragment_tab_map=0x7f030032;
-        public static final int sherlock_spinner_dropdown_item=0x7f030033;
-        public static final int sherlock_spinner_item=0x7f030034;
+        public static final int event_details_list_group=0x7f03002a;
+        public static final int event_details_list_item=0x7f03002b;
+        public static final int events_list_group=0x7f03002c;
+        public static final int events_list_item=0x7f03002d;
+        public static final int fragment_prefered_genres=0x7f03002e;
+        public static final int fragment_prefered_location=0x7f03002f;
+        public static final int fragment_tab_list=0x7f030030;
+        public static final int fragment_tab_map=0x7f030031;
+        public static final int sherlock_spinner_dropdown_item=0x7f030032;
+        public static final int sherlock_spinner_item=0x7f030033;
     }
     public static final class menu {
         public static final int login=0x7f0d0000;
