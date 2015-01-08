@@ -1,6 +1,7 @@
 package net.neurolab.musicmap.fragments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
 import net.neurolab.musicmap.R;
@@ -10,7 +11,9 @@ import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.dl.DataLoader;
 import net.neurolab.musicmap.dl.DataLoaderDB;
 import net.neurolab.musicmap.dl.DataLoaderMM;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +21,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.activeandroid.query.Select;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class FragmentTabMap extends SherlockFragment implements OnDataChangedListener {
+public class FragmentTabMap extends SherlockFragment implements
+		OnDataChangedListener {
 
 	private boolean mAlreadyLoaded = false;
 	public boolean fromSearch = false;
@@ -33,8 +37,10 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 	private GoogleMap gMap;
 	private SupportMapFragment fSupportMap;
 	private Location cPrefLocation;
-	
+
 	private ArrayList<Markers> markers;
+
+	SharedPreferences sharedPreferences;
 
 	public FragmentTabMap() {
 		markers = new ArrayList<Markers>();
@@ -44,56 +50,77 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.i("tabMap", "create");
-		
+
 		return inflater.inflate(R.layout.fragment_tab_map, container, false);
 	}
-	
-	
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		
-		System.out.println("OnViewCreated");	
+
+		System.out.println("OnViewCreated");
 		if (gMap == null) {
 			initMap();
 		}
+
+		String theLocation = loadSavedPreferences();
+		Log.i("lokacija mapa", theLocation);
+
 		try {
 
 			if (savedInstanceState == null && !mAlreadyLoaded) {
 				Log.i("tabMap", "first load");
 				mAlreadyLoaded = true;
+
+				// cPrefLocation = new PreferredLocation().getSingleLocation();
+
+				List<Location> loc = new Select().from(Location.class)
+						.where("city LIKE ?", theLocation).execute();
+				ArrayList<Location> l = (ArrayList<Location>) loc;
 				
-				cPrefLocation = new PreferredLocation().getSingleLocation();				
-				gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cPrefLocation.getLat(), cPrefLocation.getLng()), (float) 12.0));
-				
-				
+				if (l.size() > 0) {
+					
+					gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+							new LatLng(l.get(0).getLat(), l.get(0).getLng()),
+							(float) 12.0));
+				}
+
+				/*
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
+				 * 12.0));
+				 */
+
 				System.out.println("Loadanje iz baze");
 				DataLoader dl = new DataLoaderDB();
-				dl.LoadData(getActivity(), cPrefLocation.getCity());
+				// dl.LoadData(getActivity(), cPrefLocation.getCity());
+				dl.LoadData(getActivity(), theLocation);
 
 				Boolean eventsExists = dl.DataLoaded();
-				  
+				
+			//INAÈE, OVO TI SE NIKAD NE IZVRŠI IZ NEKOG RAZLOGA :D ... PROBAJ STAVITI NEKI DRUGI GRAD KOJI NEMA U BAZI, I NIKAD SE NE IZVRŠI asynctaks
 				if (!eventsExists) {
 					System.out.println("Loadanje sa servisa");
 					dl = new DataLoaderMM();
-					dl.LoadData(getActivity(), cPrefLocation.getCity());
+					// dl.LoadData(getActivity(), cPrefLocation.getCity());
+					dl.LoadData(getActivity(), theLocation);
 				}
-				
-				//this.events = dl.events; //? dodaje se vec u onDataChanged
-				//Log.i("events size", String.valueOf(events.size()));
-				
+
+				// this.events = dl.events; //? dodaje se vec u onDataChanged
+				// Log.i("events size", String.valueOf(events.size()));
+
 			}
 
 			else {
 				Log.i("tabMap", "n-th load");
 				DataLoader dl = new DataLoaderDB();
-				dl.LoadData(getActivity(), "Zagreb");
-				
-				//this.events = dl.events;
-				//Log.i("events size", String.valueOf(events.size()));
-			//addMarkersToMap();
-				
+				// dl.LoadData(getActivity(), "Zagreb");
+				dl.LoadData(getActivity(), theLocation);
+
+				// this.events = dl.events;
+				// Log.i("events size", String.valueOf(events.size()));
+				// addMarkersToMap();
+
 			}
 
 		} catch (Exception e) {
@@ -101,7 +128,20 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 		}
 
 	}
-	//ex loadData()
+
+	public String loadSavedPreferences() {
+		sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(getActivity());
+		String theLocation = sharedPreferences.getString("theLocation",
+				"theLocation");
+		if (theLocation.equalsIgnoreCase("")) {
+			return "Zagreb";
+		} else
+			return theLocation;
+
+	}
+
+	// ex loadData()
 	public void addMarkersToMap() {
 		Log.i("addMarkersToMap map", gMap.toString());
 		if (gMap != null) {
@@ -115,16 +155,17 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 				title = markers.get(i).getTitle();
 				marker = new MarkerOptions().position(
 						new LatLng(latitude, longitude)).title(title);
-				
-				//Log.i("marker vals", String.valueOf(latitude) + " " + String.valueOf(longitude) + " " + title);
-				
+
+				// Log.i("marker vals", String.valueOf(latitude) + " " +
+				// String.valueOf(longitude) + " " + title);
+
 				gMap.addMarker(marker);
 			}
 		}
 	}
 
 	public void addMarkers(double lat, double lng, String name) {
-		//System.out.println("addMarkers");
+		// System.out.println("addMarkers");
 		markers.add(new Markers(lat, lng, name));
 
 	}
@@ -136,36 +177,38 @@ public class FragmentTabMap extends SherlockFragment implements OnDataChangedLis
 		this.events = events;
 		markers.clear();
 		for (int i = 0; i < events.size(); i++) {
-			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events.get(i).getIdLocation().getName());
+			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events
+					.get(i).getIdLocation().getName());
 		}
-		
+
 		addMarkersToMap();
 	}
 
 	private void initMap() {
 		Log.i("initMap status", String.valueOf(gMap));
 		if (gMap == null) {
-			
+
 			fSupportMap = ((SupportMapFragment) getChildFragmentManager()
-					.findFragmentById(R.id.map)); 
+					.findFragmentById(R.id.map));
 			Log.i("tempFrag", String.valueOf(fSupportMap));
-			
+
 			if (fSupportMap != null) {
 				gMap = fSupportMap.getMap();
-			}
-			else {
+			} else {
 				Log.i("initMap", "mapFrag is null");
 			}
-			
+
 			// check if map is created successfully or not
 			if (gMap == null) {
 				Log.i("googleMap", "=null, ludilo!");
-				Toast.makeText(getActivity(), R.string.gmap_unable_to_create_error, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(),
+						R.string.gmap_unable_to_create_error,
+						Toast.LENGTH_SHORT).show();
 			} else {
-				//UiSettings mm = gMap.getUiSettings();
-				//gMap.setMyLocationEnabled(true);
+				// UiSettings mm = gMap.getUiSettings();
+				// gMap.setMyLocationEnabled(true);
 			}
 		}
 	}
-	
+
 }

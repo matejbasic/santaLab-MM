@@ -1,8 +1,12 @@
 package net.neurolab.musicmap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.Location;
+import net.neurolab.musicmap.db.PreferredLocation;
+import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.fragments.FragmentTabMap;
@@ -13,12 +17,21 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -26,6 +39,9 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Select;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends SherlockFragmentActivity implements
 		OnDataLoadedListener, MainView {
@@ -37,13 +53,21 @@ public class MainActivity extends SherlockFragmentActivity implements
 	private FragmentTabMap ftm = null;
 	private FragmentTabList ftl = null;
 
-	private OnDataChangedListener dataChangedList = null;
+	private OnDataChangedListener dataChangedList = null;// ??
 	private OnDataChangedListener dataChangedMap = null;
 
-	private Boolean dataLoaded = false;
-	
+	// private Boolean dataLoaded = false;
+
 	static Context context;
 	static NotificationData<Object> notification;
+
+	String[] menu;
+	DrawerLayout dLayout;
+	ListView dList;
+	ArrayAdapter<String> adapter;
+
+	SharedPreferences sharedPreferences;
+	Editor editor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +76,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 		ActiveAndroid.initialize(this);
 		context = getApplicationContext();
-		
+
 		ftm = new FragmentTabMap();
 		ftl = new FragmentTabList();
 		dataChangedList = (OnDataChangedListener) ftl;
@@ -107,7 +131,95 @@ public class MainActivity extends SherlockFragmentActivity implements
 				.setTabListener(tabListener);
 		mActionBar.addTab(tab);
 
+		long userId = loadSavedPreferences(); // String jer nema getLong samo
+										// getInt
+		long id = 0;
+		List<User> user = null;
+		List<PreferredLocation> loc;
+		ArrayList<PreferredLocation> l = null;
+		ArrayList<User> u = null;
+
+		try {
+			user = new Select().from(User.class).where("userId = ?", userId)
+					.execute();
+			u = (ArrayList<User>) user;
+		} catch (Exception e) {
+			Log.i("getUserFromDB", e.toString());
+		}
+		Log.i("mainActivity", "users&locations");
+		if (u.size() > 0) {
+			Log.i("mainActivity", "users");
+			id = u.get(0).getId();
+		}
+
+		if (id != 0) {
+			try {
+				loc = new Select().from(PreferredLocation.class)
+						.where("idUser LIKE ?", id).execute();
+				l = (ArrayList<PreferredLocation>) loc;
+			} catch (Exception e) {
+				Log.i("getPreferredLocationsFromDB", e.toString());
+			}
+			if (l.size() > 0) {
+				menu = new String[] {};
+				for (int i = 0; i < l.size(); i++) {
+					menu[i] = l.get(i).getIdLocation().getCity();
+				}
+			} else {
+				menu = new String[] { getResources().getString(
+						R.string.no_preferred_locations) };
+			}
+		} else {
+			menu = new String[] { getResources().getString(
+					R.string.no_preferred_locations) };
+		}
+		/*
+		 * String username = ""; List<PreferredLocation> pl = null; try{ pl =
+		 * new Select().all().from(PreferredLocation.class) .where("user = ?",
+		 * username).execute(); } catch(Exception e){ Log.i("e", e.toString());
+		 * }
+		 */
+
+		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		dList = (ListView) findViewById(R.id.left_drawer);
+		adapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, menu);
+		dList.setAdapter(adapter);
+		dList.setSelector(android.R.color.holo_blue_dark);
+		dList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View v, int position,
+					long id) {
+				dLayout.closeDrawers();
+				// Bundle args = new Bundle();
+				// args.putString("Menu", menu[position]);
+				if (!(menu[position].equals("") && !menu[position]
+						.equals(getResources().getString(
+								R.string.no_preferred_locations)))) {
+					savePreferences(menu[position]);
+				}
+				Log.i("mainActivity", "onItemClick");
+			}
+		});
+
 		Log.i("mainActivity", "on create end");
+	}
+
+	public long loadSavedPreferences() {
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		long idUser = sharedPreferences.getInt("idUser", 0);		
+		if (idUser == 0) {
+			return 0;
+		} else
+			return idUser;
+
+	}
+
+	void savePreferences(String location) {
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		editor = sharedPreferences.edit();
+		editor.putString("theLocation", location);
+		editor.commit();
 	}
 
 	@Override
@@ -140,6 +252,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	}
 
 	public interface OnDataChangedListener {
+
 		void OnDataChanged(ArrayList<Event> events);
 
 	}
@@ -155,7 +268,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		 * .getDefaultSharedPreferences(this); int minutes =
 		 * prefs.getInt("interval");
 		 */
-		int minutes = 5*60; //5sati
+		int minutes = 5 * 60; // 5sati
 		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		Intent i = new Intent(this, NotificationService.class);
 		PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
@@ -172,13 +285,13 @@ public class MainActivity extends SherlockFragmentActivity implements
 	}
 
 	public void notifyMe() {
-		
+
 	}
 
 	public static void sendData(String str) {
 		if (str.equalsIgnoreCase("updated")) {
-			System.out.println(str);			
-			 // create object
+			System.out.println(str);
+			// create object
 			if (context != null) {
 				notification = new NotificationData<Object>();
 				notification.showNotification(context);
@@ -189,20 +302,21 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public void navigateToSingleEvent(Long eventId) {
-		//Toast.makeText(activity, children, Toast.LENGTH_SHORT).show();
+		// Toast.makeText(activity, children, Toast.LENGTH_SHORT).show();
 		if (eventId != null) {
-			Intent intent = new Intent(getApplicationContext(), EventActivity.class);
+			Intent intent = new Intent(getApplicationContext(),
+					EventActivity.class);
 			intent.putExtra("eventId", eventId);
-		
+
 			startActivity(intent);
 		}
-		
+
 	}
-	
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
-		//changes position of list indicator
+		// changes position of list indicator
 		ftl.setIndicatorPosition();
 	}
 

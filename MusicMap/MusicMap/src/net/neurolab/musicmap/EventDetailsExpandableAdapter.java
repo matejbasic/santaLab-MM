@@ -154,7 +154,7 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 			
 			ft.replace(ll.getId(), fPlayer);
 			ft.commit();
-					
+			
 			fPlayer.initialize(YouTubeDevKey.DEVELOPER_KEY, (OnInitializedListener) activity);
 					
 			group[3] = true;

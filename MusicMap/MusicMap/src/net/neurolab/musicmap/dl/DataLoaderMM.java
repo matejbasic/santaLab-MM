@@ -93,6 +93,7 @@ public class DataLoaderMM extends DataLoader {
 							if(eventLoc.size()==1){
 								e.setIdLocation(eventLoc.get(0));
 								e.save();
+								//System.out.println(e.getName());								
 								}
 						}
 						
