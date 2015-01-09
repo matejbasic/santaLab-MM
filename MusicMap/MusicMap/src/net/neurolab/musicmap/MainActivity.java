@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.Location;
 import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
@@ -40,8 +39,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends SherlockFragmentActivity implements
 		OnDataLoadedListener, MainView {
@@ -52,9 +49,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	private FragmentTabMap ftm = null;
 	private FragmentTabList ftl = null;
-
-	private OnDataChangedListener dataChangedList = null;// ??
-	private OnDataChangedListener dataChangedMap = null;
 
 	// private Boolean dataLoaded = false;
 
@@ -68,21 +62,20 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	SharedPreferences sharedPreferences;
 	Editor editor;
+	
+	ArrayList<Event> events;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		ActiveAndroid.initialize(this);
 		context = getApplicationContext();
 
 		ftm = new FragmentTabMap();
 		ftl = new FragmentTabList();
-		dataChangedList = (OnDataChangedListener) ftl;
-		dataChangedMap = (OnDataChangedListener) ftm;
 
-		Log.i("fragments", "created");
 
 		mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -130,7 +123,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 		tab = mActionBar.newTab().setText(R.string.list)
 				.setTabListener(tabListener);
 		mActionBar.addTab(tab);
-
+//KOD LOGIRANJA SPREMITI USERLOGIN - AKO SE RADI O FACEBOOK KORISNIKU ONDA U userID(User tablica) spremiti facebookId inaèe neki random broj
+//NAKON SPREMANA U BAZU, STAVITI userId u shared preference POD NAZIVOM idUser 
 		long userId = loadSavedPreferences(); // String jer nema getLong samo
 										// getInt
 		long id = 0;
@@ -175,13 +169,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 			menu = new String[] { getResources().getString(
 					R.string.no_preferred_locations) };
 		}
-		/*
-		 * String username = ""; List<PreferredLocation> pl = null; try{ pl =
-		 * new Select().all().from(PreferredLocation.class) .where("user = ?",
-		 * username).execute(); } catch(Exception e){ Log.i("e", e.toString());
-		 * }
-		 */
-
+		
+		//menu = new String[] {"Zagreb", "Oxford", "London", "Baltimore", "Rome", "Boston", "Madison", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2"};
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		dList = (ListView) findViewById(R.id.left_drawer);
 		adapter = new ArrayAdapter<String>(this,
@@ -198,7 +187,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 				if (!(menu[position].equals("") && !menu[position]
 						.equals(getResources().getString(
 								R.string.no_preferred_locations)))) {
-					savePreferences(menu[position]);
+					savePreferences(menu[position]);	
 				}
 				Log.i("mainActivity", "onItemClick");
 			}

@@ -2,6 +2,8 @@ package net.neurolab.musicmap.interfaces;
 
 import java.util.HashMap;
 
+import android.content.Context;
+
 public interface LoginView {
 	
 	public void showProgress();
@@ -12,4 +14,6 @@ public interface LoginView {
 	public void navigateToPreferences();
 	public void navigateToHome();
 	public void getFbFragmentData(HashMap<String, String> data);
+	public void setNoConnectionError();
+	public void setLoginButtons();
 }

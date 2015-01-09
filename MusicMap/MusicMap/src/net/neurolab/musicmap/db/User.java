@@ -56,7 +56,7 @@ public class User extends Model{
 	
 	/**
 	 * if fbUser is true, value is fbId
-	 * else if fbUser is false, value is IMEI
+	 * else if fbUser is false, value is androidId
 	 * 
 	 */
 	public void setApiKeyToUser(String mmApiKey, Boolean fbUser, String value) {

@@ -6,25 +6,70 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg"
     tools:context="net.neurolab.musicmap.LoginActivity" >
+	
+    <ImageView
+        android:id="@+id/logoBig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_text_logo"
+        android:src="@drawable/logo_big" />
+    
+    <ProgressBar
+        android:id="@+id/loginProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp" />
 
+    <Button
+        android:id="@+id/btnCheckConnection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/big_login_btn"
+        android:height="46dp"
+        android:maxHeight="46dp"
+        android:minHeight="46dp"
+        android:text="@string/check_connection_btn"
+        android:textColor="#ffffff"
+        android:visibility="visible"
+        android:width="210dp" />
+    
      <com.facebook.widget.LoginButton
          android:id="@+id/authButton"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_above="@+id/txtLoginAsGuest"
+         android:layout_above="@+id/btnLoginAsGuest"
          android:layout_centerHorizontal="true"
          android:layout_marginBottom="18dp"
-         android:gravity="bottom" />
+         android:gravity="bottom"
+         android:visibility="visible" />
 
-     <TextView
-         android:id="@+id/txtLoginAsGuest"
+     <Button
+         android:id="@+id/btnLoginAsGuest"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
+         android:layout_alignEnd="@id/authButton"
+         android:layout_alignLeft="@id/authButton"
          android:layout_alignParentBottom="true"
-         android:layout_centerHorizontal="true"
+         android:layout_alignRight="@id/authButton"
+         android:layout_alignStart="@id/authButton"
          android:layout_marginBottom="51dp"
-         android:gravity="bottom"
-         android:text="@string/LoginAsGuest" />
+         android:background="@drawable/big_login_btn"
+         android:gravity="center_vertical|center_horizontal"
+         android:height="46dp"
+         android:maxHeight="46dp"
+         android:minHeight="46dp"
+         android:text="@string/LoginAsGuest"
+         android:textColor="#ffffff"
+         android:visibility="visible"
+         android:width="210dp" />
 
 </RelativeLayout>

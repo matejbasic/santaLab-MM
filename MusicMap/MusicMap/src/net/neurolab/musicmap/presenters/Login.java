@@ -2,6 +2,9 @@ package net.neurolab.musicmap.presenters;
 
 import java.util.List;
 
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.PreferredGenre;
+import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.interfaces.LoginPresenter;
 import net.neurolab.musicmap.interfaces.LoginView;
@@ -13,8 +16,10 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.provider.Settings.Secure;
-import android.util.Log;
 
 public class Login implements LoginPresenter {
 	private LoginView loginView;
@@ -22,10 +27,84 @@ public class Login implements LoginPresenter {
 	private String idHash = null;
 	private String userName = null;
 	private String uniqueId = null;
+	private boolean isConnected = false;	
+	private class DependenciesTask extends AsyncTask<Context, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Context... params) {
+			Context context = params[0];
+			try {
+				ConnectivityManager cm = (ConnectivityManager)context
+						.getSystemService(Context.CONNECTIVITY_SERVICE);
+				
+				NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+				
+				//check connection status
+				isConnected = activeNetwork != null && activeNetwork.isConnected();
+				//TODO: add connection type (WiFi) to preferences
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {			
+			if (isConnected) {
+				checkUser();
+			}
+			else {
+				int eventsSum = new Event().getSum();
+				int usersSum = new User().getSum();
+				
+				if (eventsSum == 0 || usersSum == 0) {
+					loginView.setNoConnectionError();
+				}
+				else {
+					//even if not online, user can see previously downloaded events
+					loginView.navigateToHome();
+				}
+			}
+		}
+	
+	}
 	
 	public Login(LoginView loginView) {
 		this.loginView = loginView;
 		
+	}
+	
+	private void checkUser() {
+		List<User> users = new User().getAll();
+		if (!users.isEmpty()) { 
+			Boolean isUserValid = false;
+			for (User user : users) {
+				if ( user.getMmApiKey() != null) { //local DB contains user data but not the user key
+					isUserValid = true;
+					int prefGenresSum = new PreferredGenre().getSum();
+					int prefLocationsSum = new PreferredLocation().getSum();
+					if (prefGenresSum == 0 || prefLocationsSum == 0) {
+						loginView.navigateToPreferences();
+					}
+					else {
+						loginView.navigateToHome();
+					}
+				}	
+			}
+			if (!isUserValid) {
+				loginView.setLoginButtons();
+			}
+		}
+		else {
+			loginView.setLoginButtons();
+		}
+	}
+	@Override
+	public void checkDependencies(Context context) {
+		DependenciesTask task = new DependenciesTask();
+		task.execute(context);
 	}
 	
 	private void addUserToDB(String apiKey, Boolean fromFacebook) {
@@ -36,7 +115,7 @@ public class Login implements LoginPresenter {
 			user = new User(0, this.userName, this.fbId, apiKey, this.idHash);
 		}
 		else {
-			user = new User(0, this.userName, null, apiKey, this.idHash);
+			user = new User(0, this.userName, "0", apiKey, this.idHash);
 			
 		}
 		user.save();
@@ -262,7 +341,6 @@ public class Login implements LoginPresenter {
 						mmTask.execute(params);
 					}
 					else if(results.has("ApiKey")) {
-						Log.i("apiKey", results.getString("ApiKey"));
 						addUserToDB(results.getString("ApiKey"), false);
 						loginView.navigateToPreferences();
 					}
@@ -284,8 +362,7 @@ public class Login implements LoginPresenter {
 		
 		@Override
 		public void handleResult(String result, Boolean status) {
-			Log.i("user key handler", result);
-			//Log.i("handler user key", String.valueOf(status));
+			//Log.i("user key handler", result);
 			JSONObject results = null;
 			try {
 				results = new JSONObject(result);
@@ -296,7 +373,6 @@ public class Login implements LoginPresenter {
 			}
 			if (results != null) {
 				if (results.has("ApiKey")) {
-					Log.i("apiKey", "we have it");
 					try {
 						addApiKeyToUser(results.getString("ApiKey"), false);
 						loginView.navigateToPreferences();

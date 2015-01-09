@@ -6,6 +6,6 @@ import android.content.Context;
 public interface LoginPresenter {
 	
 	public void checkFbUser(String userName, String fbId, Activity activity);
-
 	public void checkGuest(Boolean userExist, Context context);
+	public void checkDependencies(Context context);
 }

@@ -9,13 +9,13 @@
     <string name="facebook_login_failed">Facebook login failed</string>
     <string name="facebook_login_error">Facebook login error</string>
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="LoginAsGuest">Use app as guest</string>
+    <string name="LoginAsGuest">Use app as a guest</string>
     <string name="service_name">MusicMap Web Service</string>
     <string name="title_activity_set_pref_location">Set preferences</string>
 	
     <string name="app_text_logo">MusicMap Logo</string>
     <string name="no_connection_error">No Internet connection</string>
-    <string name="check_connection_btn">Try again</string>
+    <string name="check_connection_btn">Check connection</string>
     <string name="ok">OK</string>
     <string name="location">Location</string>
     <string name="no_location_error">Choose a location</string>
@@ -43,6 +43,7 @@
     <string name="eventRandIcon">Event Icon</string>
     
     <string name="yt_player_error">Failed to load youtube player.</string>
+    <string name="yt_player_no_app_error">Please install youtube app.</string>
     <string name="no_bio_info">"No biography for selected artist/group."</string>
     <string name="open_navigation">Chose location</string>
     <string name="close_navigation">Close</string>

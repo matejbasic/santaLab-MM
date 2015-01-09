@@ -36,11 +36,12 @@ public class FragmentTabMap extends SherlockFragment implements
 	private ArrayList<Event> events;
 	private GoogleMap gMap;
 	private SupportMapFragment fSupportMap;
-	private Location cPrefLocation;
+	//private Location cPrefLocation;
 
 	private ArrayList<Markers> markers;
 
 	SharedPreferences sharedPreferences;
+	String previousLocation = "";
 
 	public FragmentTabMap() {
 		markers = new ArrayList<Markers>();
@@ -65,18 +66,20 @@ public class FragmentTabMap extends SherlockFragment implements
 
 		String theLocation = loadSavedPreferences();
 		Log.i("lokacija mapa", theLocation);
-
+		
+		List<Location> loc = new Select().from(Location.class)
+				.where("city LIKE ?", theLocation).execute();
+		ArrayList<Location> l = (ArrayList<Location>) loc;
+		
 		try {
 
-			if (savedInstanceState == null && !mAlreadyLoaded) {
+			if (savedInstanceState == null && !mAlreadyLoaded/* && !previousLocation.equalsIgnoreCase(theLocation)*/) {
 				Log.i("tabMap", "first load");
 				mAlreadyLoaded = true;
-
+				previousLocation = theLocation;
 				// cPrefLocation = new PreferredLocation().getSingleLocation();
 
-				List<Location> loc = new Select().from(Location.class)
-						.where("city LIKE ?", theLocation).execute();
-				ArrayList<Location> l = (ArrayList<Location>) loc;
+				
 				
 				if (l.size() > 0) {
 					
@@ -97,13 +100,12 @@ public class FragmentTabMap extends SherlockFragment implements
 				dl.LoadData(getActivity(), theLocation);
 
 				Boolean eventsExists = dl.DataLoaded();
-				
-			//INAÈE, OVO TI SE NIKAD NE IZVRŠI IZ NEKOG RAZLOGA :D ... PROBAJ STAVITI NEKI DRUGI GRAD KOJI NEMA U BAZI, I NIKAD SE NE IZVRŠI asynctaks
+								
 				if (!eventsExists) {
 					System.out.println("Loadanje sa servisa");
 					dl = new DataLoaderMM();
 					// dl.LoadData(getActivity(), cPrefLocation.getCity());
-					dl.LoadData(getActivity(), theLocation);
+					dl.LoadData(getActivity(), theLocation);									
 				}
 
 				// this.events = dl.events; //? dodaje se vec u onDataChanged

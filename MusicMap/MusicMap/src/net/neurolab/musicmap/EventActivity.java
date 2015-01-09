@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -164,6 +165,7 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 	public void onInitializationFailure(Provider arg0,
 			YouTubeInitializationResult arg1) {
 		Log.i("Youtube player", "failed to init");
+		Toast.makeText(getApplicationContext(), R.string.yt_player_no_app_error, Toast.LENGTH_LONG).show();
 		
 	}
 
