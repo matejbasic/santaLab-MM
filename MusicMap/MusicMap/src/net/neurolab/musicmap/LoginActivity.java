@@ -8,13 +8,18 @@ import net.neurolab.musicmap.interfaces.LoginView;
 import net.neurolab.musicmap.presenters.Login;
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
@@ -23,8 +28,9 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 
 	private FragmentFacebookLogin fFacebookLogin;
 	private LoginPresenter presenter;
-	private boolean userExist = false;
-	private boolean isInstanceSaved = false;
+	private boolean userExist;
+	private boolean isInstanceSaved;
+	private static boolean connectionValid = false;
 	private ProgressBar progressBar;
 	private Button btnCheckConnection;
 	private Button btnFbAuth;
@@ -39,6 +45,9 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		// active android initialization, must be in launch activity
 		ActiveAndroid.initialize(this);
 		
+		isInstanceSaved = false;
+		userExist = false;
+		
 		Bundle extras = getIntent().getExtras();		
 		if (extras != null) {
 			String reason = extras.getString("reason");
@@ -52,9 +61,12 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		}
 		
 		progressBar = (ProgressBar) findViewById(R.id.loginProgressBar);
+		hideProgress();
 		btnFbAuth = (Button) findViewById(R.id.authButton);
+		btnFbAuth.setVisibility(View.INVISIBLE);
 		
 		btnGuest = (Button) findViewById(R.id.btnLoginAsGuest);	
+		btnGuest.setVisibility(View.INVISIBLE);
 		
 		btnCheckConnection = (Button) findViewById(R.id.btnCheckConnection);
 		btnCheckConnection.setOnClickListener(new OnClickListener() {
@@ -63,65 +75,78 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			public void onClick(View v) {
 				showProgress();
 				btnCheckConnection.setVisibility(View.INVISIBLE);
-				presenter.checkDependencies(getApplicationContext());
+				if (!connectionValid) {
+					presenter.checkDependencies(getApplicationContext());
+				}
 			}
 		});
 		
 		presenter = new Login(this);
-		presenter.checkDependencies(getApplicationContext());	
-	}
-	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		/*
-		LayoutParams params = new LayoutParams(btnFbAuth.getWidth(), (int)(btnFbAuth.getHeight()*0.95));
-		btnGuest.setLayoutParams(params);
-		//btnGuest.setWidth(btnFbAuth.getWidth());
-		//btnGuest.setHeight((int)(btnFbAuth.getHeight()*0.8));
-		btnCheckConnection.setLayoutParams(params);
-		//btnCheckConnection.setWidth(btnFbAuth.getWidth());
-		//btnCheckConnection.setHeight((int)(btnFbAuth.getHeight()*0.85));
-		
-		Log.i("auth W", String.valueOf(btnFbAuth.getWidth()));
-		Log.i("auth H", String.valueOf(btnFbAuth.getHeight()));
-		Log.i("guest W", String.valueOf(btnGuest.getWidth()));
-		Log.i("guest H", String.valueOf(btnGuest.getHeight()));
-		*/
-		
-	}
-
-	@Override
-	public void setLoginButtons() {
+		if (!connectionValid) {
+			presenter.checkDependencies(getApplicationContext());
+		}
 		
 		btnGuest.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				presenter.checkGuest(userExist, getApplicationContext());
+				Log.i("btnGuest", "click");
 			}
-		});		
-		
-		hideProgress();
-		btnCheckConnection.setVisibility(View.INVISIBLE);
-		
-		btnFbAuth.setVisibility(View.VISIBLE);
-		btnGuest.setVisibility(View.VISIBLE);
-		
-		if (isInstanceSaved) {
-			fFacebookLogin = new FragmentFacebookLogin();
-			getSupportFragmentManager().beginTransaction()
-					.add(android.R.id.content, fFacebookLogin).commit();
-		} 
+		});	
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+	}
+	
+	@Override
+	protected void onResume() {
+		Log.i("connectionStatus", String.valueOf(connectionValid));
+		if (connectionValid) {
+			btnFbAuth.setVisibility(View.VISIBLE);
+			btnGuest.setVisibility(View.VISIBLE);
+			
+			hideProgress();
+			btnCheckConnection.setVisibility(View.INVISIBLE);
+		}
 		else {
-			fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
-					.findFragmentById(android.R.id.content);
-		}	
+			btnCheckConnection.setVisibility(View.VISIBLE);
+			
+			btnFbAuth.setVisibility(View.INVISIBLE);
+			btnGuest.setVisibility(View.INVISIBLE);
+		}
+		super.onResume();
+	}
+
+
+	@Override
+	public void setLoginButtons() {
+		if (!connectionValid) {
+			connectionValid = true;
+				
+			
+			hideProgress();
+			btnCheckConnection.setVisibility(View.INVISIBLE);
+			
+			btnFbAuth.setVisibility(View.VISIBLE);
+			btnGuest.setVisibility(View.VISIBLE);
+			
+			if (isInstanceSaved) {
+				fFacebookLogin = new FragmentFacebookLogin();
+				getSupportFragmentManager().beginTransaction()
+						.add(android.R.id.content, fFacebookLogin).commit();
+			} 
+			else {
+				fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
+						.findFragmentById(android.R.id.content);
+			}	
+		}
 	}
 
 	@Override
 	public void getFbFragmentData(HashMap<String, String> data) {
 		if (data.containsKey("id") && data.containsKey("name")) {
-			//Log.i("check fb user", "pre");
 			presenter.checkFbUser(data.get("name")
 					.toString(), data.get("id").toString(), LoginActivity.this);	
 		}
@@ -139,29 +164,34 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 
 	@Override
 	public void setFacebookLoginError() {
-		Toast.makeText(getApplicationContext(), R.string.facebook_login_error,
-				Toast.LENGTH_LONG).show();
+		newToast(R.string.facebook_login_error, Toast.LENGTH_LONG);
 	}
 
 	@Override
 	public void setMMWebServiceError() {
-		Toast.makeText(getApplicationContext(), R.string.mm_service_login_error,
-				Toast.LENGTH_LONG).show();
-
+		newToast(R.string.mm_service_login_error, Toast.LENGTH_LONG);
 	}
 	@Override
 	public void setUnknownError() {
-		Toast.makeText(getApplicationContext(), R.string.unknown_error,
-				Toast.LENGTH_LONG).show();	
+		newToast(R.string.unknown_error, Toast.LENGTH_LONG);
 	}
 	@Override
 	public void setNoConnectionError() {
 		hideProgress();
 		btnCheckConnection.setVisibility(View.VISIBLE);
-		Toast.makeText(getApplicationContext(), R.string.no_connection_error,
-				Toast.LENGTH_LONG).show();
+        newToast(R.string.no_connection_error, Toast.LENGTH_SHORT);
 	}
 
+	private void newToast(int txtId, int duration) {
+		LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
+        ((TextView) layout.findViewById(R.id.toast_text)).setText(txtId);
+
+        Toast toast = new Toast(getBaseContext());
+        toast.setDuration(duration);
+        toast.setView(layout);
+        toast.show();
+	}
 	@Override
 	public void navigateToPreferences() {
 		Intent intent = new Intent(LoginActivity.this,

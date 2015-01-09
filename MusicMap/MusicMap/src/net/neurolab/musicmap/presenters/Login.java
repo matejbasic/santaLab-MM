@@ -296,7 +296,7 @@ public class Login implements LoginPresenter {
 		List<User> users = new User().getAll();
 		if (!users.isEmpty()) { //but no mm Api Key!
 			Boolean noMatch = true;
-			//Log.i("users", "exists");
+			
 			for (User user : users) {
 				if (uniqueId.matches(user.getFirstLastName())) {
 					//Log.i("users", "match");
@@ -305,17 +305,19 @@ public class Login implements LoginPresenter {
 					if ( user.getMmApiKey() == null) {
 						getUserKey(uniqueId);
 					}
-					else {
-						loginView.navigateToPreferences();
-					}
+					
+					loginView.navigateToPreferences();
+					
 				}
 			}
 			if (noMatch) {
 				newUser(uniqueId);
+				loginView.navigateToPreferences();
 			}
 		}
 		else {
 			newUser(uniqueId);
+			loginView.navigateToPreferences();
 		}
 	}
 

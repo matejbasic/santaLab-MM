@@ -22,6 +22,7 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="180dp" />
@@ -33,14 +34,16 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="0dp"
-        android:background="@drawable/big_login_btn"
-        android:height="46dp"
-        android:maxHeight="46dp"
-        android:minHeight="46dp"
+        android:background="@xml/big_login_btn"
         android:text="@string/check_connection_btn"
         android:textColor="#ffffff"
         android:visibility="visible"
-        android:width="210dp" />
+        android:height="42dp"
+        android:maxHeight="42dp"
+        android:minHeight="42dp" 
+        android:width="208dp"
+        android:maxWidth="208dp"
+        android:textSize="16sp" />
     
      <com.facebook.widget.LoginButton
          android:id="@+id/authButton"
@@ -50,7 +53,7 @@
          android:layout_centerHorizontal="true"
          android:layout_marginBottom="18dp"
          android:gravity="bottom"
-         android:visibility="visible" />
+         android:visibility="invisible" />
 
      <Button
          android:id="@+id/btnLoginAsGuest"
@@ -62,14 +65,16 @@
          android:layout_alignRight="@id/authButton"
          android:layout_alignStart="@id/authButton"
          android:layout_marginBottom="51dp"
-         android:background="@drawable/big_login_btn"
+         android:background="@xml/big_login_btn"
          android:gravity="center_vertical|center_horizontal"
-         android:height="46dp"
-         android:maxHeight="46dp"
-         android:minHeight="46dp"
+         android:height="42dp"
+         android:maxHeight="42dp"
+         android:minHeight="42dp"
          android:text="@string/LoginAsGuest"
          android:textColor="#ffffff"
-         android:visibility="visible"
-         android:width="210dp" />
+         android:visibility="invisible"
+         android:width="208dp"
+         android:maxWidth="208dp"
+         android:textSize="16sp" />
 
 </RelativeLayout>
