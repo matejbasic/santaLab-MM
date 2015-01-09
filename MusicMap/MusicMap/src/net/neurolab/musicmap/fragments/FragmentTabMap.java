@@ -40,8 +40,7 @@ public class FragmentTabMap extends SherlockFragment implements
 
 	private ArrayList<Markers> markers;
 
-	SharedPreferences sharedPreferences;
-	String previousLocation = "";
+	SharedPreferences sharedPreferences;	
 
 	public FragmentTabMap() {
 		markers = new ArrayList<Markers>();
@@ -73,10 +72,10 @@ public class FragmentTabMap extends SherlockFragment implements
 		
 		try {
 
-			if (savedInstanceState == null && !mAlreadyLoaded/* && !previousLocation.equalsIgnoreCase(theLocation)*/) {
+			if (savedInstanceState == null && !mAlreadyLoaded ) {
 				Log.i("tabMap", "first load");
 				mAlreadyLoaded = true;
-				previousLocation = theLocation;
+				
 				// cPrefLocation = new PreferredLocation().getSingleLocation();
 
 				
@@ -135,8 +134,8 @@ public class FragmentTabMap extends SherlockFragment implements
 		sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
 		String theLocation = sharedPreferences.getString("theLocation",
-				"theLocation");
-		if (theLocation.equalsIgnoreCase("")) {
+				"");
+		if (theLocation.equalsIgnoreCase("") || theLocation.equalsIgnoreCase(getResources().getString(R.string.no_preferred_locations))) {
 			return "Zagreb";
 		} else
 			return theLocation;
@@ -167,9 +166,9 @@ public class FragmentTabMap extends SherlockFragment implements
 	}
 
 	public void addMarkers(double lat, double lng, String name) {
-		// System.out.println("addMarkers");
+		System.out.println("addMarkers");
 		markers.add(new Markers(lat, lng, name));
-
+		
 	}
 
 	@Override
@@ -177,8 +176,12 @@ public class FragmentTabMap extends SherlockFragment implements
 		Log.i("tabMap", "onDataChanged");
 		Log.i("OnDChanged events size", String.valueOf(events.size()));
 		this.events = events;
+		
+		System.out.println(this.events.size());
 		markers.clear();
 		for (int i = 0; i < events.size(); i++) {
+			Log.i("tabMap", events
+					.get(i).getIdLocation().getName());
 			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events
 					.get(i).getIdLocation().getName());
 		}

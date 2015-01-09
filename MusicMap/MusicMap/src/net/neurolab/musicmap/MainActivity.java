@@ -125,16 +125,24 @@ public class MainActivity extends SherlockFragmentActivity implements
 		mActionBar.addTab(tab);
 //KOD LOGIRANJA SPREMITI USERLOGIN - AKO SE RADI O FACEBOOK KORISNIKU ONDA U userID(User tablica) spremiti facebookId inaèe neki random broj
 //NAKON SPREMANA U BAZU, STAVITI userId u shared preference POD NAZIVOM idUser 
-		long userId = loadSavedPreferences(); // String jer nema getLong samo
-										// getInt
-		long id = 0;
+		/*
+		String userId = loadSavedPreferences();
+		//obrisati - samo za probu kad nema logina 
+		Log.i("user", userId);						
+		if(userId.equals("NN")){
+			userId="0";
+		}
+		//obrisati
+		
+		
+		Long id = (long) 0;
 		List<User> user = null;
 		List<PreferredLocation> loc;
 		ArrayList<PreferredLocation> l = null;
 		ArrayList<User> u = null;
 
 		try {
-			user = new Select().from(User.class).where("userId = ?", userId)
+			user = new Select().from(User.class).where("facebookId = ?", userId)
 					.execute();
 			u = (ArrayList<User>) user;
 		} catch (Exception e) {
@@ -169,8 +177,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 			menu = new String[] { getResources().getString(
 					R.string.no_preferred_locations) };
 		}
-		
-		//menu = new String[] {"Zagreb", "Oxford", "London", "Baltimore", "Rome", "Boston", "Madison", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2", "1", "2"};
+		*/
+		menu = new String[] {"Zagreb", "Oxford", "London", "Baltimore", "Rome", "Boston", "Madison"};
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		dList = (ListView) findViewById(R.id.left_drawer);
 		adapter = new ArrayAdapter<String>(this,
@@ -196,11 +204,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 		Log.i("mainActivity", "on create end");
 	}
 
-	public long loadSavedPreferences() {
+	public String loadSavedPreferences() {
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		long idUser = sharedPreferences.getInt("idUser", 0);		
-		if (idUser == 0) {
-			return 0;
+		String idUser = sharedPreferences.getString("idUser", "");		
+		if (idUser.equalsIgnoreCase("")) {
+			return "NN";
 		} else
 			return idUser;
 
