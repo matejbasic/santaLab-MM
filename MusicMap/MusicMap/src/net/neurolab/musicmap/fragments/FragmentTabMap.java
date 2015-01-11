@@ -39,7 +39,8 @@ public class FragmentTabMap extends SherlockFragment implements
 	// private Location cPrefLocation;
 
 	private ArrayList<Markers> markers;
-
+	private String previousLocation = "previousLocation";
+	private List<String> previousLocations = new ArrayList<String>();
 	SharedPreferences sharedPreferences;
 
 	public FragmentTabMap() {
@@ -64,64 +65,88 @@ public class FragmentTabMap extends SherlockFragment implements
 		}
 
 		String theLocation = loadSavedPreferences();
+
 		Log.i("lokacija mapa", theLocation);
-
-		List<Location> loc = new Select().from(Location.class)
-				.where("city LIKE ?", theLocation).execute();
-		ArrayList<Location> l = (ArrayList<Location>) loc;
-
-		try {
-
-			/*
-			 * if (savedInstanceState == null && !mAlreadyLoaded ) {
-			 * Log.i("tabMap", "first load"); mAlreadyLoaded = true;
-			 */
-			// cPrefLocation = new PreferredLocation().getSingleLocation();
-
-			if (l.size() > 0) {
-
-				gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(l
-						.get(0).getLat(), l.get(0).getLng()), (float) 12.0));
+		/*
+		 * List<Location> loc = new Select().from(Location.class)
+		 * .where("city LIKE ?", theLocation).execute(); ArrayList<Location> l =
+		 * (ArrayList<Location>) loc;
+		 */
+	
+		if (!theLocation.equalsIgnoreCase(previousLocation) && !isAlreadyLoaded(theLocation)) {
+			Log.i("tabMap", "first load");
+			previousLocation = theLocation;
+			System.out.println(previousLocation);
+			
+			try{
+			previousLocations.add(theLocation);
+			System.out.println("blabla");}
+			catch(Exception e){
+				System.out.println(e);
 			}
+			try {
+				/*
+				 * if (savedInstanceState == null && !mAlreadyLoaded) {
+				 * Log.i("tabMap", "first load"); mAlreadyLoaded = true;
+				 */
 
-			/*
-			 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-			 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float) 12.0));
-			 */
+				// cPrefLocation = new PreferredLocation().getSingleLocation();
 
-			System.out.println("Loadanje iz baze");
-			DataLoader dl = new DataLoaderDB();
-			// dl.LoadData(getActivity(), cPrefLocation.getCity());
-			dl.LoadData(getActivity(), theLocation);
+				/*
+				 * if (l.size() > 0) { location = l.get(0);
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
+				 * LatLng(l .get(0).getLat(), l.get(0).getLng()), (float)
+				 * 12.0)); }
+				 */
+				/*
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
+				 * 12.0));
+				 */
 
-			Boolean eventsExists = dl.DataLoaded();
-
-			if (!eventsExists) {
-				System.out.println("Loadanje sa servisa");
-				dl = new DataLoaderMM();
+				System.out.println("Loadanje iz baze");
+				DataLoader dl = new DataLoaderDB();
 				// dl.LoadData(getActivity(), cPrefLocation.getCity());
 				dl.LoadData(getActivity(), theLocation);
+
+				Boolean eventsExists = dl.DataLoaded();
+
+				if (!eventsExists) {
+					System.out.println("Loadanje sa servisa");
+					dl = new DataLoaderMM();
+					// dl.LoadData(getActivity(), cPrefLocation.getCity());
+					dl.LoadData(getActivity(), theLocation);
+				}
+
+				// this.events = dl.events; //? dodaje se vec u onDataChanged
+				// Log.i("events size", String.valueOf(events.size()));
+
+				/*
+				 * }
+				 * 
+				 * else { Log.i("tabMap", "n-th load"); DataLoader dl = new
+				 * DataLoaderDB(); dl.LoadData(getActivity(), theLocation);
+				 * 
+				 * // this.events = dl.events; // Log.i("events size",
+				 * String.valueOf(events.size()); // addMarkersToMap();
+				 * 
+				 * }
+				 */
+
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-			// this.events = dl.events; //? dodaje se vec u onDataChanged
-			// Log.i("events size", String.valueOf(events.size()));
-
-			// }
-			/*
-			 * else { Log.i("tabMap", "n-th load"); DataLoader dl = new
-			 * DataLoaderDB(); // dl.LoadData(getActivity(), "Zagreb");
-			 * dl.LoadData(getActivity(), theLocation);
-			 * 
-			 * // this.events = dl.events; // Log.i("events size",
-			 * String.valueOf(events.size())); // addMarkersToMap();
-			 * 
-			 * }
-			 */
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+	}
 
+	public boolean isAlreadyLoaded(String loc) {
+		for (String l : previousLocations) {
+			Log.i("isLoaded", l);
+			if (loc.equalsIgnoreCase(l)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String loadSavedPreferences() {
@@ -157,6 +182,13 @@ public class FragmentTabMap extends SherlockFragment implements
 
 				gMap.addMarker(marker);
 			}
+			/*
+			 * if (location != null) {
+			 * gMap.animateCamera(CameraUpdateFactory.zoomTo( 2.0f ));
+			 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+			 * this.location.getLat(), this.location.getLng()), (float) 12.0));
+			 * }
+			 */
 		}
 	}
 

@@ -29,9 +29,10 @@ public class NotificationService extends Service {
 
 	private WakeLock mWakeLock;
 	private boolean updated;
+
 	/**
-	 * Simply return null, since our Service will not be communicating with any
-	 * other components. It just does its work silently.
+	 * Return null, since the Service will not be communicating with any other
+	 * components.
 	 */
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -40,9 +41,8 @@ public class NotificationService extends Service {
 	}
 
 	/**
-	 * This is where we initialize. We call this when onStart/onStartCommand is
-	 * called by the system. We won't do anything with the intent here, and you
-	 * probably won't, either.
+	 * Initialization. This is called when onStart/onStartCommand is called by
+	 * the system. Not doing anything with the intent here.
 	 */
 
 	private void handleIntent(Intent intent) {
@@ -70,9 +70,6 @@ public class NotificationService extends Service {
 
 	private class PollTask extends AsyncTask<Void, Void, Void> {
 		/**
-		 * This is where YOU do YOUR work. There's nothing for me to write here
-		 * you have to fill this in. Make your HTTP request(s) or whatever it is
-		 * you have to do to get your updates in here, because this is run in a
 		 * separate thread
 		 */
 
@@ -104,7 +101,7 @@ public class NotificationService extends Service {
 				updated = false;
 				if (status) { // PROVJERITI STATUS
 					try {
-						 
+
 						events = new ArrayList<Event>();
 						ArrayList<Location> locations = new ArrayList<Location>();
 						ArrayList<Genre> genres = new ArrayList<Genre>();
@@ -231,9 +228,9 @@ public class NotificationService extends Service {
 							}
 						}
 
-						if(updated){
+						if (updated) {
 							MainActivity.sendData("updated");
-							
+
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -244,15 +241,9 @@ public class NotificationService extends Service {
 		};
 
 		/**
-		 * In here you should interpret whatever you fetched in doInBackground
-		 * and push any notifications you need to the status bar, using the
-		 * NotificationManager. I will not cover this here, go check the docs on
-		 * NotificationManager.
-		 *
-		 * What you HAVE to do is call stopSelf() after you've pushed your
-		 * notification(s). This will: 1) Kill the service so it doesn't waste
-		 * precious resources 2) Call onDestroy() which will release the wake
-		 * lock, so the device can go to sleep again and save precious battery.
+		 * This will: 1) Kill the service so it doesn't waste resources 2) Call
+		 * onDestroy() which will release the wake lock, so the device can go to
+		 * sleep again and save battery.
 		 */
 		@Override
 		protected void onPostExecute(Void result) {
@@ -263,8 +254,8 @@ public class NotificationService extends Service {
 	}
 
 	/**
-	 * This is deprecated, but you have to implement it if you're planning on
-	 * supporting devices with an API level lower than 5 (Android 2.0).
+	 * Have to implement for supporting devices with an API level lower than 5
+	 * (Android 2.0).
 	 */
 	@Override
 	public void onStart(Intent intent, int startId) {
@@ -285,9 +276,9 @@ public class NotificationService extends Service {
 	}
 
 	/**
-	 * In onDestroy() we release our wake lock. This ensures that whenever the
-	 * Service stops (killed for resources, stopSelf() called, etc.), the wake
-	 * lock will be released.
+	 * Release the wake lock. This ensures that whenever the Service stops
+	 * (killed for resources, stopSelf() called, etc.), the wake lock will be
+	 * released.
 	 */
 	public void onDestroy() {
 		super.onDestroy();

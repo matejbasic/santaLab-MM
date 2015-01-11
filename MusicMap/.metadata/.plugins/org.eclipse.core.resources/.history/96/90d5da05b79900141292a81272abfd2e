@@ -1,0 +1,249 @@
+package net.neurolab.musicmap.fragments;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
+import net.neurolab.musicmap.R;
+import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.db.Location;
+import net.neurolab.musicmap.db.PreferredLocation;
+import net.neurolab.musicmap.dl.DataLoader;
+import net.neurolab.musicmap.dl.DataLoaderDB;
+import net.neurolab.musicmap.dl.DataLoaderMM;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.activeandroid.query.Select;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class FragmentTabMap extends SherlockFragment implements
+		OnDataChangedListener {
+
+	private boolean mAlreadyLoaded = false;
+	public boolean fromSearch = false;
+	private ArrayList<Event> events;
+	private GoogleMap gMap;
+	private SupportMapFragment fSupportMap;
+	// private Location cPrefLocation;
+
+	private ArrayList<Markers> markers;
+	private String previousLocation = "previousLocation";
+	private List<String> previousLocations = new ArrayList<String>();
+	SharedPreferences sharedPreferences;
+
+	public FragmentTabMap() {
+		markers = new ArrayList<Markers>();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		Log.i("tabMap", "create");
+
+		return inflater.inflate(R.layout.fragment_tab_map, container, false);
+	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		System.out.println("OnViewCreated");
+		if (gMap == null) {
+			initMap();
+		}
+
+		String theLocation = loadSavedPreferences();
+
+		Log.i("lokacija mapa", theLocation);
+		/*
+		 * List<Location> loc = new Select().from(Location.class)
+		 * .where("city LIKE ?", theLocation).execute(); ArrayList<Location> l =
+		 * (ArrayList<Location>) loc;
+		 */
+		System.out.println(isAlreadyLoaded(theLocation));
+		if (!theLocation.equalsIgnoreCase(previousLocation) || !isAlreadyLoaded(theLocation)) {
+			Log.i("tabMap", "first load");
+			previousLocation = theLocation;
+			System.out.println(previousLocation);
+			
+			try{
+			previousLocations.add(theLocation);
+			System.out.println("blabla");}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			try {
+				/*
+				 * if (savedInstanceState == null && !mAlreadyLoaded) {
+				 * Log.i("tabMap", "first load"); mAlreadyLoaded = true;
+				 */
+
+				// cPrefLocation = new PreferredLocation().getSingleLocation();
+
+				/*
+				 * if (l.size() > 0) { location = l.get(0);
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
+				 * LatLng(l .get(0).getLat(), l.get(0).getLng()), (float)
+				 * 12.0)); }
+				 */
+				/*
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
+				 * 12.0));
+				 */
+
+				System.out.println("Loadanje iz baze");
+				DataLoader dl = new DataLoaderDB();
+				// dl.LoadData(getActivity(), cPrefLocation.getCity());
+				dl.LoadData(getActivity(), theLocation);
+
+				Boolean eventsExists = dl.DataLoaded();
+
+				if (!eventsExists) {
+					System.out.println("Loadanje sa servisa");
+					dl = new DataLoaderMM();
+					// dl.LoadData(getActivity(), cPrefLocation.getCity());
+					dl.LoadData(getActivity(), theLocation);
+				}
+
+				// this.events = dl.events; //? dodaje se vec u onDataChanged
+				// Log.i("events size", String.valueOf(events.size()));
+
+				/*
+				 * }
+				 * 
+				 * else { Log.i("tabMap", "n-th load"); DataLoader dl = new
+				 * DataLoaderDB(); dl.LoadData(getActivity(), theLocation);
+				 * 
+				 * // this.events = dl.events; // Log.i("events size",
+				 * String.valueOf(events.size()); // addMarkersToMap();
+				 * 
+				 * }
+				 */
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public boolean isAlreadyLoaded(String loc) {
+		for (String l : previousLocations) {
+			Log.i("isLoaded", l);
+			if (loc.equalsIgnoreCase(l)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String loadSavedPreferences() {
+		sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(getActivity());
+		String theLocation = sharedPreferences.getString("theLocation", "");
+		if (theLocation.equalsIgnoreCase("")
+				|| theLocation.equalsIgnoreCase(getResources().getString(
+						R.string.no_preferred_locations))) {
+			return "Zagreb";
+		} else
+			return theLocation;
+
+	}
+
+	// ex loadData()
+	public void addMarkersToMap() {
+		Log.i("addMarkersToMap map", gMap.toString());
+		if (gMap != null) {
+			MarkerOptions marker;
+			double latitude = 0, longitude = 0;
+			String title = "";
+			Log.i("addMtoM mark size", String.valueOf(markers.size()));
+			for (int i = 0; i < markers.size(); i++) {
+				latitude = markers.get(i).getLat();
+				longitude = markers.get(i).getLng();
+				title = markers.get(i).getTitle();
+				marker = new MarkerOptions().position(
+						new LatLng(latitude, longitude)).title(title);
+
+				// Log.i("marker vals", String.valueOf(latitude) + " " +
+				// String.valueOf(longitude) + " " + title);
+
+				gMap.addMarker(marker);
+			}
+			/*
+			 * if (location != null) {
+			 * gMap.animateCamera(CameraUpdateFactory.zoomTo( 2.0f ));
+			 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+			 * this.location.getLat(), this.location.getLng()), (float) 12.0));
+			 * }
+			 */
+		}
+	}
+
+	public void addMarkers(double lat, double lng, String name) {
+		System.out.println("addMarkers");
+		markers.add(new Markers(lat, lng, name));
+
+	}
+
+	@Override
+	public void OnDataChanged(ArrayList<Event> events) {
+		Log.i("tabMap", "onDataChanged");
+		Log.i("OnDChanged events size", String.valueOf(events.size()));
+		this.events = events;
+
+		System.out.println(this.events.size());
+		markers.clear();
+		for (int i = 0; i < events.size(); i++) {
+			Log.i("tabMap", events.get(i).getIdLocation().getName());
+			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events
+					.get(i).getIdLocation().getName());
+		}
+
+		addMarkersToMap();
+	}
+
+	private void initMap() {
+		Log.i("initMap status", String.valueOf(gMap));
+		if (gMap == null) {
+
+			fSupportMap = ((SupportMapFragment) getChildFragmentManager()
+					.findFragmentById(R.id.map));
+			Log.i("tempFrag", String.valueOf(fSupportMap));
+
+			if (fSupportMap != null) {
+				gMap = fSupportMap.getMap();
+			} else {
+				Log.i("initMap", "mapFrag is null");
+			}
+
+			// check if map is created successfully or not
+			if (gMap == null) {
+				Log.i("googleMap", "=null, ludilo!");
+				Toast.makeText(getActivity(),
+						R.string.gmap_unable_to_create_error,
+						Toast.LENGTH_SHORT).show();
+			} else {
+				// UiSettings mm = gMap.getUiSettings();
+				// gMap.setMyLocationEnabled(true);
+			}
+		}
+	}
+
+	public void refresh() {
+		this.onViewCreated(getView(), null);
+	}
+
+}

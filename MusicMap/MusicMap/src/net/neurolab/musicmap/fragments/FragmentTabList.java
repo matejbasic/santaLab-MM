@@ -103,6 +103,31 @@ public class FragmentTabList extends SherlockFragment implements
 		return i;
 	}
 
+
+	public void loadData(ArrayList<Group> groups){
+		// now MainActivity no longer changes the list
+		// Fragment is in charge for setting the data and changing the expandable list	
+		Log.i("loadData", "1");
+		try{
+			listView = (ExpandableListView) getView().findViewById(R.id.listView);
+		}
+		catch(Exception e){
+			Log.i("loadDataTabList", e.toString());
+		}
+		Log.i("loadData", "2");
+		if (listView != null) {
+			EventsExpandableAdapter adapter = new EventsExpandableAdapter(
+					getActivity(), groups);
+			Log.i("loadData", "3");
+			listView.setAdapter(adapter);
+			Log.i("loadData", "4");
+		} else {
+			Log.i("tabList", "listView = null");
+		}
+		
+		
+	}
+	
 	@Override
 	public void OnDataChanged(ArrayList<Event> events) {
 		// Log.i("tabList", "On data changed");
@@ -122,7 +147,7 @@ public class FragmentTabList extends SherlockFragment implements
 				groups.get(i).getChildren().add(event);
 			}
 		}
-
+		loadData(groups);
 	}
 
 	@Override

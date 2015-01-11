@@ -55,24 +55,28 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/NoActionBar" >
-            
+            android:theme="@style/NoActionBar"
+            android:noHistory="true"   >
+             
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/NoActionBar" >
+            android:theme="@style/NoActionBar" 
+            >
         </activity>
         <activity
             android:name=".SetPreferencesActivity"
             android:label="@string/title_activity_set_pref_location"
-            android:theme="@style/NoActionBar" >
+            android:theme="@style/NoActionBar"
+            android:noHistory="true"   >
+            
         </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:uiOptions="splitActionBarWhenNarrow" >
-            <intent-filter>
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
