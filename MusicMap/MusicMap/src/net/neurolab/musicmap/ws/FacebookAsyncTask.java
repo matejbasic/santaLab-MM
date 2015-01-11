@@ -60,7 +60,7 @@ public class FacebookAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	@Override
 	protected Object[] doInBackground(Object... params) {
 		Object result[] = new Object[] {false, "", null, null, null};
-		
+		Log.i("fbAsyncTask", "doInBg");
 		Session session = (Session)params[0];
 		String action = (String)params[1];
 		FacebookResultHandler handler = (FacebookResultHandler) params[4];

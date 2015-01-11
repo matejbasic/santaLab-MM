@@ -44,7 +44,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		
 		// active android initialization, must be in launch activity
 		ActiveAndroid.initialize(this);
-		
+		Log.i("lActivity", "onCreate");
 		isInstanceSaved = false;
 		userExist = false;
 		
@@ -63,12 +63,21 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		progressBar = (ProgressBar) findViewById(R.id.loginProgressBar);
 		hideProgress();
 		btnFbAuth = (Button) findViewById(R.id.authButton);
-		btnFbAuth.setVisibility(View.INVISIBLE);
 		
 		btnGuest = (Button) findViewById(R.id.btnLoginAsGuest);	
-		btnGuest.setVisibility(View.INVISIBLE);
 		
 		btnCheckConnection = (Button) findViewById(R.id.btnCheckConnection);
+		
+		if (connectionValid) {
+			btnGuest.setVisibility(View.VISIBLE);
+			btnFbAuth.setVisibility(View.VISIBLE);
+			btnCheckConnection.setVisibility(View.INVISIBLE);
+		}
+		else {
+			btnGuest.setVisibility(View.INVISIBLE);
+			btnFbAuth.setVisibility(View.INVISIBLE);
+			btnCheckConnection.setVisibility(View.VISIBLE);
+		}
 		btnCheckConnection.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -86,23 +95,19 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			presenter.checkDependencies(getApplicationContext());
 		}
 		
-		btnGuest.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View v) {
-				presenter.checkGuest(userExist, getApplicationContext());
-				Log.i("btnGuest", "click");
-			}
-		});	
 	}
 	
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
+	public void onWindowFocusChanged(boolean hasFocus) {
+		
+		super.onWindowFocusChanged(hasFocus);
 	}
 	
 	@Override
 	protected void onResume() {
-		Log.i("connectionStatus", String.valueOf(connectionValid));
+		/*
+		Log.i("onResume cValid", String.valueOf(connectionValid));
+		
 		if (connectionValid) {
 			btnFbAuth.setVisibility(View.VISIBLE);
 			btnGuest.setVisibility(View.VISIBLE);
@@ -116,37 +121,43 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			btnFbAuth.setVisibility(View.INVISIBLE);
 			btnGuest.setVisibility(View.INVISIBLE);
 		}
+		*/
+		
 		super.onResume();
 	}
 
 
 	@Override
 	public void setLoginButtons() {
+		Log.i("setLoginButtons cValid", String.valueOf(connectionValid));
 		if (!connectionValid) {
 			connectionValid = true;
-				
-			
+		
 			hideProgress();
 			btnCheckConnection.setVisibility(View.INVISIBLE);
 			
 			btnFbAuth.setVisibility(View.VISIBLE);
 			btnGuest.setVisibility(View.VISIBLE);
 			
-			if (isInstanceSaved) {
+			if (!isInstanceSaved) {
+				Log.i("fb", "firstOne");
 				fFacebookLogin = new FragmentFacebookLogin();
 				getSupportFragmentManager().beginTransaction()
 						.add(android.R.id.content, fFacebookLogin).commit();
 			} 
 			else {
+				Log.i("fb", "secondOne");
 				fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
 						.findFragmentById(android.R.id.content);
 			}	
+			
 		}
 	}
 
 	@Override
 	public void getFbFragmentData(HashMap<String, String> data) {
 		if (data.containsKey("id") && data.containsKey("name")) {
+		
 			presenter.checkFbUser(data.get("name")
 					.toString(), data.get("id").toString(), LoginActivity.this);	
 		}
@@ -196,6 +207,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	public void navigateToPreferences() {
 		Intent intent = new Intent(LoginActivity.this,
 				SetPreferencesActivity.class);
+		Log.i("loginActivity", "navigateToPref");
 		startActivity(intent); 
 	}
 
@@ -203,7 +215,13 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	public void navigateToHome() {
 		Intent intent = new Intent(LoginActivity.this,
 				MainActivity.class);
+		Log.i("loginActivtiy", "navigateToHome");
 		startActivity(intent); 
+	}
+
+	@Override
+	public void checkGuest() {
+		presenter.checkGuest(userExist, getApplicationContext());
 	}
 
 

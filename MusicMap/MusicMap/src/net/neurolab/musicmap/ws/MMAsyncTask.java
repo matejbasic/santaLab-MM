@@ -26,7 +26,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String apiKey = "2c9s1rwf7578307";
 	
 	private String httpGetRequest(String url) {
-		//Log.i("get url", url);
+		Log.i("get url", url);
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -182,6 +182,8 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 				}
 			}
 			else if (action.matches("getKey")) {
+				Log.i("user getKey", params[4].toString());
+				Log.i("user getKey", params[5].toString());
 				if (params[4] != null && params[5] != null) {
 					result[0] = this.getUserKey(params[4].toString(), params[5].toString(), false);
 					result[1] = true;

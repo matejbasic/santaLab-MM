@@ -16,4 +16,5 @@ public interface LoginView {
 	public void getFbFragmentData(HashMap<String, String> data);
 	public void setNoConnectionError();
 	public void setLoginButtons();
+	public void checkGuest();
 }

@@ -20,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.provider.Settings.Secure;
+import android.util.Log;
 
 public class Login implements LoginPresenter {
 	private LoginView loginView;
@@ -81,7 +82,7 @@ public class Login implements LoginPresenter {
 		if (!users.isEmpty()) { 
 			Boolean isUserValid = false;
 			for (User user : users) {
-				if ( user.getMmApiKey() != null) { //local DB contains user data but not the user key
+				if (user.getMmApiKey() != null) {
 					isUserValid = true;
 					int prefGenresSum = new PreferredGenre().getSum();
 					int prefLocationsSum = new PreferredLocation().getSum();
@@ -142,13 +143,17 @@ public class Login implements LoginPresenter {
 	private void getUserKey(String userName) {
 		this.idHash = String.valueOf(userName.hashCode());
 		this.userName = userName;
-		
+		Log.i("getUserKey", "da");
+		Log.i("getUserKey", userName);
+		Log.i("getUserKey", this.userName);
+		Log.i(userName, idHash);
 		MMAsyncTask mmTask = new MMAsyncTask();
 		Object params[] = new Object[]{"user", "getKey", null, getUserKeyHandler, this.userName, this.idHash};
 		mmTask.execute(params);
 	}
 	
 	private void newFbUser(String fbId, String userName) {
+		Log.i("newFbUser", "start");
 		this.idHash = String.valueOf(fbId.hashCode());
 		this.fbId = fbId;
 		this.userName = userName;
@@ -158,7 +163,7 @@ public class Login implements LoginPresenter {
 		mmTask.execute(params);
 	}
 	private void newUser(String uniqueId) {
-		this.idHash = String.valueOf(userName);
+		this.idHash = String.valueOf(uniqueId.hashCode());
 		this.userName = uniqueId;
 		//Log.i("newUser", "start");
 		MMAsyncTask mmTask = new MMAsyncTask();
@@ -168,7 +173,7 @@ public class Login implements LoginPresenter {
 	
 	@Override
 	public void checkFbUser(String userName, String fbId, Activity activity) {
-		
+		Log.i("Login", "checkFbUser");
 		List<User> users = new User().getAll();
 		if (!users.isEmpty()) { //if user exist
 			Boolean noMatch = true;
@@ -199,7 +204,7 @@ public class Login implements LoginPresenter {
 		@Override
 		public void handleResult(String result, Boolean status) {
 			
-			//Log.i("handler user key", String.valueOf(status));
+			Log.i("handler user key", result);
 			JSONObject results = null;
 			try {
 				results = new JSONObject(result);
@@ -242,6 +247,7 @@ public class Login implements LoginPresenter {
 		
 		@Override
 		public void handleResult(String result, Boolean status) {
+			Log.i("fbUserHandler", result);
 			JSONObject results = null;
 			
 			try {
@@ -312,12 +318,12 @@ public class Login implements LoginPresenter {
 			}
 			if (noMatch) {
 				newUser(uniqueId);
-				loginView.navigateToPreferences();
+				//loginView.navigateToPreferences();
 			}
 		}
 		else {
 			newUser(uniqueId);
-			loginView.navigateToPreferences();
+			//loginView.navigateToPreferences();
 		}
 	}
 
@@ -329,6 +335,7 @@ public class Login implements LoginPresenter {
 			
 			try {
 				results = new JSONObject(result);
+				Log.i("user Handler results", results.toString());
 			} 
 			catch (JSONException e) {
 				loginView.setFacebookLoginError();
@@ -339,6 +346,12 @@ public class Login implements LoginPresenter {
 					if (results.has("error")) {
 						
 						MMAsyncTask mmTask = new MMAsyncTask();
+						Log.i("userHandler", userName);
+						Log.i("userHandler", idHash);
+						Log.i("userHandler", "end");
+						if (idHash == null) {
+							idHash = String.valueOf(userName.hashCode());
+						}
 						Object params[] = new Object[]{"user", "getKey", null, getUserKeyHandler, userName, idHash};
 						mmTask.execute(params);
 					}
@@ -364,7 +377,7 @@ public class Login implements LoginPresenter {
 		
 		@Override
 		public void handleResult(String result, Boolean status) {
-			//Log.i("user key handler", result);
+			Log.i("user key handler", result);
 			JSONObject results = null;
 			try {
 				results = new JSONObject(result);
