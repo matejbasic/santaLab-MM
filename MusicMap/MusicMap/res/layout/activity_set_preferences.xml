@@ -8,19 +8,5 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="net.neurolab.musicmap.SetPreferences" >
-	<!-- we are adding fragments dynamically so there is no need for fragments hardcoded in xml
-    <fragment
-        android:name="net.neurolab.musicmap.fragments.FragmentSetPreferedLocation"
-       	android:id="@+id/fragmentSetPreferences"
-       	android:layout_width="match_parent"
-       	android:layout_height="match_parent"
-     />
-    
-     <fragment
-        android:name="net.neurolab.musicmap.fragments.FragmentSetPreferedGenres"
-       	android:id="@+id/fragmentSetGenres"
-       	android:layout_width="match_parent"
-       	android:layout_height="match_parent"
-     />
-	-->
+	
 </RelativeLayout>

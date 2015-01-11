@@ -18,7 +18,9 @@
     <string name="check_connection_btn">Check connection</string>
     <string name="ok">OK</string>
     <string name="location">Location</string>
+    <string name="set_location">Set your location:</string>
     <string name="no_location_error">Choose a location</string>
+    <string name="set_genres">Set genres you like:</string>
     
     <string name="mm_service_login_error">Web service login error</string>
     <string name="gmap_unable_to_create_error">Unable to create map</string>
@@ -27,6 +29,7 @@
     <string name="select_all">Select all</string>
     <string name="unselect_all">Unselect all</string>
     <string name="done">Done</string>
+    <string name="next">Next</string>
     
     <string name="map">Map</string>
     <string name="list">List</string>

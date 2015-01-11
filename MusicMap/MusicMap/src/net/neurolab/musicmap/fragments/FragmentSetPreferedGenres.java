@@ -7,13 +7,19 @@ import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.SetPreferencesActivity;
 import net.neurolab.musicmap.db.Genre;
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -45,7 +51,7 @@ public class FragmentSetPreferedGenres extends Fragment {
 			//Log.i("genre", genre.getName());
 			
 			TableRow row = new TableRow(getActivity());
-			TableRow.LayoutParams lParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+			TableRow.LayoutParams lParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
 			row.setLayoutParams(lParams);
 			
 			CheckBox checkBox = new CheckBox(getActivity());
@@ -55,8 +61,21 @@ public class FragmentSetPreferedGenres extends Fragment {
 			row.addView(checkBox);
 			
 			table.addView(row);
-
 		}
+		
+		//set relLayout height to screen height
+		WindowManager wm = (WindowManager) getActivity().getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int screenHeight = size.y;
+		
+		Log.i("screenH", String.valueOf(screenHeight));
+		
+		RelativeLayout gContainer = (RelativeLayout) view.findViewById(R.id.genresContainer);
+		Log.i("gContainer H", String.valueOf(gContainer.getHeight()));
+		Log.i("measure", "end");
+		gContainer.setMinimumHeight((int)(screenHeight*0.9));
 		
 		return view;
 	}

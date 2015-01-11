@@ -1,36 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <TableLayout
-   	android:id="@+id/genresTable"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:id="@+id/genresContainer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
-
-      
-
-    </TableLayout>
-     
-    	<Button
-            android:id="@+id/btnSelectAll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:text="@string/select_all" />
-
-        <Button
-            android:id="@+id/btnDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/btnSelectAll"
-            android:layout_toRightOf="@id/btnSelectAll"
-            android:layout_marginBottom="20dp"
-            android:text="@string/done" />
+	 <TextView
+	         android:id="@+id/txtGenres"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_alignParentTop="true"
+	         android:layout_centerHorizontal="true"
+	         android:layout_marginTop="10dp"
+	         android:text="@string/set_genres"
+	         android:textColor="#333333"
+	         android:textSize="18sp"
+	         />
+	<TableLayout
+	   	android:id="@+id/genresTable"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	   	android:layout_marginTop="40dp"
+	    android:layout_centerHorizontal="true" >
 		
+	</TableLayout>
+	    
+	<RelativeLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/genresTable"
+	    android:layout_marginTop="20dp"
+	    android:layout_marginBottom="20dp"
+	    android:layout_centerHorizontal="true"
+	    android:layout_alignParentBottom="true">
+
+	    	<Button
+	            android:id="@+id/btnSelectAll"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"       
+	            android:layout_marginRight="6dp"
+	            android:layout_marginEnd="6dp"
+	            android:text="@string/select_all"
+	            android:background="@xml/big_login_btn"
+		        android:textColor="#ffffff"
+		        android:height="42dp"
+		        android:maxHeight="42dp"
+		        android:minHeight="42dp"
+		        android:width="148dp"
+	       		android:maxWidth="208dp" 
+		        android:textSize="16sp"  />
+		
+	        <Button
+	            android:id="@+id/btnDone"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toEndOf="@id/btnSelectAll"
+	            android:layout_toRightOf="@id/btnSelectAll"
+	            android:text="@string/done"
+	            android:background="@xml/big_login_btn"
+		        android:textColor="#ffffff"
+		        android:height="42dp"
+		        android:maxHeight="42dp"
+		        android:minHeight="42dp"
+		        android:width="148dp"
+	   			android:maxWidth="208dp" 
+		        android:textSize="16sp" />
+
+		</RelativeLayout>
+
+	    
+
 </RelativeLayout>
+</ScrollView>

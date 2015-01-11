@@ -21,6 +21,7 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 	private FragmentSetPreferedGenres fSetGenres;
 	private FragmentSetPreferedLocation fSetLocation;
 	private SetPreferencesPresenter presenter;
+	private static boolean chooseLocation = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,9 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 			
 			fSetLocation = new FragmentSetPreferedLocation();
 			fSetGenres = new FragmentSetPreferedGenres();
-			
-			ft.add(R.id.activitySetPreferences, fSetLocation).show(fSetLocation).commit();
-			
+			if (chooseLocation) {
+				ft.add(R.id.activitySetPreferences, fSetLocation).show(fSetLocation).commit();
+			}
 			presenter.checkGenres();
 			
 		}
@@ -48,26 +49,6 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 		}	
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.set_pref_location, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			Intent settingsActivity = new Intent(this, SettingsActivity.class);
-			this.startActivity(settingsActivity);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 	
 	@Override
 	public void checkLocation(String name) {	
@@ -94,11 +75,11 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 	
 	@Override
 	public void navigateToSetGenres() {
-		FragmentTransaction ft= getFragmentManager().beginTransaction();
-		ft.replace(R.id.activitySetPreferences, fSetGenres);
-		ft.addToBackStack(null);
+		FragmentTransaction ft= getFragmentManager().beginTransaction();	
+		ft.replace(R.id.activitySetPreferences, fSetGenres);	
 		ft.commit();
 		
+		chooseLocation = false;
 	}
 
 	@Override
