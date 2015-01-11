@@ -40,6 +40,14 @@
 			    android:shadowDx="1"
 			    android:shadowDy="1"
 			    android:shadowRadius="1"/>
+			
+			<ImageView
+			    android:id="@+id/shareEvent"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"
+			    android:layout_alignParentRight="true"
+			    android:src="@drawable/ic_action_share"/>
 
 		</RelativeLayout>
 		

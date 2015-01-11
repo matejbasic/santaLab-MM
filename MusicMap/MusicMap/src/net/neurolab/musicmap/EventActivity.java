@@ -11,9 +11,11 @@ import net.neurolab.musicmap.db.EventPrice;
 import net.neurolab.musicmap.db.Musician;
 import net.neurolab.musicmap.ws.FlickrAsyncResultHandler;
 import net.neurolab.musicmap.ws.FlickrAsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +34,10 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 	private boolean mainImgFetched = false;
 	private ArrayList<String> musicianImgAvailable = new ArrayList<String>();
 	private ExpandableListView listView;
+	
+	//share ikona
+	private ImageView shareEvent;
+	
 	private class mainImgHandler implements FlickrAsyncResultHandler {
 
 		@Override
@@ -56,6 +62,9 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event);
+		
+		// share ikona
+		shareEvent = (ImageView) findViewById(R.id.shareEvent);
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -144,7 +153,19 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 			}
 		}
 	
-		
+		//share kod
+				shareEvent.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Intent sendIntent = new Intent();
+						sendIntent.setAction(Intent.ACTION_SEND);
+						sendIntent.setType("text/plain");
+						sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, check out this event: "+event.getName()+" at "+event.getIdLocation().getAddress()+" on "+event.getEventTime());
+						startActivity(Intent.createChooser(sendIntent, "Tell Your Friends"));
+					//	sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Cool event");
+					}
+				});
 		
 	}
 	
