@@ -62,20 +62,20 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	SharedPreferences sharedPreferences;
 	Editor editor;
-	
-	ArrayList<Event> events;
+
+	// ArrayList<Event> events = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
+			
 		ActiveAndroid.initialize(this);
 		context = getApplicationContext();
 
 		ftm = new FragmentTabMap();
 		ftl = new FragmentTabList();
-
 
 		mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -123,62 +123,41 @@ public class MainActivity extends SherlockFragmentActivity implements
 		tab = mActionBar.newTab().setText(R.string.list)
 				.setTabListener(tabListener);
 		mActionBar.addTab(tab);
-//KOD LOGIRANJA SPREMITI USERLOGIN - AKO SE RADI O FACEBOOK KORISNIKU ONDA U userID(User tablica) spremiti facebookId inaèe neki random broj
-//NAKON SPREMANA U BAZU, STAVITI userId u shared preference POD NAZIVOM idUser 
+		// KOD LOGIRANJA SPREMITI USERLOGIN - AKO SE RADI O FACEBOOK KORISNIKU
+		// ONDA U userID(User tablica) spremiti facebookId inaèe neki random
+		// broj
+		// NAKON SPREMANA U BAZU, STAVITI userId u shared preference POD NAZIVOM
+		// idUser
 		/*
-		String userId = loadSavedPreferences();
-		//obrisati - samo za probu kad nema logina 
-		Log.i("user", userId);						
-		if(userId.equals("NN")){
-			userId="0";
-		}
-		//obrisati
-		
-		
-		Long id = (long) 0;
-		List<User> user = null;
-		List<PreferredLocation> loc;
-		ArrayList<PreferredLocation> l = null;
-		ArrayList<User> u = null;
+		 * String userId = loadSavedPreferences(); //obrisati - samo za probu
+		 * kad nema logina Log.i("user", userId); if(userId.equals("NN")){
+		 * userId="0"; } //obrisati
+		 * 
+		 * 
+		 * Long id = (long) 0; List<User> user = null; List<PreferredLocation>
+		 * loc; ArrayList<PreferredLocation> l = null; ArrayList<User> u = null;
+		 * 
+		 * try { user = new Select().from(User.class).where("facebookId = ?",
+		 * userId) .execute(); u = (ArrayList<User>) user; } catch (Exception e)
+		 * { Log.i("getUserFromDB", e.toString()); }
+		 * 
+		 * if (u.size() > 0) { System.out.println(u.size()); id =
+		 * u.get(0).getId(); }
+		 * 
+		 * if (id != 0) { Log.i("mainActivity", "locations"); try { loc = new
+		 * Select().from(PreferredLocation.class) .where("idUser LIKE ?",
+		 * id).execute(); l = (ArrayList<PreferredLocation>) loc; } catch
+		 * (Exception e) { Log.i("getPreferredLocationsFromDB", e.toString()); }
+		 * if (l.size() > 0) { menu = new String[l.size()]; for (int i = 0; i <
+		 * l.size(); i++) { menu[i] = l.get(i).getSingleLocation().getCity();
+		 * System.out.println(menu[i]); } } else { menu = new String[] {
+		 * getResources().getString( R.string.no_preferred_locations) }; } }
+		 * else { menu = new String[] { getResources().getString(
+		 * R.string.no_preferred_locations) }; }
+		 */
+		menu = new String[] { "Zagreb", "Oxford", "London", "Baltimore",
+				"Rome", "Boston", "Madison" };
 
-		try {
-			user = new Select().from(User.class).where("facebookId = ?", userId)
-					.execute();
-			u = (ArrayList<User>) user;
-		} catch (Exception e) {
-			Log.i("getUserFromDB", e.toString());
-		}
-		
-		if (u.size() > 0) {
-			System.out.println(u.size());
-			id = u.get(0).getId();
-		}
-
-		if (id != 0) {
-			Log.i("mainActivity", "locations");
-			try {
-				loc = new Select().from(PreferredLocation.class)
-						.where("idUser LIKE ?", id).execute();
-				l = (ArrayList<PreferredLocation>) loc;
-			} catch (Exception e) {
-				Log.i("getPreferredLocationsFromDB", e.toString());
-			}
-			if (l.size() > 0) {				
-				menu = new String[l.size()];
-				for (int i = 0; i < l.size(); i++) {					
-					menu[i] = l.get(i).getSingleLocation().getCity();
-					System.out.println(menu[i]);
-				}
-			} else {
-				menu = new String[] { getResources().getString(
-						R.string.no_preferred_locations) };
-			}
-		} else {
-			menu = new String[] { getResources().getString(
-					R.string.no_preferred_locations) };
-		}
-		*/
-		menu = new String[] {"Zagreb", "Oxford", "London", "Baltimore", "Rome", "Boston", "Madison"};
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		dList = (ListView) findViewById(R.id.left_drawer);
 		adapter = new ArrayAdapter<String>(this,
@@ -195,7 +174,9 @@ public class MainActivity extends SherlockFragmentActivity implements
 				if (!(menu[position].equals("") && !menu[position]
 						.equals(getResources().getString(
 								R.string.no_preferred_locations)))) {
-					savePreferences(menu[position]);	
+					savePreferences(menu[position]);
+					ftm.refresh();
+					ftl.refresh();
 				}
 				Log.i("mainActivity", "onItemClick");
 			}
@@ -204,9 +185,13 @@ public class MainActivity extends SherlockFragmentActivity implements
 		Log.i("mainActivity", "on create end");
 	}
 
+	/*
+	 * public Boolean eventsExist() { if (this.events != null) return true; else
+	 * return false; }
+	 */
 	public String loadSavedPreferences() {
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String idUser = sharedPreferences.getString("idUser", "");		
+		String idUser = sharedPreferences.getString("idUser", "");
 		if (idUser.equalsIgnoreCase("")) {
 			return "NN";
 		} else
@@ -242,6 +227,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		Log.i("mainActivitiy", "onDataLoaded");
+		// this.events = events;
 		if (ftm != null) {
 			ftm.OnDataChanged(events);
 		}
@@ -251,17 +237,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 	}
 
 	public interface OnDataChangedListener {
-
 		void OnDataChanged(ArrayList<Event> events);
-
 	}
 
 	public void onResume() {
-
 		super.onResume();
-
 		System.out.println("onResume GLAVNE AKTIVNOSTI");
-
 		/*
 		 * SharedPreferences prefs = PreferenceManager
 		 * .getDefaultSharedPreferences(this); int minutes =
@@ -274,17 +255,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 		// PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0,
 		// i, 0);
 		am.cancel(pi);
-		// by my own convention, minutes <= 0 means notifications are disabled
+		// minutes <= 0 means notifications are disabled
 		if (minutes > 0) {
 			am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 					SystemClock.elapsedRealtime() + minutes * 60 * 1000,
 					minutes * 60 * 1000, pi);
 		}
-
-	}
-
-	public void notifyMe() {
-
 	}
 
 	public static void sendData(String str) {
@@ -296,7 +272,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 				notification.showNotification(context);
 			}
 		}
-
 	}
 
 	@Override
@@ -309,7 +284,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 			startActivity(intent);
 		}
-
 	}
 
 	@Override

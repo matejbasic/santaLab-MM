@@ -21,7 +21,7 @@ public class DataLoaderDB extends DataLoader {
 		List<Event> eventsDb = null;
 
 		boolean databaseQuerySuccessfull = false;
-
+/*
 		List<Location> loc = new Select().from(Location.class)
 				.where("city LIKE ?", location).execute();// and address is null
 															// - ne radi ako
@@ -31,8 +31,8 @@ public class DataLoaderDB extends DataLoader {
 															// preferences)
 		System.out.println(loc.size());
 		ArrayList<Location> l = (ArrayList<Location>) loc;
-		System.out.println(l.size());
-		if (l.size() > 0) {
+		System.out.println(l.size());*/
+		//if (l.size() > 0) {
 			try {
 				 /*eventsDb = new Select().all().from(Event.class)
 				 .where("lat=? and lng=?", l.get(0).getLat(),
@@ -40,19 +40,25 @@ public class DataLoaderDB extends DataLoader {
 				
 				eventsDb = new Select().all().from(Event.class)
 						 .where("lat in (select lat from location where city LIKE ?) and lng in (select lng from location where city LIKE ?)", location, location).execute();
-
+				
+				/*for(Event e: eventsDb){
+					System.out.println(e.getName());
+					System.out.println(e.getLat());
+					System.out.println(e.getLng());
+				}*/
+				
 				databaseQuerySuccessfull = true;
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
-		} else {
+		/*} else {
 			try {
 				eventsDb = new Select().all().from(Event.class).execute();
 				databaseQuerySuccessfull = false;
 			} catch (NullPointerException e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 		System.out.println(eventsDb.size());
 		if (databaseQuerySuccessfull == true && eventsDb.size() > 0) {
 			// Toast.makeText(activity, "Loading local data",

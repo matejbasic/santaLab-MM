@@ -36,11 +36,11 @@ public class FragmentTabMap extends SherlockFragment implements
 	private ArrayList<Event> events;
 	private GoogleMap gMap;
 	private SupportMapFragment fSupportMap;
-	//private Location cPrefLocation;
+	// private Location cPrefLocation;
 
 	private ArrayList<Markers> markers;
 
-	SharedPreferences sharedPreferences;	
+	SharedPreferences sharedPreferences;
 
 	public FragmentTabMap() {
 		markers = new ArrayList<Markers>();
@@ -65,64 +65,58 @@ public class FragmentTabMap extends SherlockFragment implements
 
 		String theLocation = loadSavedPreferences();
 		Log.i("lokacija mapa", theLocation);
-		
+
 		List<Location> loc = new Select().from(Location.class)
 				.where("city LIKE ?", theLocation).execute();
 		ArrayList<Location> l = (ArrayList<Location>) loc;
-		
+
 		try {
 
-			if (savedInstanceState == null && !mAlreadyLoaded ) {
-				Log.i("tabMap", "first load");
-				mAlreadyLoaded = true;
-				
-				// cPrefLocation = new PreferredLocation().getSingleLocation();
+			/*
+			 * if (savedInstanceState == null && !mAlreadyLoaded ) {
+			 * Log.i("tabMap", "first load"); mAlreadyLoaded = true;
+			 */
+			// cPrefLocation = new PreferredLocation().getSingleLocation();
 
-				
-				
-				if (l.size() > 0) {
-					
-					gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-							new LatLng(l.get(0).getLat(), l.get(0).getLng()),
-							(float) 12.0));
-				}
+			if (l.size() > 0) {
 
-				/*
-				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
-				 * 12.0));
-				 */
+				gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(l
+						.get(0).getLat(), l.get(0).getLng()), (float) 12.0));
+			}
 
-				System.out.println("Loadanje iz baze");
-				DataLoader dl = new DataLoaderDB();
+			/*
+			 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+			 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float) 12.0));
+			 */
+
+			System.out.println("Loadanje iz baze");
+			DataLoader dl = new DataLoaderDB();
+			// dl.LoadData(getActivity(), cPrefLocation.getCity());
+			dl.LoadData(getActivity(), theLocation);
+
+			Boolean eventsExists = dl.DataLoaded();
+
+			if (!eventsExists) {
+				System.out.println("Loadanje sa servisa");
+				dl = new DataLoaderMM();
 				// dl.LoadData(getActivity(), cPrefLocation.getCity());
 				dl.LoadData(getActivity(), theLocation);
-
-				Boolean eventsExists = dl.DataLoaded();
-								
-				if (!eventsExists) {
-					System.out.println("Loadanje sa servisa");
-					dl = new DataLoaderMM();
-					// dl.LoadData(getActivity(), cPrefLocation.getCity());
-					dl.LoadData(getActivity(), theLocation);									
-				}
-
-				// this.events = dl.events; //? dodaje se vec u onDataChanged
-				// Log.i("events size", String.valueOf(events.size()));
-
 			}
 
-			else {
-				Log.i("tabMap", "n-th load");
-				DataLoader dl = new DataLoaderDB();
-				// dl.LoadData(getActivity(), "Zagreb");
-				dl.LoadData(getActivity(), theLocation);
+			// this.events = dl.events; //? dodaje se vec u onDataChanged
+			// Log.i("events size", String.valueOf(events.size()));
 
-				// this.events = dl.events;
-				// Log.i("events size", String.valueOf(events.size()));
-				// addMarkersToMap();
-
-			}
+			// }
+			/*
+			 * else { Log.i("tabMap", "n-th load"); DataLoader dl = new
+			 * DataLoaderDB(); // dl.LoadData(getActivity(), "Zagreb");
+			 * dl.LoadData(getActivity(), theLocation);
+			 * 
+			 * // this.events = dl.events; // Log.i("events size",
+			 * String.valueOf(events.size())); // addMarkersToMap();
+			 * 
+			 * }
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,9 +127,10 @@ public class FragmentTabMap extends SherlockFragment implements
 	public String loadSavedPreferences() {
 		sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
-		String theLocation = sharedPreferences.getString("theLocation",
-				"");
-		if (theLocation.equalsIgnoreCase("") || theLocation.equalsIgnoreCase(getResources().getString(R.string.no_preferred_locations))) {
+		String theLocation = sharedPreferences.getString("theLocation", "");
+		if (theLocation.equalsIgnoreCase("")
+				|| theLocation.equalsIgnoreCase(getResources().getString(
+						R.string.no_preferred_locations))) {
 			return "Zagreb";
 		} else
 			return theLocation;
@@ -168,7 +163,7 @@ public class FragmentTabMap extends SherlockFragment implements
 	public void addMarkers(double lat, double lng, String name) {
 		System.out.println("addMarkers");
 		markers.add(new Markers(lat, lng, name));
-		
+
 	}
 
 	@Override
@@ -176,12 +171,11 @@ public class FragmentTabMap extends SherlockFragment implements
 		Log.i("tabMap", "onDataChanged");
 		Log.i("OnDChanged events size", String.valueOf(events.size()));
 		this.events = events;
-		
+
 		System.out.println(this.events.size());
 		markers.clear();
 		for (int i = 0; i < events.size(); i++) {
-			Log.i("tabMap", events
-					.get(i).getIdLocation().getName());
+			Log.i("tabMap", events.get(i).getIdLocation().getName());
 			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events
 					.get(i).getIdLocation().getName());
 		}
@@ -214,6 +208,10 @@ public class FragmentTabMap extends SherlockFragment implements
 				// gMap.setMyLocationEnabled(true);
 			}
 		}
+	}
+
+	public void refresh() {
+		this.onViewCreated(getView(), null);
 	}
 
 }
