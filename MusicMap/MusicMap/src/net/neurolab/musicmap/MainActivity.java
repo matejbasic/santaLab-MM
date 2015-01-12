@@ -70,7 +70,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-			
 		ActiveAndroid.initialize(this);
 		context = getApplicationContext();
 
@@ -128,37 +127,74 @@ public class MainActivity extends SherlockFragmentActivity implements
 		// broj
 		// NAKON SPREMANA U BAZU, STAVITI userId u shared preference POD NAZIVOM
 		// idUser
-		/*
-		 * String userId = loadSavedPreferences(); //obrisati - samo za probu
-		 * kad nema logina Log.i("user", userId); if(userId.equals("NN")){
-		 * userId="0"; } //obrisati
-		 * 
-		 * 
-		 * Long id = (long) 0; List<User> user = null; List<PreferredLocation>
-		 * loc; ArrayList<PreferredLocation> l = null; ArrayList<User> u = null;
-		 * 
-		 * try { user = new Select().from(User.class).where("facebookId = ?",
-		 * userId) .execute(); u = (ArrayList<User>) user; } catch (Exception e)
-		 * { Log.i("getUserFromDB", e.toString()); }
-		 * 
-		 * if (u.size() > 0) { System.out.println(u.size()); id =
-		 * u.get(0).getId(); }
-		 * 
-		 * if (id != 0) { Log.i("mainActivity", "locations"); try { loc = new
-		 * Select().from(PreferredLocation.class) .where("idUser LIKE ?",
-		 * id).execute(); l = (ArrayList<PreferredLocation>) loc; } catch
-		 * (Exception e) { Log.i("getPreferredLocationsFromDB", e.toString()); }
-		 * if (l.size() > 0) { menu = new String[l.size()]; for (int i = 0; i <
-		 * l.size(); i++) { menu[i] = l.get(i).getSingleLocation().getCity();
-		 * System.out.println(menu[i]); } } else { menu = new String[] {
-		 * getResources().getString( R.string.no_preferred_locations) }; } }
-		 * else { menu = new String[] { getResources().getString(
-		 * R.string.no_preferred_locations) }; }
-		 */
-		
-		menu = new String[] { "Zagreb", "Oxford", "London", "Baltimore",
-				"Rome", "Boston", "Madison" };
-		
+
+		// String userId = loadSavedPreferences(); // obrisati - samo za probu
+
+		// kad nema logina Log.i("user", userId);
+		// if (userId.equals("NN")) {
+		// userId = "0";
+		// } // obrisati
+
+		Long id = (long) 0;
+		List<User> user = null;
+		List<PreferredLocation> loc;
+		ArrayList<PreferredLocation> l = null;
+		ArrayList<User> u = null;
+
+		try {
+			/*
+			 * user = new Select().from(User.class) .where("facebookId = ?",
+			 * userId).execute();
+			 */
+			user = new Select().from(User.class).execute();
+			u = (ArrayList<User>) user;
+		} catch (Exception e) {
+			Log.i("getUserFromDB", e.toString());
+		}
+
+		if (u.size() > 0) {
+			System.out.println(u.size());
+			id = u.get(0).getId();
+
+		}
+
+		if (id != 0) {
+			Log.i("mainActivity", "locations");
+			try {
+				loc = new Select().from(PreferredLocation.class)
+						.where("idUser LIKE ?", id).execute();
+				l = (ArrayList<PreferredLocation>) loc;
+			} catch (Exception e) {
+				Log.i("getPreferredLocationsFromDB", e.toString());
+			}
+			if (l.size() > 0) {
+				if (menu == null) {
+					try{
+					String pref = l.get(0).getSingleLocation().getCity();
+					savePreferences(pref);
+					}
+				catch(Exception e){
+					Log.i("mainActivityERROR", e.toString());
+				}
+				}
+				menu = new String[l.size()];
+				for (int i = 0; i < l.size(); i++) {
+					menu[i] = l.get(i).getSingleLocation().getCity();
+					System.out.println(menu[i]);
+				}
+
+			} else {
+				menu = new String[] { getResources().getString(
+						R.string.no_preferred_locations) };
+			}
+		} else {
+			menu = new String[] { getResources().getString(
+					R.string.no_preferred_locations) };
+		}
+
+		// menu = new String[] { "Zagreb", "Oxford", "London", "Baltimore",
+		// "Rome", "Boston", "Madison" };
+
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		dList = (ListView) findViewById(R.id.left_drawer);
 		adapter = new ArrayAdapter<String>(this,
@@ -190,16 +226,14 @@ public class MainActivity extends SherlockFragmentActivity implements
 	 * public Boolean eventsExist() { if (this.events != null) return true; else
 	 * return false; }
 	 */
-	public String loadSavedPreferences() {
-		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String idUser = sharedPreferences.getString("idUser", "");
-		if (idUser.equalsIgnoreCase("")) {
-			return "NN";
-		} else
-			return idUser;
-
-	}
-
+	/*
+	 * public String loadSavedPreferences() { sharedPreferences =
+	 * PreferenceManager.getDefaultSharedPreferences(this); String idUser =
+	 * sharedPreferences.getString("idUser", ""); if
+	 * (idUser.equalsIgnoreCase("")) { return "NN"; } else return idUser;
+	 * 
+	 * }
+	 */
 	void savePreferences(String location) {
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = sharedPreferences.edit();
