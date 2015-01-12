@@ -3,7 +3,6 @@ package net.neurolab.musicmap;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Genre;
-import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.fragments.FragmentSetPreferedGenres;
 import net.neurolab.musicmap.fragments.FragmentSetPreferedLocation;
 import net.neurolab.musicmap.interfaces.SetPreferencesPresenter;
@@ -13,9 +12,6 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class SetPreferencesActivity extends Activity implements SetPreferencesView {
 	private FragmentSetPreferedGenres fSetGenres;
@@ -28,9 +24,6 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 		super.onCreate(savedInstanceState);
 		
 		presenter = new SetPreferences(this);
-		
-		List<User> users = new User().getAll();
-		Log.i("users", users.toString());
 		
 		if(presenter.checkUser()) {
 			setContentView(R.layout.activity_set_preferences);

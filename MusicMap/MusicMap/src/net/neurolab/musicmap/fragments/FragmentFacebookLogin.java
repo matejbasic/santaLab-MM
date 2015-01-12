@@ -44,6 +44,7 @@ public class FragmentFacebookLogin extends Fragment {
 			Bundle savedInstanceState) {
 		Log.i("fb Frag", "onCreateView");
 		View view = inflater.inflate(R.layout.activity_login, container, false);
+		
 		try {
 			authButton = (LoginButton) view.findViewById(R.id.authButton);
 			authButton.setFragment(this);
@@ -111,7 +112,7 @@ public class FragmentFacebookLogin extends Fragment {
 		Log.i("fbFragment", "on Resume");
 		Session session = Session.getActiveSession();
 		if ( session != null && (session.isOpened() || session.isClosed()) ) {
-			//onSessionStateChange(session, session.getState(), null);
+			onSessionStateChange(session, session.getState(), null);
 		}
 		uiHelper.onResume();
 	}

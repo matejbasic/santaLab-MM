@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -96,8 +98,16 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	}
 	
 	private String getEvents(String location, String userKey) {
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy", Locale.getDefault());
 		String currentDate = sdf.format(new Date());
+		
+		try {
+			location = URLEncoder.encode(location, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		return this.httpGetRequest(this.serviceUrl + "/events/0/" + location +  "/0/0/" + currentDate + "/26112018/10000/0/" + userKey);
 
 	}

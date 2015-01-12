@@ -70,6 +70,7 @@ public class SetPreferences implements SetPreferencesPresenter {
 	private class getAddressTask extends AsyncTask<Object, Void, Object[]> {
 		
 		private String gcFallback(String location) {
+			Log.i("gcFallback", "start");
 			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 			try {
 				url += URLEncoder.encode(location, "utf-8");
@@ -120,16 +121,15 @@ public class SetPreferences implements SetPreferencesPresenter {
 		
 		@Override
 		protected Object[] doInBackground(Object... params) {
+			Log.i("get getLocation data", "start");
 			String locationName = (String) params[0];
 			Context context = (Context) params[1];
 			
 			//0 - name, 1 - city, 2 - address, 3 - lat, 4 - lng
 			Double defLatLng = -1.00;
 			Object result[] = new Object[] { "", "", "", defLatLng, defLatLng };
-
-			
-			try {
-				
+	
+			try {			
 				Geocoder gc = new Geocoder(context, Locale.getDefault());
 
 				if (Geocoder.isPresent()){
@@ -182,6 +182,9 @@ public class SetPreferences implements SetPreferencesPresenter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			Log.i("gl result", result[0].toString());
+			Log.i("gl result", result[1].toString());
+			Log.i("gl result", result[2].toString());
 			return result;
 		}
 	
@@ -258,7 +261,7 @@ public class SetPreferences implements SetPreferencesPresenter {
 			Log.i("location", name);
 			if(name != null && !name.isEmpty()) {
 				Location location = new Location().getLocation(name);
-				//Log.i("location", String.valueOf(location));
+				Log.i("location", String.valueOf(location));
 				
 				if(location == null) {
 					//preferred location can be just a city
