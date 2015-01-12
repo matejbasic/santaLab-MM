@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
@@ -82,6 +83,7 @@ public class NotificationService extends Service {
 
 		}
 
+
 		@Override
 		protected Void doInBackground(Void... params) {
 			// do stuff!
@@ -94,14 +96,15 @@ public class NotificationService extends Service {
 				for (User user : users) {
 					if (!user.getMmApiKey().isEmpty()) {
 						Log.i("cUser", user.getMmApiKey());
-						
-						Object paramsEvent[] = new Object[] { "user", "getEvents", null,
-								eventsHandler, "zagreb", user.getMmApiKey() };
+
+						Object paramsEvent[] = new Object[] { "user",
+								"getEvents", null, eventsHandler, "zagreb",
+								user.getMmApiKey() };
 						asyncTaskEvents.execute(paramsEvent);
 						break;
 					}
 				}
-				
+
 			}
 
 			return null;

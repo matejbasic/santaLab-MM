@@ -24,11 +24,7 @@ public class DataLoaderDB extends DataLoader {
 /*
 		List<Location> loc = new Select().from(Location.class)
 				.where("city LIKE ?", location).execute();// and address is null
-															// - ne radi ako
-															// nema otprije
-															// spremljenih
-															// lokacija (set
-															// preferences)
+															
 		System.out.println(loc.size());
 		ArrayList<Location> l = (ArrayList<Location>) loc;
 		System.out.println(l.size());*/

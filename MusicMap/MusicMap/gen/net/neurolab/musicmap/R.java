@@ -1640,6 +1640,7 @@ containing a value of this type.
         public static final int abs__textButton=0x7f080030;
         public static final int abs__title=0x7f080038;
         public static final int abs__up=0x7f08001d;
+        public static final int action_search=0x7f080098;
         public static final int action_settings=0x7f080097;
         public static final int activitySetPreferences=0x7f080067;
         public static final int authButton=0x7f080061;
@@ -1820,7 +1821,7 @@ containing a value of this type.
         public static final int splash=0x7f0d0003;
     }
     public static final class string {
-        public static final int LoginAsGuest=0x7f060067;
+        public static final int LoginAsGuest=0x7f060068;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abs__action_bar_home_description=0x7f060023;
@@ -1861,11 +1862,12 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f06002a;
         public static final int accept=0x7f060002;
+        public static final int action_search=0x7f060062;
         public static final int action_settings=0x7f060061;
         public static final int app_name=0x7f06005f;
-        public static final int app_text_logo=0x7f06006a;
-        public static final int check_connection_btn=0x7f06006c;
-        public static final int close_navigation=0x7f060089;
+        public static final int app_text_logo=0x7f06006b;
+        public static final int check_connection_btn=0x7f06006d;
+        public static final int close_navigation=0x7f06008a;
         public static final int com_facebook_choose_friends=0x7f060041;
         public static final int com_facebook_dialogloginactivity_ok_button=0x7f060030;
         public static final int com_facebook_image_download_unknown_error=0x7f06004c;
@@ -1996,34 +1998,34 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f060020;
         public static final int create_calendar_message=0x7f060005;
         public static final int create_calendar_title=0x7f060004;
-        public static final int dbUpdate_text=0x7f06007c;
-        public static final int dbUpdate_title=0x7f06007b;
+        public static final int dbUpdate_text=0x7f06007d;
+        public static final int dbUpdate_title=0x7f06007c;
         public static final int decline=0x7f060003;
-        public static final int done=0x7f060077;
-        public static final int eventDescDef=0x7f060082;
-        public static final int eventDescTitle=0x7f060083;
-        public static final int eventLocationDef=0x7f06007f;
-        public static final int eventMainImageDesc=0x7f06007d;
-        public static final int eventNameDef=0x7f06007e;
-        public static final int eventPriceDef=0x7f060080;
-        public static final int eventRandIcon=0x7f060084;
-        public static final int eventTimeDef=0x7f060081;
-        public static final int facebook_app_id=0x7f060063;
-        public static final int facebook_login_error=0x7f060065;
-        public static final int facebook_login_failed=0x7f060064;
-        public static final int gmap_unable_to_create_error=0x7f060073;
+        public static final int done=0x7f060078;
+        public static final int eventDescDef=0x7f060083;
+        public static final int eventDescTitle=0x7f060084;
+        public static final int eventLocationDef=0x7f060080;
+        public static final int eventMainImageDesc=0x7f06007e;
+        public static final int eventNameDef=0x7f06007f;
+        public static final int eventPriceDef=0x7f060081;
+        public static final int eventRandIcon=0x7f060085;
+        public static final int eventTimeDef=0x7f060082;
+        public static final int facebook_app_id=0x7f060064;
+        public static final int facebook_login_error=0x7f060066;
+        public static final int facebook_login_failed=0x7f060065;
+        public static final int gmap_unable_to_create_error=0x7f060074;
         public static final int hello_world=0x7f060060;
-        public static final int list=0x7f06007a;
-        public static final int location=0x7f06006e;
-        public static final int map=0x7f060079;
-        public static final int mm_service_login_error=0x7f060072;
-        public static final int next=0x7f060078;
-        public static final int no_bio_info=0x7f060087;
-        public static final int no_connection_error=0x7f06006b;
-        public static final int no_location_error=0x7f060070;
-        public static final int no_preferred_locations=0x7f06008a;
-        public static final int ok=0x7f06006d;
-        public static final int open_navigation=0x7f060088;
+        public static final int list=0x7f06007b;
+        public static final int location=0x7f06006f;
+        public static final int map=0x7f06007a;
+        public static final int mm_service_login_error=0x7f060073;
+        public static final int next=0x7f060079;
+        public static final int no_bio_info=0x7f060088;
+        public static final int no_connection_error=0x7f06006c;
+        public static final int no_location_error=0x7f060071;
+        public static final int no_preferred_locations=0x7f06008b;
+        public static final int ok=0x7f06006e;
+        public static final int open_navigation=0x7f060089;
         public static final int pref_app_updates_wifi_only=0x7f060053;
         public static final int pref_app_updates_wifi_only_desc=0x7f060054;
         public static final int pref_data=0x7f060052;
@@ -2042,23 +2044,23 @@ containing a value of this type.
         public static final int pref_locations=0x7f060050;
         public static final int pref_locations_desc=0x7f060051;
         public static final int pref_notifications=0x7f060057;
-        public static final int select_all=0x7f060075;
-        public static final int service_name=0x7f060068;
-        public static final int set_genres=0x7f060071;
-        public static final int set_location=0x7f06006f;
+        public static final int select_all=0x7f060076;
+        public static final int service_name=0x7f060069;
+        public static final int set_genres=0x7f060072;
+        public static final int set_location=0x7f060070;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
-        public static final int title_activity_login=0x7f060062;
-        public static final int title_activity_set_pref_location=0x7f060069;
-        public static final int title_activity_splash=0x7f060066;
-        public static final int unknown_error=0x7f060074;
-        public static final int unselect_all=0x7f060076;
+        public static final int title_activity_login=0x7f060063;
+        public static final int title_activity_set_pref_location=0x7f06006a;
+        public static final int title_activity_splash=0x7f060067;
+        public static final int unknown_error=0x7f060075;
+        public static final int unselect_all=0x7f060077;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
         public static final int wallet_buy_button_place_holder=0x7f060022;
-        public static final int yt_player_error=0x7f060085;
-        public static final int yt_player_no_app_error=0x7f060086;
+        public static final int yt_player_error=0x7f060086;
+        public static final int yt_player_no_app_error=0x7f060087;
     }
     public static final class style {
         /** 

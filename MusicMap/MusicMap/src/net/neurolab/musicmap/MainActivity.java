@@ -7,14 +7,17 @@ import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
+import net.neurolab.musicmap.dl.DataLoaderSearch;
 import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.fragments.FragmentTabMap;
 import net.neurolab.musicmap.interfaces.MainView;
 import net.neurolab.musicmap.ns.NotificationData;
 import net.neurolab.musicmap.ns.NotificationService;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -30,6 +33,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -169,13 +173,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 			}
 			if (l.size() > 0) {
 				if (menu == null) {
-					try{
-					String pref = l.get(0).getSingleLocation().getCity();
-					savePreferences(pref);
+					try {
+						String pref = l.get(0).getSingleLocation().getCity();
+						savePreferences(pref);
+					} catch (Exception e) {
+						Log.i("mainActivityERROR", e.toString());
 					}
-				catch(Exception e){
-					Log.i("mainActivityERROR", e.toString());
-				}
 				}
 				menu = new String[l.size()];
 				for (int i = 0; i < l.size(); i++) {
@@ -255,10 +258,64 @@ public class MainActivity extends SherlockFragmentActivity implements
 			Intent settingsActivity = new Intent(this, SettingsActivity.class);
 			this.startActivity(settingsActivity);
 		}
-		return true;
+		else if (id == R.id.action_search) {
 
+			final EditText input = new EditText(MainActivity.this);
+			input.setHint("Event name");
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					MainActivity.this)
+					.setMessage("Search")
+					.setView(input)
+					.setCancelable(false)
+					.setPositiveButton("Search",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+								}
+							})
+					.setNegativeButton("Cancel",
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+								}
+							}).setIcon(android.R.drawable.ic_dialog_alert);
+			final AlertDialog alert = builder.create();
+			alert.show();
+			alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(
+					new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							String searchString = input.getText().toString()
+									.trim();
+							//DataLoaderSearch dl = new DataLoaderSearch();							
+							//dl.searchData(searchString);
+							searchForData(searchString);			
+							
+							alert.dismiss();
+						}
+					});
+			alert.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(
+					new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+
+							alert.dismiss();
+						}
+					});
+		}
+		return true;
+		
 	}
 
+	private void searchForData(String searchTerm){
+		DataLoaderSearch dl = new DataLoaderSearch();
+		dl.LoadData(this, "");
+		dl.searchData(searchTerm);
+	}
+	
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		Log.i("mainActivitiy", "onDataLoaded");

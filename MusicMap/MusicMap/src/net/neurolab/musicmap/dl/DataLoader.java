@@ -24,8 +24,14 @@ public abstract class DataLoader {
 	public boolean DataLoaded() {
 		if (events == null) {
 			return false;
-		} else {			
-			dataLoadedListener.OnDataLoaded(events);
+		} else {					
+			try{				
+				dataLoadedListener.OnDataLoaded(events);
+			}
+			catch(Exception e){
+				Log.i("DataLoadedERROR", e.toString());
+			}
+			
 			return true;
 		}
 	}
