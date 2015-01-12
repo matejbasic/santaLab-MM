@@ -72,6 +72,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			btnGuest.setVisibility(View.VISIBLE);
 			btnFbAuth.setVisibility(View.VISIBLE);
 			btnCheckConnection.setVisibility(View.INVISIBLE);
+			setLoginButtons();
 		}
 		else {
 			btnGuest.setVisibility(View.INVISIBLE);
@@ -105,24 +106,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	
 	@Override
 	protected void onResume() {
-		/*
-		Log.i("onResume cValid", String.valueOf(connectionValid));
-		
-		if (connectionValid) {
-			btnFbAuth.setVisibility(View.VISIBLE);
-			btnGuest.setVisibility(View.VISIBLE);
-			
-			hideProgress();
-			btnCheckConnection.setVisibility(View.INVISIBLE);
-		}
-		else {
-			btnCheckConnection.setVisibility(View.VISIBLE);
-			
-			btnFbAuth.setVisibility(View.INVISIBLE);
-			btnGuest.setVisibility(View.INVISIBLE);
-		}
-		*/
-		
 		super.onResume();
 	}
 
@@ -132,26 +115,25 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		Log.i("setLoginButtons cValid", String.valueOf(connectionValid));
 		if (!connectionValid) {
 			connectionValid = true;
-		
-			hideProgress();
-			btnCheckConnection.setVisibility(View.INVISIBLE);
-			
-			btnFbAuth.setVisibility(View.VISIBLE);
-			btnGuest.setVisibility(View.VISIBLE);
-			
-			if (!isInstanceSaved) {
-				Log.i("fb", "firstOne");
-				fFacebookLogin = new FragmentFacebookLogin();
-				getSupportFragmentManager().beginTransaction()
-						.add(android.R.id.content, fFacebookLogin).commit();
-			} 
-			else {
-				Log.i("fb", "secondOne");
-				fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
-						.findFragmentById(android.R.id.content);
-			}	
-			
 		}
+	
+		hideProgress();
+		btnCheckConnection.setVisibility(View.INVISIBLE);
+			
+		btnFbAuth.setVisibility(View.VISIBLE);
+		btnGuest.setVisibility(View.VISIBLE);
+			
+		if (!isInstanceSaved) {
+			fFacebookLogin = new FragmentFacebookLogin();
+			getSupportFragmentManager().beginTransaction()
+					.add(android.R.id.content, fFacebookLogin).commit();
+		} 
+		else {
+			fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
+					.findFragmentById(android.R.id.content);
+		}	
+			
+		
 	}
 
 	@Override
@@ -207,7 +189,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	public void navigateToPreferences() {
 		Intent intent = new Intent(LoginActivity.this,
 				SetPreferencesActivity.class);
-		Log.i("loginActivity", "navigateToPref");
 		startActivity(intent); 
 	}
 
@@ -215,7 +196,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	public void navigateToHome() {
 		Intent intent = new Intent(LoginActivity.this,
 				MainActivity.class);
-		Log.i("loginActivtiy", "navigateToHome");
 		startActivity(intent); 
 	}
 
@@ -223,6 +203,5 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	public void checkGuest() {
 		presenter.checkGuest(userExist, getApplicationContext());
 	}
-
 
 }

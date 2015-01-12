@@ -5,6 +5,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -92,51 +95,11 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		return httpGetRequest(this.serviceUrl + "/genres/" + userKey);
 	}
 	
-	private String getEvents(String location) {
-		
-		String url = this.serviceUrl + "/events/0/" + location + "/0/0/25112014/26112018/10000/0/testbero=)";
-		System.out.println("asynctask");
-		
-		String response = "";
-		HttpClient httpClient = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(url);
-		try {
-			HttpResponse httpResponse = httpClient.execute(httpGet);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			InputStream inputStream = httpEntity.getContent();
-			
-			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
-		    StringBuilder sb = new StringBuilder();
+	private String getEvents(String location, String userKey) {
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy", Locale.getDefault());
+		String currentDate = sdf.format(new Date());
+		return this.httpGetRequest(this.serviceUrl + "/events/0/" + location +  "/0/0/" + currentDate + "/26112018/10000/0/" + userKey);
 
-		    
-		    String line = null;
-		    while ((line = reader.readLine()) != null)
-		    {
-		        sb.append(line + "\n");
-		    }
-		    
-			try {
-		        response = new JSONTokener(sb.toString()).nextValue().toString();
-		    } catch (JSONException e) {
-		    	System.out.println("Havesomeproblems");
-		        e.printStackTrace();
-		    }
-			
-			httpClient.getConnectionManager().shutdown();
-			//System.out.println(response);
-			return response;
-	}
-		catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		catch(Error e) {
-			e.printStackTrace();
-		}
-		return "";
-		
 	}
 	
 	@Override
@@ -192,6 +155,20 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 					result[1] = false;
 				}
 			}	
+			else if (action.matches("getEvents")) {		
+				String response = null;
+				Log.i("mmAsyncTask", "getEvents");
+				String location = (String) params[4];
+				String userKey = (String) params[5];
+				Log.i("getEvents", location);
+				Log.i("getEvents", userKey);
+					
+				response = this.getEvents(location, userKey);
+				
+				result[0] = response;
+				result[1] = true;
+				
+			}
 		}
 		else if (entity.matches("genres")) {
 			if (action.matches("get")) {
@@ -201,22 +178,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 				
 			}	
 		}
-		else if (entity.matches("getEvents")) {				
-				//if (params[4] != null && params[5] != null) {
-					//params[4] - id | params[5] - idHash
-					String response = null;
-					String location = (String) params[1];
-					
-					response = this.getEvents(location);
-					
-					result[0] = response;
-					result[1] = true;
-				//}
-				//else {
-					//result[1] = false;
-			//	}
-				
-		}
+		
 		
 		return result;
 	}

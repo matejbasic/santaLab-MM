@@ -155,9 +155,10 @@ public class MainActivity extends SherlockFragmentActivity implements
 		 * else { menu = new String[] { getResources().getString(
 		 * R.string.no_preferred_locations) }; }
 		 */
+		
 		menu = new String[] { "Zagreb", "Oxford", "London", "Baltimore",
 				"Rome", "Boston", "Madison" };
-
+		
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		dList = (ListView) findViewById(R.id.left_drawer);
 		adapter = new ArrayAdapter<String>(this,

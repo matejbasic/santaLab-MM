@@ -1,7 +1,6 @@
 package net.neurolab.musicmap.dl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
@@ -12,10 +11,12 @@ import net.neurolab.musicmap.db.EventMusician_2;
 import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.Location;
 import net.neurolab.musicmap.db.Musician;
+import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.ws.JSONAdapter;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
 import android.app.Activity;
+import android.util.Log;
 
 import com.activeandroid.query.Select;
 public class DataLoaderMM extends DataLoader {
@@ -28,11 +29,22 @@ public class DataLoaderMM extends DataLoader {
 	@Override
 	public void LoadData(Activity activity, String location) {
 		super.LoadData(activity, location);
-
+		
 		MMAsyncTask asyncTaskEvents = new MMAsyncTask();
-		Object paramsEvent[] = new Object[] { "getEvents", location, null,//parametri?
-				eventsHandler, null, null };
-		asyncTaskEvents.execute(paramsEvent);
+		List<User> users = new User().getAll();
+		if (!users.isEmpty()) {
+			for (User user : users) {
+				if (!user.getMmApiKey().isEmpty()) {
+					Log.i("cUser", user.getMmApiKey());
+					
+					Object paramsEvent[] = new Object[] { "user", "getEvents", null,
+							eventsHandler, location, user.getMmApiKey() };
+					asyncTaskEvents.execute(paramsEvent);
+					break;
+				}
+			}
+			
+		}
 	}
 
 	MMAsyncResultHandler eventsHandler = new MMAsyncResultHandler() {

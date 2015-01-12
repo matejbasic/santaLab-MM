@@ -12,6 +12,7 @@ import net.neurolab.musicmap.db.EventMusician_2;
 import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.Location;
 import net.neurolab.musicmap.db.Musician;
+import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.ws.JSONAdapter;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
@@ -22,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.util.Log;
 
 import com.activeandroid.query.Select;
 
@@ -87,9 +89,20 @@ public class NotificationService extends Service {
 			System.out.println("DO IN BACKGROUND");
 
 			MMAsyncTask asyncTaskEvents = new MMAsyncTask();
-			Object paramsEvent[] = new Object[] { "getEvents", "zagreb", null,// parametri?
-					eventsHandler, null, null };
-			asyncTaskEvents.execute(paramsEvent);
+			List<User> users = new User().getAll();
+			if (!users.isEmpty()) {
+				for (User user : users) {
+					if (!user.getMmApiKey().isEmpty()) {
+						Log.i("cUser", user.getMmApiKey());
+						
+						Object paramsEvent[] = new Object[] { "user", "getEvents", null,
+								eventsHandler, "zagreb", user.getMmApiKey() };
+						asyncTaskEvents.execute(paramsEvent);
+						break;
+					}
+				}
+				
+			}
 
 			return null;
 		}
