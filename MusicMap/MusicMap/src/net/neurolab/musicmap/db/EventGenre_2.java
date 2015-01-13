@@ -25,7 +25,6 @@ public class EventGenre_2{
 
 	public EventGenre_2() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public EventGenre_2(long idEvent, String name) {

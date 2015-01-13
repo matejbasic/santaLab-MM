@@ -19,7 +19,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 public class JSONAdapter {
 
@@ -37,12 +36,7 @@ public class JSONAdapter {
 	 *         <code> [{"name":"value", "surname":"survalue"}]</code>
 	 * 
 	 */
-	/*
-	 * public static String getJsonArrayString(JSONObject jsonObject) { if
-	 * (jsonObject != null) { JSONArray tmp = new JSONArray();
-	 * tmp.put(jsonObject); return tmp.toString(); } else return "[]"; // an
-	 * empty array }
-	 */
+	
 
 	/**
 	 * Static method for converting the jsonString results containing the
@@ -63,8 +57,7 @@ public class JSONAdapter {
 			ArrayList<Location> locations, ArrayList<Musician> musicians,
 			ArrayList<Genre> genres, ArrayList<EventGenre_2> eventGenres,
 			ArrayList<EventMusician_2> eventMusicians) throws Exception {
-		// System.out.println(jsonString);
-		Log.i("getEvents result", jsonString);
+		
 		if (!(jsonString.equals("<?xml"))) {
 			JSONArray jsonArr = new JSONArray(jsonString);
 			JSONObject jsonObj = null;
@@ -134,51 +127,21 @@ public class JSONAdapter {
 					// event.setIdLocation(location);
 
 					if (!(eventId == 0 || name.equals("") || start == null)) {
-						/*
-						 * System.out.println("event");
-						 * 
-						 * System.out.println(eventId);
-						 * System.out.println(name); //
-						 * System.out.println(desc); System.out.println(start);
-						 * System.out.println(lastEdited);
-						 * System.out.println(lat); System.out.println(lng);
-						 */
+						
 						event = new Event(eventId, name, desc, start,
 								lastEdited, lat, lng);
-						/*
-						 * System.out.println(event.getId());
-						 * System.out.println(event.getEventId());
-						 * System.out.println(event.getLat());
-						 * System.out.println(event.getName());
-						 * System.out.println(event.getEventTime());
-						 * 
-						 * System.out.println("add");
-						 */
+						
 						events.add(event);
 						eventExists = true;
-
-						// provjera i dodavanje lokacije
-						/*
-						 * List<Location> loc = new Select().all()
-						 * .from(Location.class).where("lat = ?", lat)
-						 * .and("lng = ?", lng).execute();
-						 * 
-						 * if (loc.size() == 1) {
-						 * event.setIdLocation(loc.get(0)); } events.add(event);
-						 * eventExists = true;
-						 */
 					}
 
 				}
 
-				// ArrayList<String> musiciansarray1 = new ArrayList<String>();
 				String musiciansString = jsonObj.getString("artists");
 				JSONArray musicianArray = new JSONArray(musiciansString);
-				//System.out.println("musician");
 
 				for (int j = 0; j < musicianArray.length(); j++) {
 					String musician = musicianArray.getString(j);
-					// musiciansarray1.add(musician);
 					if (!(musician.equals(""))) {
 						Musician m = new Musician(musician, "-");
 						musicians.add(m);
@@ -188,14 +151,12 @@ public class JSONAdapter {
 					}
 				}
 
-				// System.out.println("genre");
 
 				String genresString = jsonObj.getString("genre");
 				JSONArray genreArray = new JSONArray(genresString);
 
 				for (int j = 0; j < genreArray.length(); j++) {
 					String genre = genreArray.getString(j);
-					// musiciansarray1.add(musician);
 					if (!(genre.equals(""))) {
 						Genre g = new Genre(genre, "-");
 						genres.add(g);
@@ -207,14 +168,7 @@ public class JSONAdapter {
 			}
 
 		}
-		/*
-		 * System.out.println(events.size());
-		 * System.out.println(locations.size());
-		 * System.out.println(musicians.size());
-		 * System.out.println(genres.size());
-		 * System.out.println(eventGenres.size());
-		 * System.out.println(eventMusicians.size());
-		 */
+		
 	}
 
 	/**

@@ -85,9 +85,7 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 		Group group = (Group) getGroup(groupPosition);
 		
 		((CheckedTextView) convertView).setText(sdf.format(group.getDate()));
-	
 		((CheckedTextView) convertView).setChecked(isExpanded);
-		//((CheckedTextView) convertView).setChecked(true);
 		
 		return convertView;
 	}

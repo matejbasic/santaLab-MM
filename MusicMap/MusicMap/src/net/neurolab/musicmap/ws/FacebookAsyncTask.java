@@ -3,11 +3,8 @@ package net.neurolab.musicmap.ws;
 
 import java.util.HashMap;
 
-import org.apache.http.impl.conn.tsccm.WaitingThread;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -60,7 +57,7 @@ public class FacebookAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	@Override
 	protected Object[] doInBackground(Object... params) {
 		Object result[] = new Object[] {false, "", null, null, null};
-		Log.i("fbAsyncTask", "doInBg");
+
 		Session session = (Session)params[0];
 		String action = (String)params[1];
 		FacebookResultHandler handler = (FacebookResultHandler) params[4];

@@ -166,27 +166,6 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 		if (listView != null) {
 			listView.setIndicatorBounds(listView.getRight() - 40, listView.getWidth());
 		}
-		/*
-		RelativeLayout locationContainer = (RelativeLayout) findViewById(R.id.eventLocationContainer);
-		RelativeLayout priceContainer = (RelativeLayout) findViewById(R.id.eventPriceContainer);
-		RelativeLayout timeContainer = (RelativeLayout) findViewById(R.id.eventTimeContainer);
-		
-		Log.i("location W", String.valueOf(locationContainer.getWidth()));
-		Log.i("price W", String.valueOf(priceContainer.getWidth()));
-		Log.i("time W", String.valueOf(timeContainer.getWidth()));
-		
-		WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-		Display display = wm.getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		int screenW = size.x;
-		
-		Log.i("screenW", String.valueOf(screenW));
-		int contentW = locationContainer.getWidth() + priceContainer.getWidth() + timeContainer.getWidth();
-		int priceSpace = (int)(contentW - priceContainer.getWidth());
-		
-		priceContainer.setMinimumWidth(priceSpace);
-		*/
 	}
 
 	@Override
@@ -221,7 +200,6 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 	@Override
 	protected Provider getYouTubePlayerProvider() {
 		//return (YouTubePlayerFragment) getFragmentManager().findFragmentById(R.id.youtubePlayerFragment);
-		//possible reason for failed second player initialization
 		return null;
 	}
 	

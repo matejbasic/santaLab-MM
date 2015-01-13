@@ -9,11 +9,7 @@ import android.util.Log;
 
 public abstract class DataLoader {
 	public ArrayList<Event> events;
-	// public ArrayList<Location> locations;
-	// public ArrayList<Musician> musicians;
-	// public ArrayList<Genre> genres;
-	// ...
-
+	
 	OnDataLoadedListener dataLoadedListener;
 
 	public void LoadData(Activity activity, String location) {

@@ -49,8 +49,6 @@ public class NotificationService extends Service {
 	private void handleIntent(Intent intent) {
 		// obtain the wake lock
 
-		System.out.println("HANDLE INTENT");
-
 		PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
 		mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
 				"MMWakelockTag");
@@ -59,8 +57,6 @@ public class NotificationService extends Service {
 		// check the global background data setting
 		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		if (!cm.getActiveNetworkInfo().isAvailable()) {
-			// if (!cm.getBackgroundDataSetting()) {
-			System.out.println("STOP");
 			stopSelf();
 			return;
 		}
@@ -70,10 +66,7 @@ public class NotificationService extends Service {
 	}
 
 	private class PollTask extends AsyncTask<Void, Void, Void> {
-		/**
-		 * separate thread
-		 */
-
+		
 		ArrayList<Event> events;
 
 		public PollTask() {
@@ -84,9 +77,6 @@ public class NotificationService extends Service {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			// do stuff!
-				
-			System.out.println("DO IN BACKGROUND");
 			
 			MMAsyncTask asyncTaskEvents = new MMAsyncTask();
 			List<User> users = new User().getAll();
@@ -112,7 +102,7 @@ public class NotificationService extends Service {
 			@Override
 			public void handleResult(String result, Boolean status) {
 				updated = false;
-				if (status) { // PROVJERITI STATUS
+				if (status) {
 					try {
 
 						events = new ArrayList<Event>();
@@ -125,8 +115,6 @@ public class NotificationService extends Service {
 						JSONAdapter.getEvents(result, events, locations,
 								musicians, genres, eventGenres, eventMusicians);
 
-						// System.out.println("DLMM");
-						// System.out.println("DLMM");
 						for (Location l : locations) {
 							List<Location> locs = new Select().all()
 									.from(Location.class)
@@ -134,9 +122,7 @@ public class NotificationService extends Service {
 									.and("lng = ?", l.getLng()).execute();
 							if (locs.size() == 0) {
 								l.save();
-								// System.out.println("spremljena lokacija");
 							}
-							// System.out.println(locations.size());
 						}
 
 						for (Musician m : musicians) {
@@ -146,7 +132,6 @@ public class NotificationService extends Service {
 							if (mscs.size() == 0) {
 								m.save();
 							}
-							// System.out.println(musicians.size());
 						}
 
 						for (Genre g : genres) {
@@ -156,9 +141,8 @@ public class NotificationService extends Service {
 							if (gnrs.size() == 0) {
 								g.save();
 							}
-							// System.out.println(genres.size());
 						}
-						// System.out.println("events");
+						
 						for (Event e : events) {
 							List<Event> evnt = new Select().all()
 									.from(Event.class)
@@ -176,10 +160,7 @@ public class NotificationService extends Service {
 									updated = true;
 								}
 							}
-
 						}
-						System.out.println(events.size());
-						// System.out.println("eventgenres");
 						for (EventGenre_2 eg : eventGenres) {
 							List<Genre> g = null;
 							List<Event> e = null;
@@ -195,22 +176,10 @@ public class NotificationService extends Service {
 								EventGenre eventGenre = new EventGenre(
 										e.get(0), g.get(0));
 								eventGenre.save();
-								/*
-								 * List<EventGenre> evgn = new Select().all()
-								 * .from(EventGenre.class) .where("idEvent = ?",
-								 * e.get(0).getId()) .and("idGenre = ?",
-								 * g.get(0).getId()) .execute();
-								 * 
-								 * if (evgn.size() == 0) { if (e != null && g !=
-								 * null) { eg.setIdEvent(e.get(0));
-								 * eg.setIdGenre(g.get(0)); eg.save();
-								 * //System.out.println("spremljeni eg"); } }
-								 */
-								// System.out.println(eventGenres.size());
+								
 							}
 						}
 
-						System.out.println("EventMusician");
 						for (EventMusician_2 em : eventMusicians) {
 
 							List<Musician> m = null;
@@ -226,18 +195,6 @@ public class NotificationService extends Service {
 								EventMusician eventMusician = new EventMusician(
 										ev.get(0), m.get(0));
 								eventMusician.save();
-								/*
-								 * List<EventMusician> evms = new Select().all()
-								 * .from(EventMusician.class)
-								 * .where("idEvent = ?", ev.get(0).getId())
-								 * .and("idMusician = ?", m.get(0).getId())
-								 * .execute();
-								 * 
-								 * if (evms.size() == 0) { if (ev != null && m
-								 * != null) { em.setIdEvent(ev.get(0));
-								 * em.setIdMusician(m.get(0)); em.save(); } }
-								 */
-								// System.out.println(eventMusicians.size());
 							}
 						}
 
@@ -260,7 +217,6 @@ public class NotificationService extends Service {
 		 */
 		@Override
 		protected void onPostExecute(Void result) {
-
 			stopSelf();
 		}
 

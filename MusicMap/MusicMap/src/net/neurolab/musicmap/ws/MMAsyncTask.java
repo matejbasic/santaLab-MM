@@ -22,7 +22,6 @@ import org.json.JSONTokener;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
 
 public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
@@ -31,7 +30,7 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String apiKey = "2c9s1rwf7578307";
 	
 	private String httpGetRequest(String url) {
-		Log.i("get url", url);
+		
 		String response = "";
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -135,7 +134,6 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 			else if (action.matches("getKey")) {
 				if (params[4] != null && params[5] != null) {
 					//params[4] - id, params[5] - idHash
-					//Log.i("fbUser getKey", response);
 					result[0] = this.getUserKey(params[4].toString(), params[5].toString(), true);
 					result[1] = true;
 				}
@@ -155,8 +153,6 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 				}
 			}
 			else if (action.matches("getKey")) {
-				Log.i("user getKey", params[4].toString());
-				Log.i("user getKey", params[5].toString());
 				if (params[4] != null && params[5] != null) {
 					result[0] = this.getUserKey(params[4].toString(), params[5].toString(), false);
 					result[1] = true;
@@ -167,11 +163,8 @@ public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 			}	
 			else if (action.matches("getEvents")) {		
 				String response = null;
-				Log.i("mmAsyncTask", "getEvents");
 				String location = (String) params[4];
 				String userKey = (String) params[5];
-				Log.i("getEvents", location);
-				Log.i("getEvents", userKey);
 					
 				response = this.getEvents(location, userKey);
 				

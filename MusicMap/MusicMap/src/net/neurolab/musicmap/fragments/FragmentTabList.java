@@ -45,7 +45,6 @@ public class FragmentTabList extends SherlockFragment implements
 		} else {
 			Log.i("tabList", "listView = null");
 		}
-		// Log.i("tabList", "created");
 		return view;
 	}
 
@@ -102,8 +101,7 @@ public class FragmentTabList extends SherlockFragment implements
 
 
 	public void loadData(ArrayList<Group> groups){
-		// now MainActivity no longer changes the list
-		// Fragment is in charge for setting the data and changing the expandable list	
+		
 		try{
 			listView = (ExpandableListView) getView().findViewById(R.id.listView);
 		}
@@ -119,7 +117,7 @@ public class FragmentTabList extends SherlockFragment implements
 			
 		} 
 		else {
-			//Log.i("tabList", "listView = null");
+			Log.i("tabList", "listView = null");
 		}
 		
 		
@@ -127,7 +125,6 @@ public class FragmentTabList extends SherlockFragment implements
 	
 	@Override
 	public void OnDataChanged(ArrayList<Event> events) {
-		// Log.i("tabList", "On data changed");
 		this.events = events;
 
 		this.groups = new ArrayList<Group>();
@@ -137,8 +134,6 @@ public class FragmentTabList extends SherlockFragment implements
 		for (Event event : this.events) {
 			eDate = event.getEventTime();
 			if (eDate != null) {
-				// Log.i("list event", sdf.format(eDate) + " " +
-				// event.getName());
 				i = getGroupIndex(eDate);
 				groups.get(i).getChildren().add(event);
 			}
@@ -149,7 +144,6 @@ public class FragmentTabList extends SherlockFragment implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		// setUserVisibleHint(true);
 	}
 
 	public void setIndicatorPosition() {

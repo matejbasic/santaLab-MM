@@ -12,11 +12,10 @@ import android.content.Intent;
 import android.os.Bundle;
 //import android.app.Fragment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -36,20 +35,17 @@ public class FragmentFacebookLogin extends Fragment {
 		super.onCreate(savedInstanceState);
 		uiHelper = new UiLifecycleHelper(getActivity(), callback);
 		uiHelper.onCreate(savedInstanceState);
-		Log.i("fFragment", "onCreate");
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.i("fb Frag", "onCreateView");
 		View view = inflater.inflate(R.layout.activity_login, container, false);
 		
 		try {
 			authButton = (LoginButton) view.findViewById(R.id.authButton);
 			authButton.setFragment(this);
 			authButton.setReadPermissions(readPermissions);
-			Log.i("authBtn", authButton.toString());
 		}
 		catch(Exception exception) {
 			Toast.makeText(getActivity(), R.string.facebook_login_failed, Toast.LENGTH_SHORT).show();
@@ -59,10 +55,8 @@ public class FragmentFacebookLogin extends Fragment {
 		btnGuest.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Log.i("btnGuest", "click");
 				LoginView parent = (LoginView)getActivity();
-				parent.checkGuest();
-				
+				parent.checkGuest();			
 			}
 		});	
 		
@@ -71,7 +65,7 @@ public class FragmentFacebookLogin extends Fragment {
 	FacebookResultHandler getUserBasicData = new FacebookResultHandler() {
 		@Override
 		public void handleResults(HashMap<String, String> data) {
-			Log.i("fbFragment", "handleResults");
+
 			if (data.containsKey("id") && data.containsKey("name")) {
 				//pass data to parent container/activity
 				LoginView parent = (LoginView)getActivity();
@@ -85,13 +79,10 @@ public class FragmentFacebookLogin extends Fragment {
 	
 	private void onSessionStateChange(Session session, SessionState state,
 			Exception exception) {
-		Log.i("sesionChanged", "done");
 		if (state.isOpened()) {
-			Log.i("sessionChanged", "state is opened");
 			FacebookAsyncTask fbTask = new FacebookAsyncTask();
 			Object params[] = new Object[]{session, "getUserData", null, null, getUserBasicData};
-			fbTask.execute(params);
-			
+			fbTask.execute(params);			
 		}
 	}
 	
@@ -100,16 +91,13 @@ public class FragmentFacebookLogin extends Fragment {
 		@Override
 		public void call(Session session, SessionState state,
 				Exception exception) {
-			Log.i("status callback", "call");
-			onSessionStateChange(session, state, exception);
-			
+			onSessionStateChange(session, state, exception);		
 		}
 	};
 	
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.i("fbFragment", "on Resume");
 		Session session = Session.getActiveSession();
 		if ( session != null && (session.isOpened() || session.isClosed()) ) {
 			onSessionStateChange(session, session.getState(), null);

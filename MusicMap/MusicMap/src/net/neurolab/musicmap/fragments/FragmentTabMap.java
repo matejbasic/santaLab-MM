@@ -6,8 +6,6 @@ import java.util.List;
 import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.Location;
-import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.dl.DataLoader;
 import net.neurolab.musicmap.dl.DataLoaderDB;
 import net.neurolab.musicmap.dl.DataLoaderMM;
@@ -22,8 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.activeandroid.query.Select;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -52,8 +48,6 @@ public class FragmentTabMap extends SherlockFragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.i("tabMap", "create");
-
 		return inflater.inflate(R.layout.fragment_tab_map, container, false);
 	}
 
@@ -61,12 +55,11 @@ public class FragmentTabMap extends SherlockFragment implements
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 
-		System.out.println("OnViewCreated");
 		if (gMap == null) {
 			initMap();
 		}
 
-		//add onClickListener for infoWindow - goto Event
+		//onClickListener for infoWindow - goto Event
 		gMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 			
 			@Override
@@ -85,13 +78,6 @@ public class FragmentTabMap extends SherlockFragment implements
 		
 		
 		String theLocation = loadSavedPreferences();
-
-		Log.i("lokacija mapa", theLocation);
-		/*
-		 * List<Location> loc = new Select().from(Location.class)
-		 * .where("city LIKE ?", theLocation).execute(); ArrayList<Location> l =
-		 * (ArrayList<Location>) loc;
-		 */
 	
 		if (!theLocation.equalsIgnoreCase(previousLocation) && !isAlreadyLoaded(theLocation)) {
 			Log.i("tabMap", "first load");
@@ -105,13 +91,7 @@ public class FragmentTabMap extends SherlockFragment implements
 				System.out.println(e);
 			}
 			try {
-				/*
-				 * if (savedInstanceState == null && !mAlreadyLoaded) {
-				 * Log.i("tabMap", "first load"); mAlreadyLoaded = true;
-				 */
-
-				// cPrefLocation = new PreferredLocation().getSingleLocation();
-
+				
 				/*
 				 * if (l.size() > 0) { location = l.get(0);
 				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
@@ -126,7 +106,6 @@ public class FragmentTabMap extends SherlockFragment implements
 
 				System.out.println("Loadanje iz baze");
 				DataLoader dl = new DataLoaderDB();
-				// dl.LoadData(getActivity(), cPrefLocation.getCity());
 				dl.LoadData(getActivity(), theLocation);
 
 				Boolean eventsExists = dl.DataLoaded();
@@ -134,24 +113,8 @@ public class FragmentTabMap extends SherlockFragment implements
 				if (!eventsExists) {
 					System.out.println("Loadanje sa servisa");
 					dl = new DataLoaderMM();
-					// dl.LoadData(getActivity(), cPrefLocation.getCity());
 					dl.LoadData(getActivity(), theLocation);
 				}
-
-				// this.events = dl.events; //? dodaje se vec u onDataChanged
-				// Log.i("events size", String.valueOf(events.size()));
-
-				/*
-				 * }
-				 * 
-				 * else { Log.i("tabMap", "n-th load"); DataLoader dl = new
-				 * DataLoaderDB(); dl.LoadData(getActivity(), theLocation);
-				 * 
-				 * // this.events = dl.events; // Log.i("events size",
-				 * String.valueOf(events.size()); // addMarkersToMap();
-				 * 
-				 * }
-				 */
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -161,7 +124,6 @@ public class FragmentTabMap extends SherlockFragment implements
 
 	public boolean isAlreadyLoaded(String loc) {
 		for (String l : previousLocations) {
-			Log.i("isLoaded", l);
 			if (loc.equalsIgnoreCase(l)) {
 				return true;
 			}
@@ -184,12 +146,11 @@ public class FragmentTabMap extends SherlockFragment implements
 
 	// ex loadData()
 	public void addMarkersToMap() {
-		Log.i("addMarkersToMap map", gMap.toString());
 		if (gMap != null) {
 			MarkerOptions markerOpt;
 			double latitude = 0, longitude = 0;
 			String title = "";
-			Log.i("addMtoM mark size", String.valueOf(markers.size()));
+			
 			for (int i = 0; i < markers.size(); i++) {
 				latitude = markers.get(i).getLat();
 				longitude = markers.get(i).getLng();
@@ -199,29 +160,17 @@ public class FragmentTabMap extends SherlockFragment implements
 				
 				gMap.addMarker(markerOpt);
 			}
-			/*
-			 * if (location != null) {
-			 * gMap.animateCamera(CameraUpdateFactory.zoomTo( 2.0f ));
-			 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-			 * this.location.getLat(), this.location.getLng()), (float) 12.0));
-			 * }
-			 */
 		}
 	}
 
 	public void addMarkers(double lat, double lng, String desc, long eventId) {
-		System.out.println("addMarkers");
 		markers.add(new Markers(lat, lng, desc, eventId));
-
 	}
 
 	@Override
 	public void OnDataChanged(ArrayList<Event> events) {
-		Log.i("tabMap", "onDataChanged");
-		Log.i("OnDChanged events size", String.valueOf(events.size()));
 		this.events = events;
 
-		System.out.println(this.events.size());
 		markers.clear();
 		for (int i = 0; i < events.size(); i++) {
 			Log.i("tabMap", events.get(i).getIdLocation().getName());
@@ -234,12 +183,10 @@ public class FragmentTabMap extends SherlockFragment implements
 	}
 
 	private void initMap() {
-		Log.i("initMap status", String.valueOf(gMap));
 		if (gMap == null) {
 
 			fSupportMap = ((SupportMapFragment) getChildFragmentManager()
 					.findFragmentById(R.id.map));
-			Log.i("tempFrag", String.valueOf(fSupportMap));
 
 			if (fSupportMap != null) {
 				gMap = fSupportMap.getMap();
@@ -249,7 +196,6 @@ public class FragmentTabMap extends SherlockFragment implements
 
 			// check if map is created successfully or not
 			if (gMap == null) {
-				Log.i("googleMap", "=null, ludilo!");
 				Toast.makeText(getActivity(),
 						R.string.gmap_unable_to_create_error,
 						Toast.LENGTH_SHORT).show();

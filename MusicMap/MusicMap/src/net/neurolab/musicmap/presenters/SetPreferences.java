@@ -34,7 +34,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class SetPreferences implements SetPreferencesPresenter {
 
@@ -70,7 +69,6 @@ public class SetPreferences implements SetPreferencesPresenter {
 	private class getAddressTask extends AsyncTask<Object, Void, Object[]> {
 		
 		private String gcFallback(String location) {
-			Log.i("gcFallback", "start");
 			String url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 			try {
 				url += URLEncoder.encode(location, "utf-8");
@@ -121,7 +119,6 @@ public class SetPreferences implements SetPreferencesPresenter {
 		
 		@Override
 		protected Object[] doInBackground(Object... params) {
-			Log.i("get getLocation data", "start");
 			String locationName = (String) params[0];
 			Context context = (Context) params[1];
 			
@@ -182,9 +179,6 @@ public class SetPreferences implements SetPreferencesPresenter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			Log.i("gl result", result[0].toString());
-			Log.i("gl result", result[1].toString());
-			Log.i("gl result", result[2].toString());
 			return result;
 		}
 	
@@ -257,10 +251,8 @@ public class SetPreferences implements SetPreferencesPresenter {
 	public void setLocation(String name, Context context) {
 		if (!locationCheck) {
 			locationCheck = true;
-			Log.i("location", name);
 			if(name != null && !name.isEmpty()) {
 				Location location = new Location().getLocation(name);
-				Log.i("location", String.valueOf(location));
 				
 				if(location == null) {
 					//preferred location can be just a city

@@ -21,11 +21,6 @@ import android.util.Log;
 import com.activeandroid.query.Select;
 public class DataLoaderMM extends DataLoader {
 
-	//private boolean eventsLoaded = false;
-	//private boolean locationsLoaded = false;
-
-	// ...
-
 	@Override
 	public void LoadData(Activity activity, String location) {
 		super.LoadData(activity, location);
@@ -63,7 +58,6 @@ public class DataLoaderMM extends DataLoader {
 					
 					JSONAdapter.getEvents(result, events, locations, musicians, genres, eventGenres, eventMusicians);
 				
-					//System.out.println("DLMM");
 					for (Location l : locations) {
 						List<Location> locs = new Select().all()
 								.from(Location.class)
@@ -71,9 +65,8 @@ public class DataLoaderMM extends DataLoader {
 								.and("lng = ?", l.getLng()).execute();
 						if (locs.size() == 0) {
 							l.save();
-								//System.out.println("spremljena lokacija");
+								
 						}
-						//System.out.println(locations.size());
 					}
 
 					for (Musician m : musicians) {
@@ -83,7 +76,6 @@ public class DataLoaderMM extends DataLoader {
 						if (mscs.size() == 0) {
 							m.save();
 						}
-						//System.out.println(musicians.size());
 					}
 
 					for (Genre g : genres) {
@@ -92,9 +84,8 @@ public class DataLoaderMM extends DataLoader {
 						if (gnrs.size() == 0) {
 							g.save();
 						}
-						//System.out.println(genres.size());
 					}
-					//System.out.println("events");
+					
 					for (Event e : events) {
 						List<Event> evnt = new Select().all().from(Event.class)
 								.where("eventId = ?", e.getEventId()).execute();
@@ -110,8 +101,7 @@ public class DataLoaderMM extends DataLoader {
 						}
 						
 					}
-					System.out.println(events.size());
-					//System.out.println("eventgenres");
+					
 					for (EventGenre_2 eg : eventGenres) {
 						List<Genre> g = null;
 						List<Event> e = null;
@@ -128,26 +118,9 @@ public class DataLoaderMM extends DataLoader {
 							
 							EventGenre eventGenre = new EventGenre(e.get(0), g.get(0));
 							eventGenre.save();
-/*
-							List<EventGenre> evgn = new Select().all()
-									.from(EventGenre.class)
-									.where("idEvent = ?", e.get(0).getId())
-									.and("idGenre = ?", g.get(0).getId())
-									.execute();
-							
-							if (evgn.size() == 0) {								
-								if (e != null && g != null) {
-									eg.setIdEvent(e.get(0));
-									eg.setIdGenre(g.get(0));
-									eg.save();
-										//System.out.println("spremljeni eg");
-								}
-							}*/
-						//	System.out.println(eventGenres.size());
 						}
 					}
 					
-					System.out.println("EventMusician");
 					for (EventMusician_2 em : eventMusicians) {
 
 						List<Musician> m = null;
@@ -165,21 +138,7 @@ public class DataLoaderMM extends DataLoader {
 							
 							EventMusician eventMusician = new EventMusician(ev.get(0), m.get(0));
 							eventMusician.save();
-/*
-							List<EventMusician> evms = new Select().all()
-									.from(EventMusician.class)
-									.where("idEvent = ?", ev.get(0).getId())
-									.and("idMusician = ?", m.get(0).getId())
-									.execute();
-							
-							if (evms.size() == 0) {
-								if (ev != null && m != null) {
-									em.setIdEvent(ev.get(0));
-									em.setIdMusician(m.get(0));
-									em.save();
-								}
-							}*/
-							//System.out.println(eventMusicians.size());
+
 						}
 					}
 
@@ -187,33 +146,10 @@ public class DataLoaderMM extends DataLoader {
 					e.printStackTrace();
 				}
 			}
-		//	eventsLoaded = true;
+			//eventsLoaded = true;
 			DataLoaded();
 			//showLoadedData();
 		}
 	};
 
-	/*
-	private void showLoadedData() {
-		// Synchronization of results
-		if (eventsLoaded) {
-			bindLocationsToEvents();
-
-			eventsLoaded = false;
-
-			DataLoaded();
-		}
-	}
-	*/
-/*
-	private void bindLocationsToEvents() {// join
-		for (Location l : locations) {
-			for (Event e : events) {
-				if (true ) {
-					// e.setLocation(l);
-				//	e.save();
-				}
-			}
-		}
-	}*/
 }

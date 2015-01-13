@@ -148,10 +148,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 		ArrayList<User> u = null;
 
 		try {
-			/*
-			 * user = new Select().from(User.class) .where("facebookId = ?",
-			 * userId).execute();
-			 */
 			user = new Select().from(User.class).execute();
 			u = (ArrayList<User>) user;
 		} catch (Exception e) {
@@ -165,7 +161,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 
 		if (id != 0) {
-			Log.i("mainActivity", "locations");
 			try {
 				loc = new Select().from(PreferredLocation.class)
 						.where("idUser LIKE ?", id).execute();
@@ -197,9 +192,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 					R.string.no_preferred_locations) };
 		}
 
-		// menu = new String[] { "Zagreb", "Oxford", "London", "Baltimore",
-		// "Rome", "Boston", "Madison" };
-
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		dList = (ListView) findViewById(R.id.left_drawer);
 		adapter = new ArrayAdapter<String>(this,
@@ -227,18 +219,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		Log.i("mainActivity", "on create end");
 	}
 
-	/*
-	 * public Boolean eventsExist() { if (this.events != null) return true; else
-	 * return false; }
-	 */
-	/*
-	 * public String loadSavedPreferences() { sharedPreferences =
-	 * PreferenceManager.getDefaultSharedPreferences(this); String idUser =
-	 * sharedPreferences.getString("idUser", ""); if
-	 * (idUser.equalsIgnoreCase("")) { return "NN"; } else return idUser;
-	 * 
-	 * }
-	 */
+	
 	void savePreferences(String location) {
 		preferredLocation = location;
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -293,8 +274,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 						public void onClick(View view) {
 							String searchString = input.getText().toString()
 									.trim();
-							//DataLoaderSearch dl = new DataLoaderSearch();							
-							//dl.searchData(searchString);
+							
 							searchForData(searchString);			
 							
 							alert.dismiss();
@@ -322,7 +302,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		Log.i("mainActivitiy", "onDataLoaded");
-		// this.events = events;
 		if (ftm != null) {
 			ftm.OnDataChanged(events);
 		}
@@ -337,18 +316,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	public void onResume() {
 		super.onResume();
-		System.out.println("onResume GLAVNE AKTIVNOSTI");
-		/*
-		 * SharedPreferences prefs = PreferenceManager
-		 * .getDefaultSharedPreferences(this); int minutes =
-		 * prefs.getInt("interval");
-		 */
+		
 		int minutes = 5 * 60; // 5sati
 		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		Intent i = new Intent(this, NotificationService.class);
 		PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
-		// PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 0,
-		// i, 0);
+		
 		am.cancel(pi);
 		// minutes <= 0 means notifications are disabled
 		if (minutes > 0) {
@@ -371,7 +344,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public void navigateToSingleEvent(Long eventId) {
-		// Toast.makeText(activity, children, Toast.LENGTH_SHORT).show();
 		if (eventId != null) {
 			Intent intent = new Intent(getApplicationContext(),
 					EventActivity.class);

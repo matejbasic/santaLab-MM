@@ -2,13 +2,12 @@ package net.neurolab.musicmap.ws;
 
 import java.util.HashMap;
 
+import android.util.Log;
+
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
-
-import android.util.Log;
-import bolts.Task;
 
 public class FacebookTask  {
 
@@ -20,11 +19,8 @@ public class FacebookTask  {
 			public void onCompleted(GraphUser user, Response response) {
 				Log.i("fbOnComplete", "enter");
 				if (user != null) {
-					Log.i("fbUserId", user.getId().toString());
-					Log.i("fbUserName", user.getName().toString());
-						
-						userData.put("id", user.getId().toString());
-						userData.put("name", user.getUsername().toString());
+					userData.put("id", user.getId().toString());
+					userData.put("name", user.getUsername().toString());
 				}
 				
 			}

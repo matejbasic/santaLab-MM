@@ -31,13 +31,11 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 	public EventDetailsExpandableAdapter(Activity activity, ExpandableListView listView) {
 		this.activity = activity;
 		this.inflater = activity.getLayoutInflater();
-		//this.groups = groups;
 		this.listView = listView;
 	}
 	
 	@Override
 	public int getGroupCount() {
-		//return groups.size();
 		return EventGroups.getInstance().listGroups.size();
 	}
 	
@@ -45,7 +43,6 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 	public void onGroupCollapsed(int groupPosition) {
 		super.onGroupCollapsed(groupPosition);
 		Object[] group = EventGroups.getInstance().listGroups.get(groupPosition);
-		Log.i("adapter", String.valueOf(groupPosition) + " collapsed");
 		try {
 			group[3] = true;
 			EventGroups.getInstance().listGroups.remove(groupPosition);
@@ -97,14 +94,13 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.event_details_list_group, null); //parent OR null?
+			convertView = inflater.inflate(R.layout.event_details_list_group, null);
 		}
 		
 		Object[] group = EventGroups.getInstance().listGroups.get(groupPosition);
 		if (group[0] == "event-details") {
 			
 			((CheckedTextView) convertView).setText(group[1].toString());
-			//((CheckedTextView) convertView).setChecked(false);	
 		}
 		else if (group[0] == "musician-bio") {
 			((CheckedTextView) convertView).setText("About " + group[1].toString());
@@ -131,7 +127,6 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		if(ytDataManager == null) {
 			ytDataManager = new YouTubeDataManager();
 		}
-		//musician name = group[1].toString()
 		ytDataManager.setDataTask(group[1].toString(), new YouTubeDataResultHandler() {
 			
 			@Override

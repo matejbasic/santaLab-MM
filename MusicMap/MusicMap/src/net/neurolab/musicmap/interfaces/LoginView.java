@@ -2,8 +2,6 @@ package net.neurolab.musicmap.interfaces;
 
 import java.util.HashMap;
 
-import android.content.Context;
-
 public interface LoginView {
 	
 	public void showProgress();

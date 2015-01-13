@@ -49,7 +49,6 @@ public class YouTubeDataManager {
 	                    ResourceId rId = singleVideo.getId();
 	                    
 	                    if (rId.getKind().equals("youtube#video")) {
-	                        //Log.i("videoId", rId.getVideoId());
 	                    	response[1] = rId.getVideoId();
 	                    	return response;
 	                     }
@@ -88,11 +87,11 @@ public class YouTubeDataManager {
             
         } 
 		catch (GoogleJsonResponseException e) {
-            System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
+            System.err.println("service error: " + e.getDetails().getCode() + " : "
                     + e.getDetails().getMessage());
         } 
 		catch (IOException e) {
-            System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
+            System.err.println("IO error: " + e.getCause() + " : " + e.getMessage());
         } 
 		catch (Throwable t) {
             t.printStackTrace();

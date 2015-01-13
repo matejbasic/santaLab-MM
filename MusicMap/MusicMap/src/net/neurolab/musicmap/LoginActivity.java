@@ -9,7 +9,6 @@ import net.neurolab.musicmap.presenters.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,7 +40,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		
 		// active android initialization, must be in launch activity
 		ActiveAndroid.initialize(this);
-		Log.i("lActivity", "onCreate");
 		isInstanceSaved = false;
 		userExist = false;
 		
@@ -59,10 +57,9 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		
 		progressBar = (ProgressBar) findViewById(R.id.loginProgressBar);
 		hideProgress();
-		btnFbAuth = (Button) findViewById(R.id.authButton);
 		
-		btnGuest = (Button) findViewById(R.id.btnLoginAsGuest);	
-		
+		btnFbAuth = (Button) findViewById(R.id.authButton);	
+		btnGuest = (Button) findViewById(R.id.btnLoginAsGuest);		
 		btnCheckConnection = (Button) findViewById(R.id.btnCheckConnection);
 		
 		if (connectionValid) {
@@ -91,13 +88,11 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		presenter = new Login(this);
 		if (!connectionValid) {
 			presenter.checkDependencies(getApplicationContext());
-		}
-		
+		}	
 	}
 	
 	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		
+	public void onWindowFocusChanged(boolean hasFocus) {		
 		super.onWindowFocusChanged(hasFocus);
 	}
 	
@@ -109,7 +104,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 
 	@Override
 	public void setLoginButtons() {
-		Log.i("setLoginButtons cValid", String.valueOf(connectionValid));
 		if (!connectionValid) {
 			connectionValid = true;
 		}
@@ -128,15 +122,12 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		else {
 			fFacebookLogin = (FragmentFacebookLogin) getSupportFragmentManager()
 					.findFragmentById(android.R.id.content);
-		}	
-			
-		
+		}		
 	}
 
 	@Override
 	public void getFbFragmentData(HashMap<String, String> data) {
-		if (data.containsKey("id") && data.containsKey("name")) {
-		
+		if (data.containsKey("id") && data.containsKey("name")) {	
 			presenter.checkFbUser(data.get("name")
 					.toString(), data.get("id").toString(), LoginActivity.this);	
 		}

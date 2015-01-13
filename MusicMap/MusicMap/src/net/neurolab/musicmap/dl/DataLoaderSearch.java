@@ -5,7 +5,6 @@ import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
 import android.app.Activity;
-import android.util.Log;
 
 import com.activeandroid.query.Select;
 
@@ -33,9 +32,6 @@ public class DataLoaderSearch extends DataLoader {
 			events = (ArrayList<Event>) eventsDb;			
 		}
 		
-		System.out.println(eventsDb.size());
-		
-		Log.i("DataLoaderSearch-", searchTerm);
 		DataLoaded();
 	}
 

@@ -23,28 +23,6 @@ public class NotificationData<PollTask> {
 		mNotificationManager.cancel(SIMPLE_NOTFICATION_ID);
 	}
 
-	/*
-	 * @SuppressWarnings("deprecation") public void SetNotification(int
-	 * drawable, String msg, String action_string, Class cls) {
-	 * mNotificationManager = (NotificationManager)
-	 * _context.getSystemService(Context.NOTIFICATION_SERVICE); final
-	 * Notification notifyDetails = new Notification(drawable, "Post Timer",
-	 * System.currentTimeMillis()); long[] vibrate = { 100, 100, 200, 300 };
-	 * notifyDetails.vibrate = vibrate; notifyDetails.ledARGB = 0xff00ff00;
-	 * notifyDetails.ledOnMS = 300; notifyDetails.ledOffMS = 1000; //
-	 * notifyDetails.number=4; notifyDetails.defaults =Notification.DEFAULT_ALL;
-	 * Context context = _context; CharSequence contentTitle = msg; CharSequence
-	 * contentText = action_string; Intent notifyIntent = new Intent(context,
-	 * cls); Bundle bundle = new Bundle(); //
-	 * bundle.putBoolean(AppConfig.IS_NOTIFICATION, true);
-	 * notifyIntent.putExtras(bundle); PendingIntent intent =
-	 * PendingIntent.getActivity(_context, 0,notifyIntent,
-	 * android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
-	 * notifyDetails.setLatestEventInfo(context, contentTitle, contentText,
-	 * intent); mNotificationManager.notify(SIMPLE_NOTFICATION_ID,
-	 * notifyDetails); }
-	 */
-
 	public void showNotification(Context context) {
 		System.out.println("shownotification");
 		Log.i("context", context.toString());
@@ -65,9 +43,3 @@ public class NotificationData<PollTask> {
 	}
 
 }
-
-/*
- * NotificationData notification; //create object notification = new
- * NotificationData(this); notification.SetNotification(R.drawable.notification,
- * "Notification Title", "Click to open", YourClassName.class);
- */
