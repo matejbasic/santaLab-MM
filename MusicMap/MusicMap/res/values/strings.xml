@@ -42,7 +42,7 @@
     <string name="eventLocationDef">Unknown location</string>
     <string name="eventPriceDef">Unknown</string>
     <string name="eventTimeDef">Unknown</string>
-    <string name="eventDescDef">No information about this event.\n Please try again! :)</string>
+    <string name="eventDescDef">No information about this event.</string>
     <string name="eventDescTitle">Event details</string>
     <string name="eventRandIcon">Event Icon</string>
     

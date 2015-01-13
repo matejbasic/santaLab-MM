@@ -23,8 +23,6 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.activeandroid.query.Select;
 
@@ -87,18 +85,17 @@ public class NotificationService extends Service {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// do stuff!
-
+				
 			System.out.println("DO IN BACKGROUND");
-
+			
 			MMAsyncTask asyncTaskEvents = new MMAsyncTask();
 			List<User> users = new User().getAll();
 			if (!users.isEmpty()) {
 				for (User user : users) {
 					if (!user.getMmApiKey().isEmpty()) {
-						Log.i("cUser", user.getMmApiKey());
-
+						String location = MainActivity.preferredLocation;
 						Object paramsEvent[] = new Object[] { "user",
-								"getEvents", null, eventsHandler, "zagreb",
+								"getEvents", null, eventsHandler, location,
 								user.getMmApiKey() };
 						asyncTaskEvents.execute(paramsEvent);
 						break;

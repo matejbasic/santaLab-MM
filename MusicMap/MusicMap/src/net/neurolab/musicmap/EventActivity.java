@@ -35,7 +35,6 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 	private ArrayList<String> musicianImgAvailable = new ArrayList<String>();
 	private ExpandableListView listView;
 	
-	//share ikona
 	private ImageView shareEvent;
 	
 	private class mainImgHandler implements FlickrAsyncResultHandler {
@@ -46,13 +45,11 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 				Picasso.with(getApplicationContext()).load(imgUrl).into(imgView);
 			}
 			else {
-				//mainImgFetched = false;
 				if (!musicianImgAvailable.isEmpty()) {
 					FlickrAsyncTask fTask = new FlickrAsyncTask();
 					fTask.execute(new Object[]{musicianImgAvailable.get(0), new mainImgHandler()});
 					musicianImgAvailable.remove(0);
-				}
-				
+				}	
 			}
 		}
 		
@@ -63,16 +60,13 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event);
 		
-		// share ikona
 		shareEvent = (ImageView) findViewById(R.id.shareEvent);
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			
 			long eventId = extras.getLong("eventId");
-			event = new Event().getById(eventId);
-			
-			
+			event = new Event().getById(eventId);		
 			if (event != null) {
 				//SET HEADER
 				//event header title
@@ -83,10 +77,7 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 				//event location
 				if (event.getIdLocation().getName() != null && !event.getIdLocation().getName().isEmpty()) {
 					TextView txtLocation = (TextView) findViewById(R.id.eventLocation);
-					String location = event.getIdLocation().getName() + ", ";
-					location += event.getIdLocation().getCity().substring(0, 1).toUpperCase(Locale.getDefault()) + event.getIdLocation().getCity().substring(1);
-					
-					txtLocation.setText(location);
+					txtLocation.setText(event.getIdLocation().getName());
 				}
 				//event start date/time
 				if (event.getEventTime() != null) {
@@ -98,15 +89,12 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 				TextView txtPrice = (TextView) findViewById(R.id.eventPrice);
 				try {
 					List<EventPrice> prices = event.prices();
-					Log.i("fEvent", prices.toString());
 					if (prices != null) {
-						Log.i("eventPrices", event.getName() + String.valueOf(prices));
 						for (EventPrice price : prices) {
 							if (!price.getPrice().equals("-")) {
 								txtPrice.append(price.getPrice() + "\n");
 							}
 						}
-						Log.i("fEvent", "txtPrice added");
 					}
 				}
 				catch(Exception e) {
@@ -149,24 +137,22 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 				}
 			}
 			else {
-				Log.i("event", "is null!");
+				Log.i("event", "null!");
 			}
 		}
 	
 		//share kod
-				shareEvent.setOnClickListener(new View.OnClickListener() {
+		shareEvent.setOnClickListener(new View.OnClickListener() {
 					
-					@Override
-					public void onClick(View v) {
-						Intent sendIntent = new Intent();
-						sendIntent.setAction(Intent.ACTION_SEND);
-						sendIntent.setType("text/plain");
-						sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, check out this event: "+event.getName()+" at "+event.getIdLocation().getAddress()+" on "+event.getEventTime());
-						startActivity(Intent.createChooser(sendIntent, "Tell Your Friends"));
-					//	sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Cool event");
-					}
-				});
-		
+			@Override
+			public void onClick(View v) {
+				Intent sendIntent = new Intent();
+				sendIntent.setAction(Intent.ACTION_SEND);
+				sendIntent.setType("text/plain");
+				sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey, check out this event: "+event.getName()+" at "+event.getIdLocation().getAddress()+" on "+event.getEventTime());
+				startActivity(Intent.createChooser(sendIntent, "Tell Your Friends"));	
+			}
+		});	
 	}
 	
 	@Override
@@ -180,6 +166,27 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 		if (listView != null) {
 			listView.setIndicatorBounds(listView.getRight() - 40, listView.getWidth());
 		}
+		/*
+		RelativeLayout locationContainer = (RelativeLayout) findViewById(R.id.eventLocationContainer);
+		RelativeLayout priceContainer = (RelativeLayout) findViewById(R.id.eventPriceContainer);
+		RelativeLayout timeContainer = (RelativeLayout) findViewById(R.id.eventTimeContainer);
+		
+		Log.i("location W", String.valueOf(locationContainer.getWidth()));
+		Log.i("price W", String.valueOf(priceContainer.getWidth()));
+		Log.i("time W", String.valueOf(timeContainer.getWidth()));
+		
+		WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int screenW = size.x;
+		
+		Log.i("screenW", String.valueOf(screenW));
+		int contentW = locationContainer.getWidth() + priceContainer.getWidth() + timeContainer.getWidth();
+		int priceSpace = (int)(contentW - priceContainer.getWidth());
+		
+		priceContainer.setMinimumWidth(priceSpace);
+		*/
 	}
 
 	@Override
@@ -198,7 +205,6 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 				if (group.length >= 3) {
 					try {
 						if (Integer.parseInt(group[4].toString()) == provider.hashCode()) {
-							//Log.i("players hash comparison", "match!");
 							if (!group[5].toString().isEmpty()) {
 								player.cueVideo(group[5].toString());
 							}
@@ -209,7 +215,6 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 					}
 				}
 			}
-			//player.cueVideo("nCgQDjiotG0");
 		}
 	}
 
@@ -225,6 +230,5 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 		EventGroups.getInstance().listGroups.clear();
 		super.onDestroy();
 	}
-	
 	
 }

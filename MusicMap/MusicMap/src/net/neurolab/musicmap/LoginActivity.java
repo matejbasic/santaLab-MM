@@ -6,10 +6,7 @@ import net.neurolab.musicmap.fragments.FragmentFacebookLogin;
 import net.neurolab.musicmap.interfaces.LoginPresenter;
 import net.neurolab.musicmap.interfaces.LoginView;
 import net.neurolab.musicmap.presenters.Login;
-import net.neurolab.musicmap.ws.FacebookAsyncTask;
-import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -17,14 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
-import com.facebook.android.Facebook;
 
 public class LoginActivity extends FragmentActivity implements LoginView {
 

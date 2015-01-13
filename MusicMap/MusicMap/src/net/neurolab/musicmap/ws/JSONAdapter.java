@@ -9,9 +9,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import net.neurolab.musicmap.db.Event;
-import net.neurolab.musicmap.db.EventGenre;
 import net.neurolab.musicmap.db.EventGenre_2;
-import net.neurolab.musicmap.db.EventMusician;
 import net.neurolab.musicmap.db.EventMusician_2;
 import net.neurolab.musicmap.db.Genre;
 import net.neurolab.musicmap.db.Location;
@@ -21,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 public class JSONAdapter {
 
@@ -65,7 +64,7 @@ public class JSONAdapter {
 			ArrayList<Genre> genres, ArrayList<EventGenre_2> eventGenres,
 			ArrayList<EventMusician_2> eventMusicians) throws Exception {
 		// System.out.println(jsonString);
-
+		Log.i("getEvents result", jsonString);
 		if (!(jsonString.equals("<?xml"))) {
 			JSONArray jsonArr = new JSONArray(jsonString);
 			JSONObject jsonObj = null;

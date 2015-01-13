@@ -22,8 +22,6 @@ public class FragmentTabList extends SherlockFragment implements
 		OnDataChangedListener {
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<Event> events;
-	// private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd.MM.yyyy.",
-	// Locale.getDefault());
 	private ExpandableListView listView = null;
 
 	@Override
@@ -84,10 +82,9 @@ public class FragmentTabList extends SherlockFragment implements
 	private int getGroupIndex(Date date) {
 		int compDate = -1;
 		int i = 0;
-		// Log.i("date", sdf.format(date));
+
 		for (Group group : groups) {
 			compDate = compareDates(date, group.getDate());
-
 			if (compDate > 0) {
 				Group newGroup = new Group(date);
 				groups.add(i, newGroup);
@@ -107,22 +104,22 @@ public class FragmentTabList extends SherlockFragment implements
 	public void loadData(ArrayList<Group> groups){
 		// now MainActivity no longer changes the list
 		// Fragment is in charge for setting the data and changing the expandable list	
-		Log.i("loadData", "1");
 		try{
 			listView = (ExpandableListView) getView().findViewById(R.id.listView);
 		}
 		catch(Exception e){
 			Log.i("loadDataTabList", e.toString());
 		}
-		Log.i("loadData", "2");
+
 		if (listView != null) {
 			EventsExpandableAdapter adapter = new EventsExpandableAdapter(
 					getActivity(), groups);
-			Log.i("loadData", "3");
+			
 			listView.setAdapter(adapter);
-			Log.i("loadData", "4");
-		} else {
-			Log.i("tabList", "listView = null");
+			
+		} 
+		else {
+			//Log.i("tabList", "listView = null");
 		}
 		
 		
@@ -133,7 +130,6 @@ public class FragmentTabList extends SherlockFragment implements
 		// Log.i("tabList", "On data changed");
 		this.events = events;
 
-		// delete when data loading is corrected
 		this.groups = new ArrayList<Group>();
 
 		int i = -1;

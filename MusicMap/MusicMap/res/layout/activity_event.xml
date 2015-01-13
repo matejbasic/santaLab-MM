@@ -22,7 +22,7 @@
 	   		    android:contentDescription="@string/eventMainImageDesc"
 	   		    android:src="@drawable/event_def" 
 	   		    android:cropToPadding="true"
-	   		    android:scaleType="fitXY" />
+	   		    android:scaleType="centerCrop" />
 			<TextView
 			    android:id="@+id/eventName"
 			    android:layout_width="wrap_content"
@@ -43,10 +43,14 @@
 			
 			<ImageView
 			    android:id="@+id/shareEvent"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_alignParentBottom="true"
-			    android:layout_alignParentRight="true"
+			    android:layout_width="40dp"
+			    android:layout_height="40dp"
+			    android:layout_alignParentTop="true"
+			    android:layout_alignParentLeft="true"
+			    android:layout_alignParentStart="true"
+			    android:layout_marginLeft="4dp"
+			    android:layout_marginStart="4dp"
+			    android:layout_marginTop="4dp"
 			    android:src="@drawable/ic_action_share"/>
 
 		</RelativeLayout>
@@ -63,6 +67,7 @@
    		    android:layout_marginBottom="8dp"
    		    android:background="#fff">
 				
+		    
 			<ImageView
 			    android:id="@+id/eventLocationIcon"
 			    android:layout_width="16dp"
@@ -80,18 +85,17 @@
 			    android:text="@string/eventLocationDef"			   
 			    android:layout_toRightOf="@id/eventLocationIcon"
 			    android:layout_toEndOf="@id/eventLocationIcon"/>
-		
 			
-	
+				
 			<TextView
 			    android:id="@+id/eventPrice"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"		    
-			    android:layout_centerHorizontal="true"		    
+			   	android:layout_centerHorizontal="true"
 			    android:text="@string/eventPriceDef" 		    
 			    android:layout_marginLeft="4dp"
 			    android:layout_marginStart="4dp"/>
-			
+				
 			<ImageView
 			    android:id="@+id/eventPriceIcon"
 			    android:layout_width="16dp"
@@ -101,19 +105,19 @@
 			    android:contentDescription="@string/eventRandIcon"
 			    android:cropToPadding="true"
 			    android:src="@drawable/price" />
+		
 			
-			
-			
+				
 			<TextView
 			    android:id="@+id/eventTime"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"			   
-			    android:text="@string/eventTimeDef" 		    
-			    android:layout_alignParentRight="true"
-			    android:layout_alignParentEnd="true"		    
+			    android:text="@string/eventTimeDef" 		  		    
 			    android:layout_marginLeft="4dp"
-			    android:layout_marginStart="4dp" />
-			
+			    android:layout_marginStart="4dp" 
+			    android:layout_alignParentRight="true"
+			    android:layout_alignParentEnd="true"/>
+				
 			<ImageView
 			    android:id="@+id/eventTimeIcon"
 			    android:layout_width="16dp"
@@ -123,7 +127,7 @@
 			    android:contentDescription="@string/eventRandIcon"
 			    android:cropToPadding="true"
 			    android:src="@drawable/time" />
-
+		
 		</RelativeLayout>
 		
 		<LinearLayout 

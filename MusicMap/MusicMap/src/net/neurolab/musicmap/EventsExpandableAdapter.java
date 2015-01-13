@@ -5,30 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-
-import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.fragments.Group;
 import net.neurolab.musicmap.interfaces.MainView;
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.opengl.Visibility;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 

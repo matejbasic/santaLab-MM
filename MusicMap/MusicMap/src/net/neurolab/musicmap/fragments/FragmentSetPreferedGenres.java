@@ -10,7 +10,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +47,6 @@ public class FragmentSetPreferedGenres extends Fragment {
 		
 		genres = new Genre().getAll();
 		for (Genre genre : genres) {
-			//Log.i("genre", genre.getName());
 			
 			TableRow row = new TableRow(getActivity());
 			TableRow.LayoutParams lParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
@@ -69,12 +67,8 @@ public class FragmentSetPreferedGenres extends Fragment {
 		Point size = new Point();
 		display.getSize(size);
 		int screenHeight = size.y;
-		
-		Log.i("screenH", String.valueOf(screenHeight));
-		
+			
 		RelativeLayout gContainer = (RelativeLayout) view.findViewById(R.id.genresContainer);
-		Log.i("gContainer H", String.valueOf(gContainer.getHeight()));
-		Log.i("measure", "end");
 		gContainer.setMinimumHeight((int)(screenHeight*0.9));
 		
 		return view;

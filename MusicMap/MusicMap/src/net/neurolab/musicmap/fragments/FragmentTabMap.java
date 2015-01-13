@@ -11,6 +11,7 @@ import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.dl.DataLoader;
 import net.neurolab.musicmap.dl.DataLoaderDB;
 import net.neurolab.musicmap.dl.DataLoaderMM;
+import net.neurolab.musicmap.interfaces.MainView;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,8 +25,10 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.activeandroid.query.Select;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FragmentTabMap extends SherlockFragment implements
@@ -36,7 +39,6 @@ public class FragmentTabMap extends SherlockFragment implements
 	private ArrayList<Event> events;
 	private GoogleMap gMap;
 	private SupportMapFragment fSupportMap;
-	// private Location cPrefLocation;
 
 	private ArrayList<Markers> markers;
 	private String previousLocation = "previousLocation";
@@ -64,6 +66,24 @@ public class FragmentTabMap extends SherlockFragment implements
 			initMap();
 		}
 
+		//add onClickListener for infoWindow - goto Event
+		gMap.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+			
+			@Override
+			public void onInfoWindowClick(Marker marker) {
+				
+				for (Markers tempMarker : markers) {
+					if (tempMarker.getTitle().matches(marker.getTitle())) {
+						MainView activity = (MainView)getActivity();
+						activity.navigateToSingleEvent(tempMarker.getEventId());
+						break;
+					}
+				}
+				
+			}
+		});
+		
+		
 		String theLocation = loadSavedPreferences();
 
 		Log.i("lokacija mapa", theLocation);
@@ -166,7 +186,7 @@ public class FragmentTabMap extends SherlockFragment implements
 	public void addMarkersToMap() {
 		Log.i("addMarkersToMap map", gMap.toString());
 		if (gMap != null) {
-			MarkerOptions marker;
+			MarkerOptions markerOpt;
 			double latitude = 0, longitude = 0;
 			String title = "";
 			Log.i("addMtoM mark size", String.valueOf(markers.size()));
@@ -174,13 +194,10 @@ public class FragmentTabMap extends SherlockFragment implements
 				latitude = markers.get(i).getLat();
 				longitude = markers.get(i).getLng();
 				title = markers.get(i).getTitle();
-				marker = new MarkerOptions().position(
+				markerOpt = new MarkerOptions().position(
 						new LatLng(latitude, longitude)).title(title);
-
-				// Log.i("marker vals", String.valueOf(latitude) + " " +
-				// String.valueOf(longitude) + " " + title);
-
-				gMap.addMarker(marker);
+				
+				gMap.addMarker(markerOpt);
 			}
 			/*
 			 * if (location != null) {
@@ -192,9 +209,9 @@ public class FragmentTabMap extends SherlockFragment implements
 		}
 	}
 
-	public void addMarkers(double lat, double lng, String name) {
+	public void addMarkers(double lat, double lng, String desc, long eventId) {
 		System.out.println("addMarkers");
-		markers.add(new Markers(lat, lng, name));
+		markers.add(new Markers(lat, lng, desc, eventId));
 
 	}
 
@@ -209,7 +226,8 @@ public class FragmentTabMap extends SherlockFragment implements
 		for (int i = 0; i < events.size(); i++) {
 			Log.i("tabMap", events.get(i).getIdLocation().getName());
 			addMarkers(events.get(i).getLat(), events.get(i).getLng(), events
-					.get(i).getIdLocation().getName());
+					.get(i).getName() + ", " + events.get(i).getIdLocation().getName(),
+					events.get(i).getId());
 		}
 
 		addMarkersToMap();

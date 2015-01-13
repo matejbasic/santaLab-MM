@@ -4,12 +4,14 @@ public class Markers {
 	private double lat;
 	private double lng;
 	private String title;
+	private long eventId;
 	
-	public Markers(double lat, double lng, String title) {
+	public Markers(double lat, double lng, String title, long eventId) {
 		super();
 		this.lat = lat;
 		this.lng = lng;
 		this.title = title;
+		this.eventId = eventId;
 	}
 
 	public double getLat() {
@@ -36,5 +38,11 @@ public class Markers {
 		this.title = title;
 	}
 	
-	
+	public long getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(long eventId) {
+		this.eventId = eventId;
+	}
 }

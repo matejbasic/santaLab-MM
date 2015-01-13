@@ -69,8 +69,7 @@
         <activity
             android:name=".SetPreferencesActivity"
             android:label="@string/title_activity_set_pref_location"
-            android:theme="@style/NoActionBar"
-            android:noHistory="true"   >
+            android:theme="@style/NoActionBar">
             
         </activity>
         <activity

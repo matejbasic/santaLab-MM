@@ -201,7 +201,6 @@ public class SetPreferences implements SetPreferencesPresenter {
 		if (result[0] != null && result[1] != null && result[2] != null && (Double)result[3] != -1 && (Double)result[4] != -1) {
 			view.navigateToSetGenres();
 				
-			//maybe not the best option(?) for bg work
 			new Thread(new Runnable() {
 				
 				@Override

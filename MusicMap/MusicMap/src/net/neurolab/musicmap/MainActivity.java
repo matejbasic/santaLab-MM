@@ -53,6 +53,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	private FragmentTabMap ftm = null;
 	private FragmentTabList ftl = null;
+	
+	public static String preferredLocation = "";
 
 	// private Boolean dataLoaded = false;
 
@@ -238,6 +240,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	 * }
 	 */
 	void savePreferences(String location) {
+		preferredLocation = location;
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = sharedPreferences.edit();
 		editor.putString("theLocation", location);
