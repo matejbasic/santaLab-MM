@@ -53,12 +53,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	private FragmentTabMap ftm = null;
 	private FragmentTabList ftl = null;
-	
+
 	public static String preferredLocation = "";
 
-	// private Boolean dataLoaded = false;
 
-	static Context context;
+	public static Context context;
 	static NotificationData<Object> notification;
 
 	String[] menu;
@@ -127,19 +126,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 		tab = mActionBar.newTab().setText(R.string.list)
 				.setTabListener(tabListener);
-		mActionBar.addTab(tab);
-		// KOD LOGIRANJA SPREMITI USERLOGIN - AKO SE RADI O FACEBOOK KORISNIKU
-		// ONDA U userID(User tablica) spremiti facebookId inaèe neki random
-		// broj
-		// NAKON SPREMANA U BAZU, STAVITI userId u shared preference POD NAZIVOM
-		// idUser
-
-		// String userId = loadSavedPreferences(); // obrisati - samo za probu
-
-		// kad nema logina Log.i("user", userId);
-		// if (userId.equals("NN")) {
-		// userId = "0";
-		// } // obrisati
+		mActionBar.addTab(tab);		
 
 		Long id = (long) 0;
 		List<User> user = null;
@@ -171,16 +158,25 @@ public class MainActivity extends SherlockFragmentActivity implements
 			if (l.size() > 0) {
 				if (menu == null) {
 					try {
-						String pref = l.get(0).getSingleLocation().getCity();
-						savePreferences(pref);
+						sharedPreferences = PreferenceManager
+								.getDefaultSharedPreferences(this);
+						String theLocation = sharedPreferences.getString(
+								"theLocation", "");
+						if (theLocation.equalsIgnoreCase("")
+								|| theLocation
+										.equalsIgnoreCase(getResources()
+												.getString(
+														R.string.no_preferred_locations))) {
+							String pref = l.get(0).getIdLocation().getCity();
+							savePreferences(pref);
+						}
 					} catch (Exception e) {
 						Log.i("mainActivityERROR", e.toString());
 					}
 				}
 				menu = new String[l.size()];
 				for (int i = 0; i < l.size(); i++) {
-					menu[i] = l.get(i).getSingleLocation().getCity();
-					System.out.println(menu[i]);
+					menu[i] = l.get(i).getIdLocation().getCity();					
 				}
 
 			} else {
@@ -203,8 +199,6 @@ public class MainActivity extends SherlockFragmentActivity implements
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 					long id) {
 				dLayout.closeDrawers();
-				// Bundle args = new Bundle();
-				// args.putString("Menu", menu[position]);
 				if (!(menu[position].equals("") && !menu[position]
 						.equals(getResources().getString(
 								R.string.no_preferred_locations)))) {
@@ -219,8 +213,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		Log.i("mainActivity", "on create end");
 	}
 
-	
-	void savePreferences(String location) {
+	public void savePreferences(String location) {
 		preferredLocation = location;
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = sharedPreferences.edit();
@@ -241,8 +234,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 		if (id == R.id.action_settings) {
 			Intent settingsActivity = new Intent(this, SettingsActivity.class);
 			this.startActivity(settingsActivity);
-		}
-		else if (id == R.id.action_search) {
+		} else if (id == R.id.action_setPreferences) {
+			Intent setPreferencesActivity = new Intent(this,
+					SetPreferencesActivity.class);
+			this.startActivity(setPreferencesActivity);
+		} else if (id == R.id.action_search) {
 
 			final EditText input = new EditText(MainActivity.this);
 			input.setHint("Event name");
@@ -274,9 +270,9 @@ public class MainActivity extends SherlockFragmentActivity implements
 						public void onClick(View view) {
 							String searchString = input.getText().toString()
 									.trim();
-							
-							searchForData(searchString);			
-							
+
+							searchForData(searchString);
+
 							alert.dismiss();
 						}
 					});
@@ -290,15 +286,15 @@ public class MainActivity extends SherlockFragmentActivity implements
 					});
 		}
 		return true;
-		
+
 	}
 
-	private void searchForData(String searchTerm){
+	private void searchForData(String searchTerm) {
 		DataLoaderSearch dl = new DataLoaderSearch();
 		dl.LoadData(this, "");
 		dl.searchData(searchTerm);
 	}
-	
+
 	@Override
 	public void OnDataLoaded(ArrayList<Event> events) {
 		Log.i("mainActivitiy", "onDataLoaded");
@@ -316,12 +312,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	public void onResume() {
 		super.onResume();
-		
+
 		int minutes = 5 * 60; // 5sati
 		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		Intent i = new Intent(this, NotificationService.class);
 		PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
-		
+
 		am.cancel(pi);
 		// minutes <= 0 means notifications are disabled
 		if (minutes > 0) {

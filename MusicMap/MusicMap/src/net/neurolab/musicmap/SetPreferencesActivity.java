@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 public class SetPreferencesActivity extends Activity implements SetPreferencesView {
 	private FragmentSetPreferedGenres fSetGenres;
@@ -34,10 +35,12 @@ public class SetPreferencesActivity extends Activity implements SetPreferencesVi
 			if (chooseLocation) {
 				ft.add(R.id.activitySetPreferences, fSetLocation).show(fSetLocation).commit();
 			}
+			Log.i("SETPREF", "go to check genres");
 			presenter.checkGenres();
 			
 		}
 		else {
+			
 			navigateToLogin();
 		}	
 	}

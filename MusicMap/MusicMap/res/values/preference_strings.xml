@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <!-- 
     <string name="pref_interests">Interests</string>
     
     <string name="pref_genre">Genre: </string>
@@ -9,7 +10,8 @@
     <string name="pref_locations">Locations: </string>
     <string name="pref_locations_desc">Enter locations</string>    
     
-    
+     -->
+     
     <string name="pref_data">Data</string>
     
     <string name="pref_app_updates_wifi_only">App updates</string>

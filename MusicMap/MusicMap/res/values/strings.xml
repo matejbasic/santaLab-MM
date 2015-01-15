@@ -22,7 +22,6 @@
     <string name="set_location">Set your location:</string>
     <string name="no_location_error">Choose a location</string>
     <string name="set_genres">Set genres you like:</string>
-    
     <string name="mm_service_login_error">Web service login error</string>
     <string name="gmap_unable_to_create_error">Unable to create map</string>
     <string name="unknown_error">Unknown error</string>
@@ -53,5 +52,6 @@
     <string name="open_navigation">Chose location</string>
     <string name="close_navigation">Close</string>
     <string name="no_preferred_locations">Preferred locations have not been selected yet.</string>
+    <string name="action_setPreferences">Locations</string>
     
 </resources>

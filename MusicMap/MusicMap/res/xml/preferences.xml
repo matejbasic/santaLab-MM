@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    
+    <!--  
     <PreferenceCategory 
         android:key="pref_int"
         android:persistent="false"
@@ -18,7 +18,7 @@
             android:dialogTitle="@string/pref_locations_desc"/>
         
     </PreferenceCategory>
-    
+    -->
     <PreferenceCategory
         
         android:key="pref_dat"

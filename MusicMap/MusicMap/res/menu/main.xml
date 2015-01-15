@@ -7,11 +7,17 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
-
-     <item
+    <item
         android:id="@+id/action_search"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_search"/>
     
+    <item
+        android:id="@+id/action_setPreferences"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_setPreferences"/>
+    
+
 </menu>
