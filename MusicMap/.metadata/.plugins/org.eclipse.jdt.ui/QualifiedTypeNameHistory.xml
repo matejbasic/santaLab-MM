@@ -7,7 +7,6 @@
 <fullyQualifiedTypeName name="android.support.v4.app.TaskStackBuilder"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.R"/>
 <fullyQualifiedTypeName name="android.support.v4.app.ActionBarDrawerToggle"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.nd.NavigationManager"/>
@@ -26,4 +25,16 @@
 <fullyQualifiedTypeName name="net.neurolab.musicmap.MainActivity"/>
 <fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.activeandroid.query.Select.Column"/>
+<fullyQualifiedTypeName name="android.view.LayoutInflater"/>
+<fullyQualifiedTypeName name="android.widget.DatePicker"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="android.text.format.DateFormat"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.db.EventGenre"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.db.EventMusician"/>
+<fullyQualifiedTypeName name="android.location.Location"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.db.Genre"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.db.Musician"/>
 </qualifiedTypeNameHistroy>

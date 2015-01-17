@@ -501,9 +501,9 @@ int id abs__submit_area 0x7f08004c
 int id abs__textButton 0x7f080030
 int id abs__title 0x7f080038
 int id abs__up 0x7f08001d
-int id action_search 0x7f080096
-int id action_setPreferences 0x7f080097
-int id action_settings 0x7f080095
+int id action_search 0x7f08009f
+int id action_setPreferences 0x7f0800a0
+int id action_settings 0x7f08009e
 int id activitySetPreferences 0x7f080067
 int id authButton 0x7f080061
 int id book_now 0x7f080010
@@ -519,6 +519,7 @@ int id buyButton 0x7f08000a
 int id buy_now 0x7f08000f
 int id buy_with_google 0x7f08000e
 int id center 0x7f08002a
+int id city 0x7f080099
 int id classic 0x7f080011
 int id com_facebook_body_frame 0x7f08007a
 int id com_facebook_button_xout 0x7f08007c
@@ -546,9 +547,12 @@ int id com_facebook_usersettingsfragment_login_button 0x7f080081
 int id com_facebook_usersettingsfragment_logo_image 0x7f08007f
 int id com_facebook_usersettingsfragment_profile_name 0x7f080080
 int id content_frame 0x7f080065
+int id dateSince 0x7f08009b
+int id dateUntil 0x7f08009d
 int id disableHome 0x7f08001b
 int id drawer_layout 0x7f080063
 int id edit_query 0x7f080043
+int id event 0x7f080097
 int id eventBody 0x7f08005b
 int id eventData 0x7f08004f
 int id eventDetailsGroup 0x7f080084
@@ -575,6 +579,7 @@ int id inline 0x7f080028
 int id inputPreferedLocation 0x7f08008e
 int id itemTitle 0x7f080088
 int id large 0x7f080023
+int id layout_root 0x7f080095
 int id left 0x7f08002b
 int id left_drawer 0x7f080066
 int id listGroup 0x7f080086
@@ -606,6 +611,10 @@ int id strict_sandbox 0x7f080009
 int id tabListlayout 0x7f080092
 int id tabMode 0x7f080015
 int id terrain 0x7f080003
+int id textViewCity 0x7f080098
+int id textViewDateSince 0x7f08009a
+int id textViewDateUntil 0x7f08009c
+int id textViewEvent 0x7f080096
 int id toast_layout 0x7f080082
 int id toast_text 0x7f080083
 int id top 0x7f080029
@@ -666,8 +675,9 @@ int layout fragment_prefered_genres 0x7f03002e
 int layout fragment_prefered_location 0x7f03002f
 int layout fragment_tab_list 0x7f030030
 int layout fragment_tab_map 0x7f030031
-int layout sherlock_spinner_dropdown_item 0x7f030032
-int layout sherlock_spinner_item 0x7f030033
+int layout search 0x7f030032
+int layout sherlock_spinner_dropdown_item 0x7f030033
+int layout sherlock_spinner_item 0x7f030034
 int menu login 0x7f0d0000
 int menu main 0x7f0d0001
 int menu set_pref_location 0x7f0d0002
@@ -795,6 +805,12 @@ int string pref_interface 0x7f060057
 int string pref_languages 0x7f060058
 int string pref_languages_desc 0x7f060059
 int string pref_notifications 0x7f060052
+int string searchCity 0x7f06008e
+int string searchDateSince 0x7f06008c
+int string searchDateUntil 0x7f06008d
+int string searchEvent 0x7f060089
+int string searchGenre 0x7f06008a
+int string searchMusician 0x7f06008b
 int string select_all 0x7f060071
 int string service_name 0x7f060064
 int string set_genres 0x7f06006d

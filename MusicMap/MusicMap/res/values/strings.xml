@@ -53,5 +53,11 @@
     <string name="close_navigation">Close</string>
     <string name="no_preferred_locations">Preferred locations have not been selected yet.</string>
     <string name="action_setPreferences">Locations</string>
+    <string name="searchEvent">Event name</string>
+    <string name="searchGenre">Genre</string>
+    <string name="searchMusician">Musician</string>
+    <string name="searchDateSince">Date since</string>
+    <string name="searchDateUntil">Date until</string>
+    <string name="searchCity">City</string>
     
 </resources>

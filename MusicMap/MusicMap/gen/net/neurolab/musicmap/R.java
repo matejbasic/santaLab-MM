@@ -1640,9 +1640,9 @@ containing a value of this type.
         public static final int abs__textButton=0x7f080030;
         public static final int abs__title=0x7f080038;
         public static final int abs__up=0x7f08001d;
-        public static final int action_search=0x7f080096;
-        public static final int action_setPreferences=0x7f080097;
-        public static final int action_settings=0x7f080095;
+        public static final int action_search=0x7f08009f;
+        public static final int action_setPreferences=0x7f0800a0;
+        public static final int action_settings=0x7f08009e;
         public static final int activitySetPreferences=0x7f080067;
         public static final int authButton=0x7f080061;
         public static final int book_now=0x7f080010;
@@ -1658,6 +1658,7 @@ containing a value of this type.
         public static final int buy_now=0x7f08000f;
         public static final int buy_with_google=0x7f08000e;
         public static final int center=0x7f08002a;
+        public static final int city=0x7f080099;
         public static final int classic=0x7f080011;
         public static final int com_facebook_body_frame=0x7f08007a;
         public static final int com_facebook_button_xout=0x7f08007c;
@@ -1685,9 +1686,12 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f08007f;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f080080;
         public static final int content_frame=0x7f080065;
+        public static final int dateSince=0x7f08009b;
+        public static final int dateUntil=0x7f08009d;
         public static final int disableHome=0x7f08001b;
         public static final int drawer_layout=0x7f080063;
         public static final int edit_query=0x7f080043;
+        public static final int event=0x7f080097;
         public static final int eventBody=0x7f08005b;
         public static final int eventData=0x7f08004f;
         public static final int eventDetailsGroup=0x7f080084;
@@ -1714,6 +1718,7 @@ containing a value of this type.
         public static final int inputPreferedLocation=0x7f08008e;
         public static final int itemTitle=0x7f080088;
         public static final int large=0x7f080023;
+        public static final int layout_root=0x7f080095;
         public static final int left=0x7f08002b;
         public static final int left_drawer=0x7f080066;
         public static final int listGroup=0x7f080086;
@@ -1745,6 +1750,10 @@ containing a value of this type.
         public static final int tabListlayout=0x7f080092;
         public static final int tabMode=0x7f080015;
         public static final int terrain=0x7f080003;
+        public static final int textViewCity=0x7f080098;
+        public static final int textViewDateSince=0x7f08009a;
+        public static final int textViewDateUntil=0x7f08009c;
+        public static final int textViewEvent=0x7f080096;
         public static final int toast_layout=0x7f080082;
         public static final int toast_text=0x7f080083;
         public static final int top=0x7f080029;
@@ -1809,8 +1818,9 @@ containing a value of this type.
         public static final int fragment_prefered_location=0x7f03002f;
         public static final int fragment_tab_list=0x7f030030;
         public static final int fragment_tab_map=0x7f030031;
-        public static final int sherlock_spinner_dropdown_item=0x7f030032;
-        public static final int sherlock_spinner_item=0x7f030033;
+        public static final int search=0x7f030032;
+        public static final int sherlock_spinner_dropdown_item=0x7f030033;
+        public static final int sherlock_spinner_item=0x7f030034;
     }
     public static final class menu {
         public static final int login=0x7f0d0000;
@@ -2050,6 +2060,12 @@ containing a value of this type.
         public static final int pref_languages=0x7f060058;
         public static final int pref_languages_desc=0x7f060059;
         public static final int pref_notifications=0x7f060052;
+        public static final int searchCity=0x7f06008e;
+        public static final int searchDateSince=0x7f06008c;
+        public static final int searchDateUntil=0x7f06008d;
+        public static final int searchEvent=0x7f060089;
+        public static final int searchGenre=0x7f06008a;
+        public static final int searchMusician=0x7f06008b;
         public static final int select_all=0x7f060071;
         public static final int service_name=0x7f060064;
         public static final int set_genres=0x7f06006d;

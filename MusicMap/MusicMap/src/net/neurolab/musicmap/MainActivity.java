@@ -1,7 +1,11 @@
 package net.neurolab.musicmap;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.PreferredLocation;
@@ -29,10 +33,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -240,13 +246,17 @@ public class MainActivity extends SherlockFragmentActivity implements
 			this.startActivity(setPreferencesActivity);
 		} else if (id == R.id.action_search) {
 
-			final EditText input = new EditText(MainActivity.this);
-			input.setHint("Event name");
+			//final EditText input = new EditText(MainActivity.this);
+			//input.setHint("Event name");
 
+			LayoutInflater li = LayoutInflater.from(context);
+			View promptsView = li.inflate(R.layout.search, null);
+			
+			
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					MainActivity.this)
 					.setMessage("Search")
-					.setView(input)
+					.setView(promptsView)
 					.setCancelable(false)
 					.setPositiveButton("Search",
 							new DialogInterface.OnClickListener() {
@@ -264,15 +274,47 @@ public class MainActivity extends SherlockFragmentActivity implements
 							}).setIcon(android.R.drawable.ic_dialog_alert);
 			final AlertDialog alert = builder.create();
 			alert.show();
+			
+			final EditText event = (EditText) promptsView
+					.findViewById(R.id.event);
+			/*
+			final EditText genre = (EditText) promptsView
+					.findViewById(R.id.genre);
+			final EditText musician = (EditText) promptsView
+					.findViewById(R.id.musician);
+			*/
+			final EditText city = (EditText) promptsView
+					.findViewById(R.id.city);
+			
+			final DatePicker dateSince = (DatePicker) promptsView
+					.findViewById(R.id.dateSince);
+			final DatePicker dateUntil = (DatePicker) promptsView
+					.findViewById(R.id.dateUntil);
+			
 			alert.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(
 					new View.OnClickListener() {
 						@Override
 						public void onClick(View view) {
-							String searchString = input.getText().toString()
-									.trim();
+						//	String searchString = input.getText().toString()
+						//			.trim();
 
-							searchForData(searchString);
-
+						//	searchForData(searchString);							
+													
+						String eventString = event.getText().toString().trim();	
+						//String genreString = genre.getText().toString().trim();	
+						//String musicianString = musician.getText().toString().trim();	
+						String cityString = city.getText().toString().trim();	
+						
+						//"yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH
+						
+																	
+						long dateSinceDate = dateSince.getCalendarView().getDate();
+						
+						long dateUntilDate = dateUntil.getCalendarView().getDate();
+						
+												
+						searchForData(eventString, /*genreString, musicianString, */cityString, dateSinceDate, dateUntilDate);
+						
 							alert.dismiss();
 						}
 					});
@@ -289,10 +331,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 	}
 
-	private void searchForData(String searchTerm) {
+	private void searchForData(String event,/* String genre, String musician,*/
+			String city, long dateSince, long dateUntil) {
 		DataLoaderSearch dl = new DataLoaderSearch();
 		dl.LoadData(this, "");
-		dl.searchData(searchTerm);
+		dl.searchData(event, /*genre, musician,*/ city, dateSince, dateUntil);
 	}
 
 	@Override
