@@ -1,7 +1,8 @@
 package net.neurolab.musicmap;
 
 import net.neurolab.musicmap.fragments.FragmentTabList;
-import net.neurolab.musicmap.fragments.FragmentTabMap;
+
+import net.neurolab.musicmap.googlemaps.FragmentTabMap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;

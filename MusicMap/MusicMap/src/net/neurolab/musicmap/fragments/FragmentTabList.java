@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import net.neurolab.musicmap.EventsExpandableAdapter;
-import net.neurolab.musicmap.MainActivity.OnDataChangedListener;
+import net.neurolab.musicmap.OnDataChangedListener;
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import android.os.Bundle;

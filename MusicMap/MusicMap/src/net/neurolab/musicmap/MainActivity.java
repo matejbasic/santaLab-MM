@@ -1,11 +1,8 @@
 package net.neurolab.musicmap;
 
-import java.text.DateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.PreferredLocation;
@@ -13,7 +10,6 @@ import net.neurolab.musicmap.db.User;
 import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import net.neurolab.musicmap.dl.DataLoaderSearch;
 import net.neurolab.musicmap.fragments.FragmentTabList;
-import net.neurolab.musicmap.fragments.FragmentTabMap;
 import net.neurolab.musicmap.interfaces.MainView;
 import net.neurolab.musicmap.ns.NotificationData;
 import net.neurolab.musicmap.ns.NotificationService;
@@ -25,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -49,6 +46,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
+
+import net.neurolab.musicmap.googlemaps.FragmentTabMap;
 
 public class MainActivity extends SherlockFragmentActivity implements
 		OnDataLoadedListener, MainView {
@@ -195,7 +194,9 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 
 		dLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
 		dList = (ListView) findViewById(R.id.left_drawer);
+		
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menu);
 		dList.setAdapter(adapter);
@@ -349,9 +350,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 	}
 
-	public interface OnDataChangedListener {
-		void OnDataChanged(ArrayList<Event> events);
-	}
+
 
 	public void onResume() {
 		super.onResume();

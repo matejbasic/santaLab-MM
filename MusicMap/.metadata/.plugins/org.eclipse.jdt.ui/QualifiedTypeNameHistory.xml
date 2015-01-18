@@ -37,4 +37,5 @@
 <fullyQualifiedTypeName name="android.location.Location"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Genre"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Musician"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
 </qualifiedTypeNameHistroy>
