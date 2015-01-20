@@ -3,13 +3,19 @@ package net.neurolab.musicmap.fragments;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import net.neurolab.musicmap.EventsExpandableAdapter;
 import net.neurolab.musicmap.OnDataChangedListener;
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
+import net.neurolab.musicmap.dl.DataLoader;
+import net.neurolab.musicmap.dl.DataLoaderDB;
+import net.neurolab.musicmap.dl.DataLoaderMM;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +29,10 @@ public class FragmentTabList extends SherlockFragment implements
 	private ArrayList<Group> groups = new ArrayList<Group>();
 	private ArrayList<Event> events;
 	private ExpandableListView listView = null;
+	
+	private String previousLocation = "previousLocation";
+	private List<String> previousLocations = new ArrayList<String>();
+	SharedPreferences sharedPreferences;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +46,59 @@ public class FragmentTabList extends SherlockFragment implements
 		// Get the view from fragmenttab1.xml
 		View view = inflater.inflate(R.layout.fragment_tab_list, container,
 				false);
+		
+		
+		
+		String theLocation = loadSavedPreferences();
+		
+		if (!theLocation.equalsIgnoreCase(previousLocation) && !isAlreadyLoaded(theLocation)) {
+			Log.i("tabMap", "first load");
+			previousLocation = theLocation;
+			System.out.println(previousLocation);
+			
+			try{
+			previousLocations.add(theLocation);
+			System.out.println("blabla");}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			try {
+				
+				/*
+				 * if (l.size() > 0) { location = l.get(0);
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
+				 * LatLng(l .get(0).getLat(), l.get(0).getLng()), (float)
+				 * 12.0)); }
+				 */
+				/*
+				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
+				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
+				 * 12.0));
+				 */
 
+				System.out.println("Loadanje iz baze");
+				DataLoader dl = new DataLoaderDB();
+				dl.LoadData(getActivity(), theLocation);
+
+				Boolean eventsExists = dl.DataLoaded();
+
+				if (!eventsExists) {
+					System.out.println("Loadanje sa servisa");
+					dl = new DataLoaderMM();
+					dl.LoadData(getActivity(), theLocation);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
 		listView = (ExpandableListView) view.findViewById(R.id.listView);
 		if (listView != null) {
 			EventsExpandableAdapter adapter = new EventsExpandableAdapter(
@@ -47,6 +109,31 @@ public class FragmentTabList extends SherlockFragment implements
 		}
 		return view;
 	}
+	
+	
+	public boolean isAlreadyLoaded(String loc) {
+		for (String l : previousLocations) {
+			if (loc.equalsIgnoreCase(l)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String loadSavedPreferences() {
+		sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(getActivity());
+		String theLocation = sharedPreferences.getString("theLocation", "");
+		if (theLocation.equalsIgnoreCase("")
+				|| theLocation.equalsIgnoreCase(getResources()
+						.getString(
+								R.string.no_preferred_locations))) {
+			return "Zagreb";
+		} else
+			return theLocation;
+
+	}
+	
 
 	private SimpleDateFormat sdfYear = new SimpleDateFormat("yyyy",
 			Locale.getDefault());

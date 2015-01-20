@@ -55,6 +55,11 @@ public class Location extends Model {
 		return new Select().from(Location.class).where("name = ?", name).executeSingle();
 	}
 	
+	public Location getLocationByLatLng(long lat, long lng, String address){
+		return new Select().from(Location.class).where("lat = ?", lat).and("lng = ?", lng).and("address = ?", address).executeSingle();
+				
+	}
+	
 	public List<Location> getAll() {
 		return new Select().from(Location.class).execute();
 	}

@@ -36,9 +36,9 @@ public class FragmentTabMap extends SherlockFragment implements
 	private SupportMapFragment fSupportMap;
 
 	private ArrayList<Markers> markers;
-	private String previousLocation = "previousLocation";
+	/*private String previousLocation = "previousLocation";
 	private List<String> previousLocations = new ArrayList<String>();
-	SharedPreferences sharedPreferences;
+	SharedPreferences sharedPreferences;*/
 
 	public FragmentTabMap() {
 		markers = new ArrayList<Markers>();
@@ -75,7 +75,7 @@ public class FragmentTabMap extends SherlockFragment implements
 			}
 		});
 		
-		
+		/*
 		String theLocation = loadSavedPreferences();
 	
 		if (!theLocation.equalsIgnoreCase(previousLocation) && !isAlreadyLoaded(theLocation)) {
@@ -89,20 +89,7 @@ public class FragmentTabMap extends SherlockFragment implements
 			catch(Exception e){
 				System.out.println(e);
 			}
-			try {
-				
-				/*
-				 * if (l.size() > 0) { location = l.get(0);
-				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
-				 * LatLng(l .get(0).getLat(), l.get(0).getLng()), (float)
-				 * 12.0)); }
-				 */
-				/*
-				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
-				 * 12.0));
-				 */
-
+			try {								
 				System.out.println("Loadanje iz baze");
 				DataLoader dl = new DataLoaderDB();
 				dl.LoadData(getActivity(), theLocation);
@@ -118,9 +105,9 @@ public class FragmentTabMap extends SherlockFragment implements
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
-
+/*
 	public boolean isAlreadyLoaded(String loc) {
 		for (String l : previousLocations) {
 			if (loc.equalsIgnoreCase(l)) {
@@ -143,6 +130,8 @@ public class FragmentTabMap extends SherlockFragment implements
 			return theLocation;
 
 	}
+	*/
+	
 
 	// ex loadData()
 	public void addMarkersToMap() {

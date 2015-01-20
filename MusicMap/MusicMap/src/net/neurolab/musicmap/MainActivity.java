@@ -221,8 +221,10 @@ public class MainActivity extends SherlockFragmentActivity implements
 	}
 
 	public void savePreferences(String location) {
+		
 		preferredLocation = location;
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Log.i("MainActivity", "savePreferences");
 		editor = sharedPreferences.edit();
 		editor.putString("theLocation", location);
 		editor.commit();

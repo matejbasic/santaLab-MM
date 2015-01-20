@@ -40,6 +40,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class SetPreferences implements SetPreferencesPresenter {
 
@@ -216,11 +217,15 @@ public class SetPreferences implements SetPreferencesPresenter {
 							result[1].toString(), result[2].toString(),
 							(Double) result[3], (Double) result[4]);
 					newLocation.save();
-
+					Location location = new Select().from(Location.class).where("lat = ?", (Double) result[3]).and("lng = ?", (Double) result[4]).and("address = ?", result[2].toString()).executeSingle();
+					
 					PreferredLocation newPrefLocation = new PreferredLocation(
-							user, newLocation);
+							user, location);
+					
 					newPrefLocation.save();
 					savePreferences(newPrefLocation.getIdLocation().getCity());
+				
+					
 				}
 			}).start();
 		} else {
@@ -309,6 +314,7 @@ public class SetPreferences implements SetPreferencesPresenter {
 
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(MainActivity.context);
+		Log.i("SetPreferences", "savePreferences");
 		Editor editor = sharedPreferences.edit();
 		editor.putString("theLocation", location);
 		editor.commit();

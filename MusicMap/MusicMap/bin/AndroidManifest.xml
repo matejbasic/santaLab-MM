@@ -44,7 +44,7 @@
             android:name="net.neurolab.musicmap.ns.NotificationService"
             android:enabled="true" />
 
-        <receiver android:name=".BootReceiver" >
+        <receiver android:name="net.neurolab.musicmap.ns.BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
