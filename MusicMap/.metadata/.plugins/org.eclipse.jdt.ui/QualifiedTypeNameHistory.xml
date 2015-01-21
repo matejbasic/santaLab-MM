@@ -5,7 +5,6 @@
 <fullyQualifiedTypeName name="android.support.v4.app.FragmentActivity"/>
 <fullyQualifiedTypeName name="com.google.android.gms.maps.model.BitmapDescriptorFactory"/>
 <fullyQualifiedTypeName name="android.support.v4.app.TaskStackBuilder"/>
-<fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.content.res.Resources"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.R"/>
 <fullyQualifiedTypeName name="android.support.v4.app.ActionBarDrawerToggle"/>
@@ -20,7 +19,6 @@
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.User"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.R.string"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Event"/>
-<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
 <fullyQualifiedTypeName name="com.activeandroid.query.Select.Column"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
@@ -40,4 +38,7 @@
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.MainActivity"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.googlemaps.FragmentTabMap"/>
+<fullyQualifiedTypeName name="android.content.Context"/>
+<fullyQualifiedTypeName name="android.net.NetworkInfo"/>
+<fullyQualifiedTypeName name="android.content.SharedPreferences"/>
 </qualifiedTypeNameHistroy>

@@ -17,20 +17,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public Fragment getItem(int itemNum) {
-/*
-		for (int i = 0; i < this.getCount(); i++) {
-			if (this.getItemPosition(this.getItem(i)) == itemNum) {
-				return this.getItem(i);
-			}
-		}
-		return getTabList();*/
-		// or //return null;
 
-		
-		  if (itemNum == 0) { return getTabMap(); } 
-		  else { return
-		  this.getTabList(); }
-		 
+		if (itemNum == 0) {
+			return getTabMap();
+		} else {
+			return this.getTabList();
+		}
 
 	}
 

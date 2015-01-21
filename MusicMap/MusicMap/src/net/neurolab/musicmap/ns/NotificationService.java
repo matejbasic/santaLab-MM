@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.MainActivity;
+import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.EventGenre;
 import net.neurolab.musicmap.db.EventGenre_2;
@@ -17,12 +18,16 @@ import net.neurolab.musicmap.ws.JSONAdapter;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 
 import com.activeandroid.query.Select;
 
@@ -54,19 +59,42 @@ public class NotificationService extends Service {
 				"MMWakelockTag");
 		mWakeLock.acquire();
 
-		// check the global background data setting
-		ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		if (!cm.getActiveNetworkInfo().isAvailable()) {
-			stopSelf();
-			return;
+		SharedPreferences sharedPreferences = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		Boolean events_updates_wifi = sharedPreferences.getBoolean(
+				"pref_event_updates_wifi_only", false);
+
+		if (events_updates_wifi) {
+
+			ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+			NetworkInfo mWifi = connManager
+					.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+			if (!mWifi.isConnected()) {
+				stopSelf();
+				return;
+			}
+
+			// do the actual work, in a separate thread
+			new PollTask().execute();
+		} else {
+
+			// check the global background data setting
+
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+			if (!cm.getActiveNetworkInfo().isAvailable()) {
+				stopSelf();
+				return;
+			}
+
+			new PollTask().execute();
 		}
 
-		// do the actual work, in a separate thread
-		new PollTask().execute();
+		
 	}
 
 	private class PollTask extends AsyncTask<Void, Void, Void> {
-		
+
 		ArrayList<Event> events;
 
 		public PollTask() {
@@ -74,10 +102,9 @@ public class NotificationService extends Service {
 
 		}
 
-
 		@Override
 		protected Void doInBackground(Void... params) {
-			
+
 			MMAsyncTask asyncTaskEvents = new MMAsyncTask();
 			List<User> users = new User().getAll();
 			if (!users.isEmpty()) {
@@ -142,11 +169,12 @@ public class NotificationService extends Service {
 								g.save();
 							}
 						}
-						
+
 						for (Event e : events) {
 							List<Event> evnt = new Select().all()
 									.from(Event.class)
 									.where("eventId = ?", e.getEventId())
+									.and("lastUpdate < ?", e.getLastUpdate())
 									.execute();
 
 							if (evnt.size() == 0) {
@@ -176,7 +204,7 @@ public class NotificationService extends Service {
 								EventGenre eventGenre = new EventGenre(
 										e.get(0), g.get(0));
 								eventGenre.save();
-								
+
 							}
 						}
 
@@ -200,7 +228,7 @@ public class NotificationService extends Service {
 
 						if (updated) {
 							MainActivity.sendData("updated");
-
+							
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

@@ -213,9 +213,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 				if (!(menu[position].equals("") && !menu[position]
 						.equals(getResources().getString(
 								R.string.no_preferred_locations)))) {
-					savePreferences(menu[position]);
-					Log.i("OnItemClick", "blabla");
-					//više ne radi :(:(
+					savePreferences(menu[position]);			
 					ftl.refresh();
 					ftm.refresh();
 					
@@ -223,7 +221,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 				Log.i("mainActivity", "onItemClick");
 			}
 		});
-
+			
 		Log.i("mainActivity", "on create end");
 	}
 
@@ -364,7 +362,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	public void onResume() {
 		super.onResume();
 
-		int minutes = 5 * 60; // 5sati
+		int minutes = 5*60; // 5sati
 		AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
 		Intent i = new Intent(this, NotificationService.class);
 		PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
