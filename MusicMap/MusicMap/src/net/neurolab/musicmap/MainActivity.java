@@ -214,8 +214,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 						.equals(getResources().getString(
 								R.string.no_preferred_locations)))) {
 					savePreferences(menu[position]);
-					ftm.refresh();
+					Log.i("OnItemClick", "blabla");
+					//više ne radi :(:(
 					ftl.refresh();
+					ftm.refresh();
+					
 				}
 				Log.i("mainActivity", "onItemClick");
 			}

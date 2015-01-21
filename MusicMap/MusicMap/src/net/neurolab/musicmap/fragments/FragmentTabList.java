@@ -48,7 +48,7 @@ public class FragmentTabList extends SherlockFragment implements
 				false);
 		
 		
-		
+		/*
 		String theLocation = loadSavedPreferences();
 		
 		if (!theLocation.equalsIgnoreCase(previousLocation) && !isAlreadyLoaded(theLocation)) {
@@ -58,23 +58,11 @@ public class FragmentTabList extends SherlockFragment implements
 			
 			try{
 			previousLocations.add(theLocation);
-			System.out.println("blabla");}
+			}
 			catch(Exception e){
 				System.out.println(e);
 			}
 			try {
-				
-				/*
-				 * if (l.size() > 0) { location = l.get(0);
-				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new
-				 * LatLng(l .get(0).getLat(), l.get(0).getLng()), (float)
-				 * 12.0)); }
-				 */
-				/*
-				 * gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(
-				 * cPrefLocation.getLat(), cPrefLocation.getLng()), (float)
-				 * 12.0));
-				 */
 
 				System.out.println("Loadanje iz baze");
 				DataLoader dl = new DataLoaderDB();
@@ -93,10 +81,57 @@ public class FragmentTabList extends SherlockFragment implements
 			}
 		}
 		
+			
 		
 		
+		listView = (ExpandableListView) view.findViewById(R.id.listView);
+		if (listView != null) {
+			EventsExpandableAdapter adapter = new EventsExpandableAdapter(
+					getActivity(), groups);
+			listView.setAdapter(adapter);
+		} else {
+			Log.i("tabList", "listView = null");
+		}*/
+		return view;
+	}
+	
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 		
 		
+		String theLocation = loadSavedPreferences();
+		
+		if (!theLocation.equalsIgnoreCase(previousLocation) && !isAlreadyLoaded(theLocation)) {
+			Log.i("tabList", "first load");
+			previousLocation = theLocation;
+			System.out.println(previousLocation);
+			
+			try{
+			previousLocations.add(theLocation);
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			try {
+
+				System.out.println("Loadanje iz baze");
+				DataLoader dl = new DataLoaderDB();
+				dl.LoadData(getActivity(), theLocation);
+
+				Boolean eventsExists = dl.DataLoaded();
+
+				if (!eventsExists) {
+					System.out.println("Loadanje sa servisa");
+					dl = new DataLoaderMM();
+					dl.LoadData(getActivity(), theLocation);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+			
 		
 		
 		listView = (ExpandableListView) view.findViewById(R.id.listView);
@@ -107,7 +142,7 @@ public class FragmentTabList extends SherlockFragment implements
 		} else {
 			Log.i("tabList", "listView = null");
 		}
-		return view;
+		
 	}
 	
 	
@@ -242,6 +277,7 @@ public class FragmentTabList extends SherlockFragment implements
 	}
 
 	public void refresh() {
+		
 		this.onViewCreated(getView(), null);
 	}
 }
