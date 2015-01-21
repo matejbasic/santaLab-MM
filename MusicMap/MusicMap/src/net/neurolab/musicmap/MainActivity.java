@@ -38,6 +38,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -82,7 +83,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 
 		ActiveAndroid.initialize(this);
 		context = getApplicationContext();
-
+		
 		ftm = new FragmentTabMap();
 		ftl = new FragmentTabList();
 
@@ -104,9 +105,12 @@ public class MainActivity extends SherlockFragmentActivity implements
 		mPager.setOnPageChangeListener(ViewPagerListener);
 		ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(fm);
 
-		viewPagerAdapter.setTabMap(ftm);
+		viewPagerAdapter.setTabMap(ftm.getFragment());
 		viewPagerAdapter.setTabList(ftl);
 		mPager.setAdapter(viewPagerAdapter);
+		
+
+    	
 
 		ActionBar.TabListener tabListener = new ActionBar.TabListener() {
 
@@ -248,7 +252,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 					SetPreferencesActivity.class);
 			this.startActivity(setPreferencesActivity);
 		} else if (id == R.id.action_search) {
-
+				
 			//final EditText input = new EditText(MainActivity.this);
 			//input.setHint("Event name");
 
@@ -315,7 +319,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 						
 						long dateUntilDate = dateUntil.getCalendarView().getDate();
 						
-												
+								
 						searchForData(eventString, /*genreString, musicianString, */cityString, dateSinceDate, dateUntilDate);
 						
 							alert.dismiss();

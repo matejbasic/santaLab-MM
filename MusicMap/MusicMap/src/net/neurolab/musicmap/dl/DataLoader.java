@@ -2,9 +2,11 @@ package net.neurolab.musicmap.dl;
 
 import java.util.ArrayList;
 
+import net.neurolab.musicmap.MainActivity;
 import net.neurolab.musicmap.db.Event;
 import android.app.Activity;
 import android.util.Log;
+import android.widget.Toast;
 
 
 public abstract class DataLoader {
@@ -18,7 +20,7 @@ public abstract class DataLoader {
 	}
 
 	public boolean DataLoaded() {
-		if (events == null) {
+		if (events == null) {			
 			return false;
 		} else {					
 			try{				

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 
+    <string name="pref_interests">Interests</string>
+    
+    <string name="pref_genre">Genre: </string>
+    <string name="pref_genre_desc">Enter genres</string>
+    
+    <string name="pref_locations">Locations: </string>
+    <string name="pref_locations_desc">Enter locations</string>    
+    
+     -->
+     
+    <string name="pref_data">Data</string>
+    
+    <string name="pref_app_updates_wifi_only">App updates</string>
+    <string name="pref_app_updates_wifi_only_desc">Download app updates on Wi-Fi only</string>
+    
+    <string name="pref_event_updates_wifi_only">Event updates</string>
+    <string name="pref_event_updates_wifi_only_desc">Download event updates on Wi-Fi only</string>
+    
+    
+    <string name="pref_notifications">Notifications</string>
+    
+    <string name="pref_time_interval">Update time</string>
+    <string name="pref_time_interval_desc">Notifications on updates of favorite events</string>
+    
+    <string name="pref_favorite_events">Favorite events</string>
+    <string name="pref_favorite_events_desc">Updates of favorite events</string>
+    
+    <string name="pref_events_by_interest">Event updates</string>
+    <string name="pref_events_by_interest_desc">Events that matches your interests</string>
+    
+    
+    <string name="pref_interface">Interface</string>
+    
+    <string name="pref_languages">Languages</string>
+    <string name="pref_languages_desc">Select language for your interface</string>
+    
+</resources>

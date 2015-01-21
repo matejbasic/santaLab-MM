@@ -22,8 +22,6 @@
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Event"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
-<fullyQualifiedTypeName name="net.neurolab.musicmap.MainActivity"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="com.activeandroid.query.Select.Column"/>
 <fullyQualifiedTypeName name="android.view.LayoutInflater"/>
 <fullyQualifiedTypeName name="android.widget.DatePicker"/>
@@ -38,4 +36,8 @@
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Genre"/>
 <fullyQualifiedTypeName name="net.neurolab.musicmap.db.Musician"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.MainActivity"/>
+<fullyQualifiedTypeName name="net.neurolab.musicmap.googlemaps.FragmentTabMap"/>
 </qualifiedTypeNameHistroy>

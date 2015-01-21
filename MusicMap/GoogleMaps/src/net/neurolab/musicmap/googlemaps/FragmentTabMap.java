@@ -1,9 +1,6 @@
 package net.neurolab.musicmap.googlemaps;
 import net.neurolab.musicmap.OnDataChangedListener;
-
-import net.neurolab.musicmap.dl.DataLoader;
-import net.neurolab.musicmap.dl.DataLoaderDB;
-import net.neurolab.musicmap.dl.DataLoaderMM;
+import net.neurolab.musicmap.MapFragmentInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +9,7 @@ import net.neurolab.musicmap.db.Event;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +25,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FragmentTabMap extends SherlockFragment implements
-		OnDataChangedListener {
+		OnDataChangedListener, MapFragmentInterface {
 
 	
 	public boolean fromSearch = false;
@@ -197,6 +195,11 @@ public class FragmentTabMap extends SherlockFragment implements
 
 	public void refresh() {
 		this.onViewCreated(getView(), null);
+	}
+
+	@Override
+	public Fragment getFragment() {
+		return this;
 	}
 
 }
