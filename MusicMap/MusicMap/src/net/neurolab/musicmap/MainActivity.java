@@ -225,15 +225,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		Log.i("mainActivity", "on create end");
 	}
 
-	public void savePreferences(String location) {
-		
-		preferredLocation = location;
-		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		Log.i("MainActivity", "savePreferences");
-		editor = sharedPreferences.edit();
-		editor.putString("theLocation", location);
-		editor.commit();
-	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -241,6 +233,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 		return true;
 	}
 
+	/**
+	 * onOptionsItemSelected handles MenuItem items selecting (as settings, setPreference or search) 
+	 */
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
@@ -338,7 +335,30 @@ public class MainActivity extends SherlockFragmentActivity implements
 		return true;
 
 	}
+	
+	/** 
+	 * @param location
+	 * savePreferences saves the current location (selected in NavigationDrawer) as the (top) preferred one
+	 */
+	
+	public void savePreferences(String location) {
+		
+		preferredLocation = location;
+		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		Log.i("MainActivity", "savePreferences");
+		editor = sharedPreferences.edit();
+		editor.putString("theLocation", location);
+		editor.commit();
+	}
+	
 
+	/** 
+	 * @param event
+	 * @param city
+	 * @param dateSince
+	 * @param dateUntil
+	 * searchForData is used to load data by calling DataLoaderSearch (for search purposes)
+	 */
 	private void searchForData(String event,/* String genre, String musician,*/
 			String city, long dateSince, long dateUntil) {
 		DataLoaderSearch dl = new DataLoaderSearch();
@@ -357,7 +377,9 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 	}
 
-
+/**
+ * onResume method sets alarm for NotificationService to start every x minutes/hours
+ */
 
 	public void onResume() {
 		super.onResume();
@@ -376,6 +398,10 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 	}
 
+	/**
+	 * @param str
+	 * sendData is static method used by NotificationService class to send the "updated" signal and create notification
+	 */
 	public static void sendData(String str) {
 		if (str.equalsIgnoreCase("updated")) {
 			System.out.println(str);

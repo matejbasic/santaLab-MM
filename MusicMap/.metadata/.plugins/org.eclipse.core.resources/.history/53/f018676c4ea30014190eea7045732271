@@ -1,0 +1,142 @@
+package net.neurolab.musicmap.db;
+
+import java.util.Date;
+import java.util.List;
+
+import android.util.Log;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
+/**
+ * 
+ * @author Ljiljana
+ *
+ * Event - class representing database table Event, which contains information about specific event.
+ */
+@Table (name = "Event")
+public class Event extends Model {
+	
+	@Column (name = "eventId", unique = true, notNull = true)
+	private long eventId;
+	
+	@Column (name = "name")
+	private String name;
+	
+	@Column (name = "description")
+	private String description;
+	
+	@Column (name = "eventTime")
+	private Date eventTime;
+	
+	@Column (name = "lastUpdate")
+	private Date lastUpdate;
+	
+	@Column (name = "lat")
+	private double lat;
+	
+	@Column (name = "lng")
+	private double lng;
+	
+	/*
+	@Column (name = "idLocation", index = true, notNull = true)
+	private long idLocation;
+	*/
+	@Column (name = "location")
+	private Location idLocation;
+	
+	public Event() {
+		super();
+	}
+	
+	
+
+	public Event(long eventId, String name, String description, Date eventTime, Date lastUpdate, double lat, double lng /*, Location location*/ /*long idLocation*/) {
+		super();
+		this.eventId = eventId;
+		this.name = name;
+		this.description = description;
+		this.eventTime = eventTime;
+		this.lastUpdate = lastUpdate;
+		this.lat = lat;
+		this.lng = lng;
+		//this.idLocation = location;
+		//this.idLocation = idLocation;
+	}
+
+	public Event getById(long eventId) {
+		return new Select().from(Event.class).where("Id = ?", eventId).executeSingle();
+	}
+	
+	public int getSum() {
+		return new Select().from(Event.class).count();
+	}
+
+
+	public long getEventId() {
+		return eventId;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public Date getEventTime() {
+		return eventTime;
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	
+	public double getLat() {
+		return lat;
+	}
+	
+	public double getLng() {
+		return lng;
+	}
+/*
+	public long getIdLocation() {
+		return idLocation;
+	}*/
+
+	public Location getIdLocation() {
+		return idLocation;
+	}
+
+	public void setIdLocation(Location location) {
+		this.idLocation = location;
+	}
+		
+	
+	public List<Location> locations(){
+		return getMany(Location.class, "Location");
+	}
+	
+	public List<EventPrice> prices(){
+		try {
+			Log.i("current event ID", String.valueOf(this.getId()));
+			List<EventPrice> temp = new Select().from(EventPrice.class).execute();
+			
+			for (EventPrice eventPrice : temp) {
+				if (eventPrice.getIdEvent().getId() == this.getId()) {
+					Log.i("eventPrice", String.valueOf(eventPrice.getPrice()));
+				}
+			}
+			Log.i("tempList event prices", temp.toString());
+			return getMany(EventPrice.class, "idEvent");
+		}
+		catch(Error e) {
+			return null;
+		}
+	}
+	
+	
+}

@@ -10,6 +10,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+
+/**
+ * 
+ * @author Ljiljana
+ * EventMusician - a class representing database table EventMusician which contains event and musician id.
+ */
 @Table (name = "EventMusician")
 public class EventMusician extends Model {
 

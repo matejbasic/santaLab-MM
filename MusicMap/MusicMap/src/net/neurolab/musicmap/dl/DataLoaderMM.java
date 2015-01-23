@@ -1,6 +1,7 @@
 package net.neurolab.musicmap.dl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import net.neurolab.musicmap.db.Event;
@@ -19,45 +20,54 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.activeandroid.query.Select;
+
+/**
+ * 
+ * @author Ljiljana
+ *
+ *         DataLoaderMM is a class which extends DataLoader and is used to
+ *         retrieve data from Neurolab MusicMap web servis. It is also used to save retrieved data to app database.
+ */
+
 public class DataLoaderMM extends DataLoader {
 
 	@Override
 	public void LoadData(Activity activity, String location) {
 		super.LoadData(activity, location);
-		
+
 		MMAsyncTask asyncTaskEvents = new MMAsyncTask();
 		List<User> users = new User().getAll();
 		if (!users.isEmpty()) {
 			for (User user : users) {
 				if (!user.getMmApiKey().isEmpty()) {
 					Log.i("cUser", user.getMmApiKey());
-					
-					Object paramsEvent[] = new Object[] { "user", "getEvents", null,
-							eventsHandler, location, user.getMmApiKey() };
+
+					Object paramsEvent[] = new Object[] { "user", "getEvents",
+							null, eventsHandler, location, user.getMmApiKey() };
 					asyncTaskEvents.execute(paramsEvent);
 					break;
 				}
 			}
-			
+
 		}
 	}
 
 	MMAsyncResultHandler eventsHandler = new MMAsyncResultHandler() {
-		
-		
+
 		@Override
 		public void handleResult(String result, Boolean status) {
 			if (status) { // PROVJERITI STATUS
 				try {
-					events = new ArrayList<Event>();					
+					events = new ArrayList<Event>();
 					ArrayList<Location> locations = new ArrayList<Location>();
 					ArrayList<Genre> genres = new ArrayList<Genre>();
 					ArrayList<Musician> musicians = new ArrayList<Musician>();
 					ArrayList<EventGenre_2> eventGenres = new ArrayList<EventGenre_2>();
 					ArrayList<EventMusician_2> eventMusicians = new ArrayList<EventMusician_2>();
-					
-					JSONAdapter.getEvents(result, events, locations, musicians, genres, eventGenres, eventMusicians);
-				
+
+					JSONAdapter.getEvents(result, events, locations, musicians,
+							genres, eventGenres, eventMusicians);
+
 					for (Location l : locations) {
 						List<Location> locs = new Select().all()
 								.from(Location.class)
@@ -65,7 +75,7 @@ public class DataLoaderMM extends DataLoader {
 								.and("lng = ?", l.getLng()).execute();
 						if (locs.size() == 0) {
 							l.save();
-								
+
 						}
 					}
 
@@ -85,58 +95,57 @@ public class DataLoaderMM extends DataLoader {
 							g.save();
 						}
 					}
-					
+
 					for (Event e : events) {
 						List<Event> evnt = new Select().all().from(Event.class)
 								.where("eventId = ?", e.getEventId()).execute();
-						
+
 						if (evnt.size() == 0) {
-							List<Location> eventLoc = new Select().from(Location.class).where("lat = ?", e.getLat() )
+							List<Location> eventLoc = new Select()
+									.from(Location.class)
+									.where("lat = ?", e.getLat())
 									.and("lng = ?", e.getLng()).execute();
-							if(eventLoc.size()==1){
+							if (eventLoc.size() == 1) {
 								e.setIdLocation(eventLoc.get(0));
 								e.save();
-								//System.out.println(e.getName());								
-								}
+								// System.out.println(e.getName());
+							}
 						}
-						
+
 					}
-					
+
 					for (EventGenre_2 eg : eventGenres) {
 						List<Genre> g = null;
 						List<Event> e = null;
 
-						e = new Select()
-								.from(Event.class)
-								.where("eventId = ?",
-										eg.getIdEvent()).execute();
-						g = new Select().from(Genre.class)
-								.where("name = ?", eg.getName())
+						e = new Select().from(Event.class)
+								.where("eventId = ?", eg.getIdEvent())
 								.execute();
+						g = new Select().from(Genre.class)
+								.where("name = ?", eg.getName()).execute();
 
 						if (e.size() == 1 && g.size() == 1) {
-							
-							EventGenre eventGenre = new EventGenre(e.get(0), g.get(0));
+
+							EventGenre eventGenre = new EventGenre(e.get(0),
+									g.get(0));
 							eventGenre.save();
 						}
 					}
-					
+
 					for (EventMusician_2 em : eventMusicians) {
 
 						List<Musician> m = null;
 						List<Event> ev = null;
 
-						ev = new Select()
-								.from(Event.class)
-								.where("eventId = ?",
-										em.getIdEvent()).execute();
-						m = new Select()
-								.from(Musician.class)
-								.where("name = ?", em.getName())
+						ev = new Select().from(Event.class)
+								.where("eventId = ?", em.getIdEvent())
 								.execute();
+						m = new Select().from(Musician.class)
+								.where("name = ?", em.getName()).execute();
 						if (ev.size() == 1 && m.size() == 1) {
-							
-							EventMusician eventMusician = new EventMusician(ev.get(0), m.get(0));
+
+							EventMusician eventMusician = new EventMusician(
+									ev.get(0), m.get(0));
 							eventMusician.save();
 
 						}
@@ -146,9 +155,9 @@ public class DataLoaderMM extends DataLoader {
 					e.printStackTrace();
 				}
 			}
-			//eventsLoaded = true;
+			// eventsLoaded = true;
 			DataLoaded();
-			//showLoadedData();
+			// showLoadedData();
 		}
 	};
 

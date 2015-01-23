@@ -10,6 +10,16 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * @param <PollTask>
+ * 
+ *            NotificationData is a class which is used to create and show
+ *            Notification when database is updated.
+ */
+
 public class NotificationData<PollTask> {
 
 	public static NotificationManager mNotificationManager;
@@ -28,7 +38,7 @@ public class NotificationData<PollTask> {
 		Log.i("context", context.toString());
 		String title = context.getString(R.string.dbUpdate_title);
 		String text = context.getString(R.string.dbUpdate_text);
-		
+
 		Intent intent = new Intent(context, MainActivity.class);
 		PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(

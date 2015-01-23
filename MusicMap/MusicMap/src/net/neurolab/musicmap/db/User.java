@@ -7,6 +7,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * User - a class that represents a database table User which contains information about the app user.
+ */
 @Table (name = "User")
 public class User extends Model{
 	

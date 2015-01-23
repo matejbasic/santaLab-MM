@@ -1,5 +1,11 @@
 package net.neurolab.musicmap.googlemaps;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * Markers is a "helper" class, containing googleMap marker objects.
+ */
 public class Markers {
 	private double lat;
 	private double lng;

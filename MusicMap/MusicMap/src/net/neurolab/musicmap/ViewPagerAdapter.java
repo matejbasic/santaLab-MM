@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+// izmeðu ostalog, bitna je setTabMap metoda ->->-> :D
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 	final int PAGE_COUNT = 2;
 	Fragment fragmentTabMap;
@@ -44,6 +45,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 		this.fragmentTabList = fragmentTabList;
 	}
 
+	// setTabMap metodi se prosljeðuje neki FragmentTabMap.getFragment() (znaèi
+	// fragment, buduæi da getFragment vraæa this), pa je onda ovom adapteru
+	// svejedno o kojoj se vrsti mapa radi (modularnost - hope so) :D
+	
 	public void setTabMap(Fragment fragmentTabMap) {
 		this.fragmentTabMap = fragmentTabMap;
 	}

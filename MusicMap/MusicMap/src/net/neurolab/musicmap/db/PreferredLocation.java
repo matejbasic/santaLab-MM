@@ -9,6 +9,13 @@ import com.activeandroid.query.Select;
 
 @Table (name = "PreferredLocation")
 
+/** 
+ * 
+ * @author Ljiljana
+ *
+ * PreferredLocation - a class that represents a database table PreferredLocation which contains user and location id.
+ */
+
 public class PreferredLocation extends Model{
 	
 	@Column (name = "idUser")

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.MainActivity;
-import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.EventGenre;
 import net.neurolab.musicmap.db.EventGenre_2;
@@ -18,7 +17,6 @@ import net.neurolab.musicmap.ws.JSONAdapter;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;

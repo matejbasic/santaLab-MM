@@ -6,6 +6,13 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * Musician - a class that represents a database table Musician which contains information about specific musician.
+ */
+
 @Table (name = "Musician")
 public class Musician extends Model{
 /*

@@ -5,6 +5,13 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * PreferredGenre - a class that represents a database table PreferredGenre which contains user and genre id.
+ */
+
 @Table (name = "PreferredGenre")
 public class PreferredGenre extends Model{
 

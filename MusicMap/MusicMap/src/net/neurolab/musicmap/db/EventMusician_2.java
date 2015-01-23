@@ -1,5 +1,11 @@
 package net.neurolab.musicmap.db;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * EventMusician_2 - a "helper" class for EventMusician.
+ */
 
 public class EventMusician_2 {
 

@@ -7,6 +7,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ *	Location - a class that represents a database table Location which contains informations about specific location.
+ */
 @Table (name = "Location")
 public class Location extends Model {
 	/*

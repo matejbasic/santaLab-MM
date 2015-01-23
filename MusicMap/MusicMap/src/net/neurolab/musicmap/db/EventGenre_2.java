@@ -1,6 +1,11 @@
 package net.neurolab.musicmap.db;
 
-
+/**
+ * 
+ * @author Ljiljana
+ *
+ * EventGenre_2 - a "helper" class for EventGenre.
+ */
 public class EventGenre_2{
 	
 	private long idEvent;	

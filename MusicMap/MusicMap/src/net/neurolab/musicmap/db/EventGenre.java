@@ -4,6 +4,12 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * EventGenre - a class representing database table EventGenre which contains event and genre id.
+ */
 @Table (name = "EventGenre")
 public class EventGenre extends Model {
 

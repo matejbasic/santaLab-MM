@@ -1,6 +1,9 @@
 package net.neurolab.musicmap.db;
 
-
+/**
+ * 
+ * Genre - a class representing database table Genre which contains informations about specific genre.
+ */
 
 import java.util.List;
 

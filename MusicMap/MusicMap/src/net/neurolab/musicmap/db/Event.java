@@ -10,6 +10,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+/**
+ * 
+ * @author Ljiljana
+ *
+ * Event - a class representing database table Event, which contains information about specific event.
+ */
 @Table (name = "Event")
 public class Event extends Model {
 	
@@ -132,8 +138,5 @@ public class Event extends Model {
 		}
 	}
 	
-	public List<Comment> comments(){
-		return getMany(Comment.class, "Comment");
-	}
 	
 }

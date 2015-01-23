@@ -23,30 +23,13 @@ import android.annotation.SuppressLint;
 public class JSONAdapter {
 
 	/**
-	 * Static method for getting a JSON string representing an array, but
-	 * containing only one object. As PHP (in our implementation) expects the
-	 * data in array, it is not possible to use string that represent only one
-	 * object, but rather array of objects.
-	 * 
-	 * @param jsonObject
-	 *            Object containing name value pairs.
-	 * @return String describing an array which contains one object with its
-	 *         name value pairs. <br>
-	 *         An example:<br>
-	 *         <code> [{"name":"value", "surname":"survalue"}]</code>
-	 * 
-	 */
-	
-
-	/**
 	 * Static method for converting the jsonString results containing the
-	 * information about events into an ArrayList of Events.
+	 * information about events into an ArrayList of Events, Locations, Musicians, Genres, EventGenres_2 and EventMusicians_2.
 	 * 
 	 * @param jsonString
-	 *            String containing a JSONArray of objects with all name value
-	 *            pairs.
-	 * @return ArrayList of Store objects containing the information on stores.
-	 * @throws Exception
+	 *            String containing a JSONArray of objects.
+	 * @return ArrayList of Event, Location, Musician, Genre, EventGenre_2 and  EventMusician_2  objects containing the informations.
+	 * 
 	 * @throws Exception
 	 *             If conversion from string to JSONObject is not possible the
 	 *             exception is raised.
