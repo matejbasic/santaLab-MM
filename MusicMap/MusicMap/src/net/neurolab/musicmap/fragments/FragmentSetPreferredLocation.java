@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-public class FragmentSetPreferedLocation extends Fragment {
+public class FragmentSetPreferredLocation extends Fragment {
 	private EditText inputLocation;
 	private ProgressBar progressBar;
 	private Button next;

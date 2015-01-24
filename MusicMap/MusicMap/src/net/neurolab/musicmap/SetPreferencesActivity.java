@@ -14,8 +14,8 @@ import net.neurolab.musicmap.db.Location;
 import net.neurolab.musicmap.db.PreferredGenre;
 import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
-import net.neurolab.musicmap.fragments.FragmentSetPreferedGenres;
-import net.neurolab.musicmap.fragments.FragmentSetPreferedLocation;
+import net.neurolab.musicmap.fragments.FragmentSetPreferredGenres;
+import net.neurolab.musicmap.fragments.FragmentSetPreferredLocation;
 import net.neurolab.musicmap.ws.MMAsyncResultHandler;
 import net.neurolab.musicmap.ws.MMAsyncTask;
 
@@ -45,9 +45,15 @@ import android.util.Log;
 
 import com.activeandroid.query.Select;
 
+/**
+ * 
+ * @author Basic
+ *
+ * Activity for setting the preferred location and genres.
+ */
 public class SetPreferencesActivity extends Activity {
-	private FragmentSetPreferedGenres fSetGenres;
-	private FragmentSetPreferedLocation fSetLocation;
+	private FragmentSetPreferredGenres fSetGenres;
+	private FragmentSetPreferredLocation fSetLocation;
 	private static boolean chooseLocation = true;
 	private User user;
 	private Boolean locationCheck = false;
@@ -209,6 +215,7 @@ public class SetPreferencesActivity extends Activity {
 		// 0 - name, 1 - city, 2 - address, 3 - lat, 4 - lng
 		if (result[0] != null && result[1] != null && result[2] != null
 				&& (Double) result[3] != -1 && (Double) result[4] != -1) {
+			
 			navigateToSetGenres();
 
 			new Thread(new Runnable() {
@@ -219,10 +226,17 @@ public class SetPreferencesActivity extends Activity {
 							result[1].toString(), result[2].toString(),
 							(Double) result[3], (Double) result[4]);
 					newLocation.save();
-					Location location = new Select().from(Location.class).where("lat = ?", (Double) result[3]).and("lng = ?", (Double) result[4]).and("address = ?", result[2].toString()).executeSingle();
+					/*
+					Location location = new Select().from(Location.class).where("lat = ?", (Double) result[3])
+							.and("lng = ?", (Double) result[4]).and("address = ?", 
+									result[2].toString()).executeSingle();
 					
 					PreferredLocation newPrefLocation = new PreferredLocation(
 							user, location);
+					*/
+					
+					PreferredLocation newPrefLocation = new PreferredLocation(
+							user, newLocation);
 					
 					newPrefLocation.save();
 					savePreferences(newPrefLocation.getIdLocation().getCity());
@@ -230,6 +244,7 @@ public class SetPreferencesActivity extends Activity {
 					
 				}
 			}).start();
+			
 		} else {
 			setNoLocationError();
 		}
@@ -246,8 +261,8 @@ public class SetPreferencesActivity extends Activity {
 			setContentView(R.layout.activity_set_preferences);
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 			
-			fSetLocation = new FragmentSetPreferedLocation();
-			fSetGenres = new FragmentSetPreferedGenres();
+			fSetLocation = new FragmentSetPreferredLocation();
+			fSetGenres = new FragmentSetPreferredGenres();
 			if (chooseLocation) {
 				ft.add(R.id.activitySetPreferences, fSetLocation).show(fSetLocation).commit();
 			}
@@ -255,16 +270,17 @@ public class SetPreferencesActivity extends Activity {
 			checkGenres();
 			
 		}
-		else {
-			
+		else {		
 			navigateToLogin();
 		}	
 	}
 	
 	public void savePreferences(String location) {
 
+		//SharedPreferences sharedPreferences = PreferenceManager
+		//		.getDefaultSharedPreferences(MainActivity.context);
 		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(MainActivity.context);
+				.getDefaultSharedPreferences(getApplicationContext());
 		Log.i("SetPreferences", "savePreferences");
 		Editor editor = sharedPreferences.edit();
 		editor.putString("theLocation", location);
@@ -317,12 +333,14 @@ public class SetPreferencesActivity extends Activity {
 	public void navigateToHome() {
 		Intent intent = new Intent(SetPreferencesActivity.this, MainActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	public void navigateToLogin() {
 		Intent intent = new Intent(SetPreferencesActivity.this, LoginActivity.class);
 		intent.putExtra("reason", "no-user");
 		startActivity(intent);
+		finish();
 	}
 	
 	public void navigateToSetGenres() {

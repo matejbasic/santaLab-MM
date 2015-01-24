@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-public class FragmentSetPreferedGenres extends Fragment {
+public class FragmentSetPreferredGenres extends Fragment {
 	
 	private Button btnSelectAll;
 	private Boolean selectAll = false;

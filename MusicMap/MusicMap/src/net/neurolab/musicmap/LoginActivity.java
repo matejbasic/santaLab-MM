@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.activeandroid.ActiveAndroid;
 
 /**
@@ -517,6 +518,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		Intent intent = new Intent(LoginActivity.this,
 				SetPreferencesActivity.class);
 		startActivity(intent); 
+		finish();
 	}
 
 	@Override
@@ -524,6 +526,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		Intent intent = new Intent(LoginActivity.this,
 				MainActivity.class);
 		startActivity(intent); 
+		finish();
 	}
 
 	@Override
