@@ -16,6 +16,7 @@
 
 package com.facebook.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -27,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.facebook.android.R;
-
 import java.lang.ref.WeakReference;
 
 public class ToolTipPopup {
@@ -97,7 +97,8 @@ public class ToolTipPopup {
     /**
      * Display this tool tip to the user
      */
-    public void show() {
+    @SuppressLint("WrongCall")
+	public void show() {
         if (mAnchorViewRef.get() != null) {
             mPopupContent = new PopupContentView(mContext);
             TextView body = (TextView) mPopupContent.findViewById(

@@ -97,9 +97,15 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        <!-- 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCz9aJpBBl-drMusoKHlOwViNAnj1m-nL4" />
+        -->
+        <!-- AIzaSyCieTbqbAr6rXd2NkH2csVc4w-16L1KGYM -->
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCieTbqbAr6rXd2NkH2csVc4w-16L1KGYM" />
     </application>
 
 </manifest>

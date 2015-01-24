@@ -5,6 +5,6 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="C:/Users/Ljiljana/Documents/GitHub/santaLab-MM/MusicMap/MusicMap/extras/googleMap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Deng/santaLab-MM/santaLab-MM/MusicMap/MusicMap/extras/googleMap.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
