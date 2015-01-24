@@ -2,7 +2,6 @@ package net.neurolab.musicmap.fragments;
 
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.SetPreferencesActivity;
-import net.neurolab.musicmap.interfaces.SetPreferedLocationView;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-public class FragmentSetPreferedLocation extends Fragment implements SetPreferedLocationView {
+public class FragmentSetPreferedLocation extends Fragment {
 	private EditText inputLocation;
 	private ProgressBar progressBar;
 	private Button next;
@@ -73,7 +72,6 @@ public class FragmentSetPreferedLocation extends Fragment implements SetPrefered
 		}
 	}
 	
-	@Override
 	public void setNoLocationError() {
 		progressBar.setVisibility(View.INVISIBLE);
 		inputLocation.setEnabled(true);
