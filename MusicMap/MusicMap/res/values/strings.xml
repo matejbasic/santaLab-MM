@@ -56,8 +56,8 @@
     <string name="searchEvent">Event name</string>
     <string name="searchGenre">Genre</string>
     <string name="searchMusician">Musician</string>
-    <string name="searchDateSince">Date since</string>
-    <string name="searchDateUntil">Date until</string>
+    <string name="searchDateSince">Start date</string>
+    <string name="searchDateUntil">End Date</string>
     <string name="searchCity">City</string>
     
 </resources>
