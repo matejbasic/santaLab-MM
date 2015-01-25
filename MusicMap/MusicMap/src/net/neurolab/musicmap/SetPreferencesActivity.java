@@ -175,7 +175,6 @@ public class SetPreferencesActivity extends Activity {
 					}
 				} else {
 					String response = gcFallback(locationName);
-
 					try {
 						JSONObject rez = new JSONObject(response);
 						JSONArray data = rez.getJSONArray("results");
@@ -193,6 +192,7 @@ public class SetPreferencesActivity extends Activity {
 								.getString("lat"));
 						result[4] = Double.parseDouble(location
 								.getString("lng"));
+						Log.i("result", result.toString());
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -226,14 +226,6 @@ public class SetPreferencesActivity extends Activity {
 							result[1].toString(), result[2].toString(),
 							(Double) result[3], (Double) result[4]);
 					newLocation.save();
-					/*
-					Location location = new Select().from(Location.class).where("lat = ?", (Double) result[3])
-							.and("lng = ?", (Double) result[4]).and("address = ?", 
-									result[2].toString()).executeSingle();
-					
-					PreferredLocation newPrefLocation = new PreferredLocation(
-							user, location);
-					*/
 					
 					PreferredLocation newPrefLocation = new PreferredLocation(
 							user, newLocation);
@@ -256,7 +248,6 @@ public class SetPreferencesActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
 		if(checkUser()) {
 			setContentView(R.layout.activity_set_preferences);
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -264,11 +255,11 @@ public class SetPreferencesActivity extends Activity {
 			fSetLocation = new FragmentSetPreferredLocation();
 			fSetGenres = new FragmentSetPreferredGenres();
 			if (chooseLocation) {
-				ft.add(R.id.activitySetPreferences, fSetLocation).show(fSetLocation).commit();
+				ft.add(R.id.activitySetPreferences, fSetLocation)
+					.show(fSetLocation).commit();
 			}
-			Log.i("SETPREF", "go to check genres");
-			checkGenres();
 			
+			checkGenres();			
 		}
 		else {		
 			navigateToLogin();
@@ -276,12 +267,9 @@ public class SetPreferencesActivity extends Activity {
 	}
 	
 	public void savePreferences(String location) {
-
-		//SharedPreferences sharedPreferences = PreferenceManager
-		//		.getDefaultSharedPreferences(MainActivity.context);
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
-		Log.i("SetPreferences", "savePreferences");
+		
 		Editor editor = sharedPreferences.edit();
 		editor.putString("theLocation", location);
 		editor.commit();
@@ -292,8 +280,9 @@ public class SetPreferencesActivity extends Activity {
 			locationCheck = true;
 			if (name != null && !name.isEmpty()) {
 				Location location = new Location().getLocation(name);
-
+				
 				if (location == null) {
+					Log.i("checkLocation", "null");
 					// preferred location can be just a city
 					// get lat, lng from google geocoding
 					getAddressTask mmTask = new getAddressTask();
@@ -369,6 +358,7 @@ public class SetPreferencesActivity extends Activity {
 			}
 		}
 	}
+	
 	
 	public void checkGenres() {
 		int sumGenres = new Genre().getSum();

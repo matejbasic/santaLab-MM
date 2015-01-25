@@ -72,7 +72,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 				
 				//check connection status
 				isConnected = activeNetwork != null && activeNetwork.isConnected();
-				//TODO: add connection type (WiFi) to preferences
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -264,122 +263,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		}
 	};
 	
-	
-	private void addUserToDB(String apiKey, Boolean fromFacebook) {
-		//User user = new User(userId, firstLastName, facebookId, mmApiKey, password);
-		User user = null;	
-		if (fromFacebook) {
-			user = new User(0, this.userName, this.fbId, apiKey, this.idHash);
-		}
-		else {
-			user = new User(0, this.userName, "0", apiKey, this.idHash);
-			
-		}
-		user.save();
-	}
-	private void addApiKeyToUser(String apiKey, Boolean fromFacebook) {
-		User user = new User();
-		if (fromFacebook) {
-			user.setApiKeyToUser(apiKey, true, this.fbId);
-		}
-		else {
-			user.setApiKeyToUser(apiKey, false, this.userName);
-		}
-	}
-	private void checkUser() {
-		List<User> users = new User().getAll();
-		if (!users.isEmpty()) { 
-			Boolean isUserValid = false;
-			for (User user : users) {
-				if (user.getMmApiKey() != null) {
-					isUserValid = true;
-					int prefGenresSum = new PreferredGenre().getSum();
-					int prefLocationsSum = new PreferredLocation().getSum();
-					if (prefGenresSum == 0 || prefLocationsSum == 0) {
-						navigateToPreferences();
-					}
-					else {
-						navigateToHome();
-					}
-				}	
-			}
-			if (!isUserValid) {
-				setLoginButtons();
-			}
-		}
-		else {
-			setLoginButtons();
-		}
-	}
-	
-	
-	public void checkFbUser(String userName, String fbId, Activity activity) {
-		
-		List<User> users = new User().getAll();
-		if (!users.isEmpty()) { //if user exist
-			Boolean noMatch = true;
-			for (User user : users) {
-				
-				if ( user.getFacebookId() != null && fbId.matches(user.getFacebookId())) {
-					noMatch = false;
-					if ( user.getMmApiKey() == null) { //local DB contains user data but not the user key
-						getFbUserKey(fbId);
-					}
-					else {//user data valid, proceed
-						navigateToPreferences();
-					}
-				}
-			}
-			if (noMatch) {
-				newFbUser(fbId, userName);
-			}
-		}
-		else { //user doesn't exist, add new one to MM WS and local database
-			newFbUser(fbId, userName);
-		}
-		
-	}
-
-	private void getFbUserKey(String fbId) {
-		this.fbId = fbId;
-		this.idHash = String.valueOf(fbId.hashCode());
-		
-		//get the key and proceed to preferences
-		MMAsyncTask mmTask = new MMAsyncTask();
-		Object params[] = new Object[]{"fbUser", "getKey", null, getFbUserKeyHandler, this.fbId, this.idHash};
-		mmTask.execute(params);
-	}
-	private void getUserKey(String userName) {
-		this.idHash = String.valueOf(userName.hashCode());
-		this.userName = userName;
-		
-		MMAsyncTask mmTask = new MMAsyncTask();
-		Object params[] = new Object[]{"user", "getKey", null, getUserKeyHandler, this.userName, this.idHash};
-		mmTask.execute(params);
-	}
-	
-	private void newFbUser(String fbId, String userName) {
-		this.idHash = String.valueOf(fbId.hashCode());
-		this.fbId = fbId;
-		this.userName = userName;
-		
-		MMAsyncTask mmTask = new MMAsyncTask();
-		Object params[] = new Object[]{"fbUser", "add", null, addFbUserHandler, this.fbId, this.idHash, this.userName};
-		mmTask.execute(params);
-	}
-	private void newUser(String uniqueId) {
-		this.idHash = String.valueOf(uniqueId.hashCode());
-		this.userName = uniqueId;
-		
-		MMAsyncTask mmTask = new MMAsyncTask();
-		Object params[] = new Object[]{"user", "add", null, addUserHandler, this.userName, this.idHash};
-		mmTask.execute(params);
-	}
-	
-	public void checkDependencies(Context context) {
-		DependenciesTask task = new DependenciesTask();
-		task.execute(context);
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -461,10 +344,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 					.findFragmentById(android.R.id.content);
 		}		
 	}
-	/*
-	 * (non-Javadoc)
-	 * @see net.neurolab.musicmap.interfaces.LoginView#getFbFragmentData(java.util.HashMap)
-	 */
+	
 	@Override
 	public void getFbFragmentData(HashMap<String, String> data) {
 		if (data.containsKey("id") && data.containsKey("name")) {	
@@ -473,6 +353,121 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		}
 	}
 
+	private void addUserToDB(String apiKey, Boolean fromFacebook) {
+		//User user = new User(userId, firstLastName, facebookId, mmApiKey, password);
+		User user = null;	
+		if (fromFacebook) {
+			user = new User(0, this.userName, this.fbId, apiKey, this.idHash);
+		}
+		else {
+			user = new User(0, this.userName, "0", apiKey, this.idHash);
+			
+		}
+		user.save();
+	}
+	private void addApiKeyToUser(String apiKey, Boolean fromFacebook) {
+		User user = new User();
+		if (fromFacebook) {
+			user.setApiKeyToUser(apiKey, true, this.fbId);
+		}
+		else {
+			user.setApiKeyToUser(apiKey, false, this.userName);
+		}
+	}
+	private void checkUser() {
+		List<User> users = new User().getAll();
+		if (!users.isEmpty()) { 
+			Boolean isUserValid = false;
+			for (User user : users) {
+				if (user.getMmApiKey() != null) {
+					isUserValid = true;
+					int prefGenresSum = new PreferredGenre().getSum();
+					int prefLocationsSum = new PreferredLocation().getSum();
+					if (prefGenresSum == 0 || prefLocationsSum == 0) {
+						navigateToPreferences();
+					}
+					else {
+						navigateToHome();
+					}
+				}	
+			}
+			if (!isUserValid) {
+				setLoginButtons();
+			}
+		}
+		else {
+			setLoginButtons();
+		}
+	}
+	
+	public void checkFbUser(String userName, String fbId, Activity activity) {
+		
+		List<User> users = new User().getAll();
+		if (!users.isEmpty()) { //if user exist
+			Boolean noMatch = true;
+			for (User user : users) {
+				
+				if ( user.getFacebookId() != null && fbId.matches(user.getFacebookId())) {
+					noMatch = false;
+					if ( user.getMmApiKey() == null) { //local DB contains user data but not the user key
+						getFbUserKey(fbId);
+					}
+					else {//user data valid, proceed
+						navigateToPreferences();
+					}
+				}
+			}
+			if (noMatch) {
+				newFbUser(fbId, userName);
+			}
+		}
+		else { //user doesn't exist, add new one to MM WS and local database
+			newFbUser(fbId, userName);
+		}
+		
+	}
+
+	private void getFbUserKey(String fbId) {
+		this.fbId = fbId;
+		this.idHash = String.valueOf(fbId.hashCode());
+		
+		//get the key and proceed to preferences
+		MMAsyncTask mmTask = new MMAsyncTask();
+		Object params[] = new Object[]{"fbUser", "getKey", null, getFbUserKeyHandler, this.fbId, this.idHash};
+		mmTask.execute(params);
+	}
+	private void getUserKey(String userName) {
+		this.idHash = String.valueOf(userName.hashCode());
+		this.userName = userName;
+		
+		MMAsyncTask mmTask = new MMAsyncTask();
+		Object params[] = new Object[]{"user", "getKey", null, getUserKeyHandler, this.userName, this.idHash};
+		mmTask.execute(params);
+	}
+	
+	private void newFbUser(String fbId, String userName) {
+		this.idHash = String.valueOf(fbId.hashCode());
+		this.fbId = fbId;
+		this.userName = userName;
+		
+		MMAsyncTask mmTask = new MMAsyncTask();
+		Object params[] = new Object[]{"fbUser", "add", null, addFbUserHandler, this.fbId, this.idHash, this.userName};
+		mmTask.execute(params);
+	}
+	private void newUser(String uniqueId) {
+		this.idHash = String.valueOf(uniqueId.hashCode());
+		this.userName = uniqueId;
+		
+		MMAsyncTask mmTask = new MMAsyncTask();
+		Object params[] = new Object[]{"user", "add", null, addUserHandler, this.userName, this.idHash};
+		mmTask.execute(params);
+	}
+	
+	public void checkDependencies(Context context) {
+		DependenciesTask task = new DependenciesTask();
+		task.execute(context);
+	}
+	
 	@Override
 	public void showProgress() {
 		progressBar.setVisibility(View.VISIBLE);

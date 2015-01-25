@@ -1832,7 +1832,6 @@ containing a value of this type.
         public static final int login=0x7f0d0000;
         public static final int main=0x7f0d0001;
         public static final int set_pref_location=0x7f0d0002;
-        public static final int splash=0x7f0d0003;
     }
     public static final class string {
         public static final int LoginAsGuest=0x7f060065;
@@ -2138,7 +2137,7 @@ containing a value of this type.
  Application theme. 
          */
         public static final int AppTheme=0x7f05005f;
-        public static final int NoActionBar=0x7f050065;
+        public static final int NoActionBar=0x7f05006a;
         public static final int Sherlock___TextAppearance_Small=0x7f05004b;
         public static final int Sherlock___Theme=0x7f050056;
         public static final int Sherlock___Theme_DarkActionBar=0x7f050058;
@@ -2192,6 +2191,11 @@ containing a value of this type.
          */
         public static final int WalletFragmentDefaultStyle=0x7f050004;
         public static final int Widget=0x7f050005;
+        public static final int Widget_AppTheme_ActionBar=0x7f050065;
+        public static final int Widget_AppTheme_ActionBar_TitleTextStyle=0x7f050069;
+        public static final int Widget_AppTheme_TabBar=0x7f050067;
+        public static final int Widget_AppTheme_TabText=0x7f050066;
+        public static final int Widget_AppTheme_TabView=0x7f050068;
         public static final int Widget_SampleMessage=0x7f050063;
         public static final int Widget_SampleMessageTile=0x7f050064;
         public static final int Widget_Sherlock_ActionBar=0x7f050007;
