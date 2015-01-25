@@ -32,6 +32,7 @@
             android:key="pref_event_updates_wifi_only"
             android:summary="@string/pref_event_updates_wifi_only_desc" />
     </PreferenceCategory>
+    <!--
     <PreferenceCategory
         android:key="pref_not"
         android:persistent="false"
@@ -45,7 +46,9 @@
             android:defaultValue="true"
             android:key="pref_events_by_interest"
             android:summary="@string/pref_events_by_interest_desc" />
+        
     </PreferenceCategory>
+    -->
     <PreferenceCategory
         android:key="pref_lan"
         android:persistent="false"
