@@ -107,7 +107,7 @@ public class FragmentTabList extends SherlockFragment implements
 			System.out.println(previousLocation);
 			
 			try{
-			previousLocations.add(theLocation);
+				previousLocations.add(theLocation);
 			}
 			catch(Exception e){
 				System.out.println(e);

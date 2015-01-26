@@ -6,25 +6,50 @@
     android:clickable="true"
     android:paddingLeft="6dp"
     android:paddingStart="6dp"
+    android:paddingRight="6dp"
     android:paddingEnd="6dp"
+    
     android:orientation="vertical"
     tools:context=".FragmentTabList"
 	android:id="@+id/listItemLayout">
     
     <TextView
         android:id="@+id/itemTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="34dp"
         android:paddingStart="34dp"
         android:paddingRight="2dp"
         android:paddingEnd="2dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="2dp"
+        
+        android:layout_marginTop="0dp"
+        
         android:gravity="center_vertical"
         android:text="@string/hello_world"
         android:textSize="14sp"
-        ></TextView>
+        android:textStyle="bold"
+        android:background="#fefefe"
+        />
+    <TextView
+        android:id="@+id/itemLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="34dp"
+        android:paddingStart="34dp"
+        android:paddingRight="2dp"
+        android:paddingEnd="2dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="9dp"
+        
+        android:layout_marginBottom="0dp"
+        
+        android:gravity="center_vertical"
+        android:text="@string/hello_world"
+        android:textSize="12sp"
+        android:background="#fefefe"
+        />
     
 
 </LinearLayout>

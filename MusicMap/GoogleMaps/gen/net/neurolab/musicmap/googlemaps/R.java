@@ -974,13 +974,13 @@ containing a value of this type.
         public static int zOrderOnTop=0x7f010010;
     }
     public static final class bool {
-        public static int abs__action_bar_embed_tabs=0x7f090000;
-        public static int abs__action_bar_expanded_action_views_exclusive=0x7f090002;
+        public static int abs__action_bar_embed_tabs=0x7f080000;
+        public static int abs__action_bar_expanded_action_views_exclusive=0x7f080002;
         /**  Whether action menu items should be displayed in ALLCAPS or not.
          Defaults to true. If this is not appropriate for specific locales
          it should be disabled in that locale's resources. 
          */
-        public static int abs__config_actionMenuItemAllCaps=0x7f090004;
+        public static int abs__config_actionMenuItemAllCaps=0x7f080004;
         /**  Whether action menu items should obey the "withText" showAsAction
          flag. This may be set to false for situations where space is
          extremely limited. 
@@ -988,12 +988,12 @@ containing a value of this type.
          flag. This may be set to false for situations where space is
          extremely limited. 
          */
-        public static int abs__config_allowActionMenuItemTextWithIcon=0x7f090005;
+        public static int abs__config_allowActionMenuItemTextWithIcon=0x7f080005;
         /**  Sets whether menu shortcuts should be displayed on panel menus when
          a keyboard is present. 
          */
-        public static int abs__config_showMenuShortcutsWhenKeyboardPresent=0x7f090003;
-        public static int abs__split_action_bar_is_narrow=0x7f090001;
+        public static int abs__config_showMenuShortcutsWhenKeyboardPresent=0x7f080003;
+        public static int abs__split_action_bar_is_narrow=0x7f080001;
     }
     public static final class color {
         public static int abs__background_holo_dark=0x7f060017;
@@ -1051,7 +1051,7 @@ containing a value of this type.
  Default height of an action bar. 
  Default height of an action bar. 
          */
-        public static int abs__action_bar_default_height=0x7f0a0001;
+        public static int abs__action_bar_default_height=0x7f090001;
         /**  Vertical padding around action bar icons. 
  Vertical padding around action bar icons. 
  Vertical padding around action bar icons. 
@@ -1061,7 +1061,7 @@ containing a value of this type.
  Vertical padding around action bar icons. 
  Vertical padding around action bar icons. 
          */
-        public static int abs__action_bar_icon_vertical_padding=0x7f0a0002;
+        public static int abs__action_bar_icon_vertical_padding=0x7f090002;
         /**  Bottom margin for action bar subtitles 
  Bottom margin for action bar subtitles 
  Bottom margin for action bar subtitles 
@@ -1071,7 +1071,7 @@ containing a value of this type.
  Bottom margin for action bar subtitles 
  Bottom margin for action bar subtitles 
          */
-        public static int abs__action_bar_subtitle_bottom_margin=0x7f0a0006;
+        public static int abs__action_bar_subtitle_bottom_margin=0x7f090006;
         /**  Text size for action bar subtitles 
  Text size for action bar subtitles 
  Text size for action bar subtitles 
@@ -1081,7 +1081,7 @@ containing a value of this type.
  Text size for action bar subtitles 
  Text size for action bar subtitles 
          */
-        public static int abs__action_bar_subtitle_text_size=0x7f0a0004;
+        public static int abs__action_bar_subtitle_text_size=0x7f090004;
         /**  Top margin for action bar subtitles 
  Top margin for action bar subtitles 
  Top margin for action bar subtitles 
@@ -1091,7 +1091,7 @@ containing a value of this type.
  Top margin for action bar subtitles 
  Top margin for action bar subtitles 
          */
-        public static int abs__action_bar_subtitle_top_margin=0x7f0a0005;
+        public static int abs__action_bar_subtitle_top_margin=0x7f090005;
         /**  Text size for action bar titles 
  Text size for action bar titles 
  Text size for action bar titles 
@@ -1101,43 +1101,43 @@ containing a value of this type.
  Text size for action bar titles 
  Text size for action bar titles 
          */
-        public static int abs__action_bar_title_text_size=0x7f0a0003;
+        public static int abs__action_bar_title_text_size=0x7f090003;
         /**  Minimum width for an action button in the menu area of an action bar 
  Minimum width for an action button in the menu area of an action bar 
  Minimum width for an action button in the menu area of an action bar 
  Minimum width for an action button in the menu area of an action bar 
          */
-        public static int abs__action_button_min_width=0x7f0a0007;
+        public static int abs__action_button_min_width=0x7f090007;
         /**  The maximum width we would prefer dialogs to be.  0 if there is no
          maximum (let them grow as large as the screen).  Actual values are
          specified for -large and -xlarge configurations. 
          */
-        public static int abs__config_prefDialogWidth=0x7f0a0000;
+        public static int abs__config_prefDialogWidth=0x7f090000;
         /**  The platform's desired minimum size for a dialog's width when it
          is along the major axis (that is the screen is landscape).  This may
          be either a fraction or a dimension. 
          */
-        public static int abs__dialog_min_width_major=0x7f0a000d;
+        public static int abs__dialog_min_width_major=0x7f09000d;
         /**  The platform's desired minimum size for a dialog's width when it
          is along the minor axis (that is the screen is portrait).  This may
          be either a fraction or a dimension. 
          */
-        public static int abs__dialog_min_width_minor=0x7f0a000e;
+        public static int abs__dialog_min_width_minor=0x7f09000e;
         /**  Width of the icon in a dropdown list 
          */
-        public static int abs__dropdownitem_icon_width=0x7f0a000a;
+        public static int abs__dropdownitem_icon_width=0x7f09000a;
         /**  Text padding for dropdown items 
          */
-        public static int abs__dropdownitem_text_padding_left=0x7f0a0008;
+        public static int abs__dropdownitem_text_padding_left=0x7f090008;
         /**  Text padding for dropdown items 
          */
-        public static int abs__dropdownitem_text_padding_right=0x7f0a0009;
+        public static int abs__dropdownitem_text_padding_right=0x7f090009;
         /**  Preferred width of the search view. 
          */
-        public static int abs__search_view_preferred_width=0x7f0a000c;
+        public static int abs__search_view_preferred_width=0x7f09000c;
         /**  Minimum width of the search view text entry area. 
          */
-        public static int abs__search_view_text_min_width=0x7f0a000b;
+        public static int abs__search_view_text_min_width=0x7f09000b;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Example customization of dimensions originally defined in res/values/dimens.xml
@@ -1145,8 +1145,8 @@ containing a value of this type.
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static int activity_horizontal_margin=0x7f0a000f;
-        public static int activity_vertical_margin=0x7f0a0010;
+        public static int activity_horizontal_margin=0x7f09000f;
+        public static int activity_vertical_margin=0x7f090010;
     }
     public static final class drawable {
         public static int abs__ab_bottom_solid_dark_holo=0x7f020000;
@@ -1296,80 +1296,80 @@ containing a value of this type.
         public static int powered_by_google_light=0x7f020090;
     }
     public static final class id {
-        public static int abs__action_bar=0x7f070032;
-        public static int abs__action_bar_container=0x7f070031;
-        public static int abs__action_bar_subtitle=0x7f070023;
-        public static int abs__action_bar_title=0x7f070022;
-        public static int abs__action_context_bar=0x7f070033;
-        public static int abs__action_menu_divider=0x7f07001e;
-        public static int abs__action_menu_presenter=0x7f07001f;
-        public static int abs__action_mode_bar=0x7f070037;
-        public static int abs__action_mode_bar_stub=0x7f070036;
-        public static int abs__action_mode_close_button=0x7f070026;
-        public static int abs__activity_chooser_view_content=0x7f070027;
-        public static int abs__checkbox=0x7f07002e;
-        public static int abs__content=0x7f070034;
-        public static int abs__default_activity_button=0x7f07002a;
-        public static int abs__expand_activities_button=0x7f070028;
-        public static int abs__home=0x7f07001c;
-        public static int abs__icon=0x7f07002c;
-        public static int abs__image=0x7f070029;
-        public static int abs__imageButton=0x7f070024;
-        public static int abs__list_item=0x7f07002b;
-        public static int abs__progress_circular=0x7f070020;
-        public static int abs__progress_horizontal=0x7f070021;
-        public static int abs__radio=0x7f07002f;
-        public static int abs__search_badge=0x7f07003a;
-        public static int abs__search_bar=0x7f070039;
-        public static int abs__search_button=0x7f07003b;
-        public static int abs__search_close_btn=0x7f070040;
-        public static int abs__search_edit_frame=0x7f07003c;
-        public static int abs__search_go_btn=0x7f070042;
-        public static int abs__search_mag_icon=0x7f07003d;
-        public static int abs__search_plate=0x7f07003e;
-        public static int abs__search_src_text=0x7f07003f;
-        public static int abs__search_voice_btn=0x7f070043;
-        public static int abs__shortcut=0x7f070030;
-        public static int abs__split_action_bar=0x7f070035;
-        public static int abs__submit_area=0x7f070041;
-        public static int abs__textButton=0x7f070025;
-        public static int abs__title=0x7f07002d;
-        public static int abs__up=0x7f07001d;
-        public static int action_settings=0x7f070045;
-        public static int book_now=0x7f070010;
-        public static int buyButton=0x7f07000a;
-        public static int buy_now=0x7f07000f;
-        public static int buy_with_google=0x7f07000e;
-        public static int classic=0x7f070011;
-        public static int disableHome=0x7f07001b;
-        public static int edit_query=0x7f070038;
-        public static int grayscale=0x7f070012;
-        public static int holo_dark=0x7f070005;
-        public static int holo_light=0x7f070006;
-        public static int homeAsUp=0x7f070018;
-        public static int hybrid=0x7f070004;
-        public static int listMode=0x7f070014;
-        public static int map=0x7f070044;
-        public static int match_parent=0x7f07000c;
-        public static int monochrome=0x7f070013;
-        public static int none=0x7f070000;
-        public static int normal=0x7f070001;
-        public static int production=0x7f070007;
-        public static int sandbox=0x7f070008;
-        public static int satellite=0x7f070002;
-        public static int selectionDetails=0x7f07000b;
-        public static int showCustom=0x7f07001a;
-        public static int showHome=0x7f070017;
-        public static int showTitle=0x7f070019;
-        public static int strict_sandbox=0x7f070009;
-        public static int tabMode=0x7f070015;
-        public static int terrain=0x7f070003;
-        public static int useLogo=0x7f070016;
-        public static int wrap_content=0x7f07000d;
+        public static int abs__action_bar=0x7f0a0032;
+        public static int abs__action_bar_container=0x7f0a0031;
+        public static int abs__action_bar_subtitle=0x7f0a0023;
+        public static int abs__action_bar_title=0x7f0a0022;
+        public static int abs__action_context_bar=0x7f0a0033;
+        public static int abs__action_menu_divider=0x7f0a0002;
+        public static int abs__action_menu_presenter=0x7f0a0003;
+        public static int abs__action_mode_bar=0x7f0a0037;
+        public static int abs__action_mode_bar_stub=0x7f0a0036;
+        public static int abs__action_mode_close_button=0x7f0a0026;
+        public static int abs__activity_chooser_view_content=0x7f0a0027;
+        public static int abs__checkbox=0x7f0a002e;
+        public static int abs__content=0x7f0a0034;
+        public static int abs__default_activity_button=0x7f0a002a;
+        public static int abs__expand_activities_button=0x7f0a0028;
+        public static int abs__home=0x7f0a0000;
+        public static int abs__icon=0x7f0a002c;
+        public static int abs__image=0x7f0a0029;
+        public static int abs__imageButton=0x7f0a0024;
+        public static int abs__list_item=0x7f0a002b;
+        public static int abs__progress_circular=0x7f0a0004;
+        public static int abs__progress_horizontal=0x7f0a0005;
+        public static int abs__radio=0x7f0a002f;
+        public static int abs__search_badge=0x7f0a003a;
+        public static int abs__search_bar=0x7f0a0039;
+        public static int abs__search_button=0x7f0a003b;
+        public static int abs__search_close_btn=0x7f0a0040;
+        public static int abs__search_edit_frame=0x7f0a003c;
+        public static int abs__search_go_btn=0x7f0a0042;
+        public static int abs__search_mag_icon=0x7f0a003d;
+        public static int abs__search_plate=0x7f0a003e;
+        public static int abs__search_src_text=0x7f0a003f;
+        public static int abs__search_voice_btn=0x7f0a0043;
+        public static int abs__shortcut=0x7f0a0030;
+        public static int abs__split_action_bar=0x7f0a0035;
+        public static int abs__submit_area=0x7f0a0041;
+        public static int abs__textButton=0x7f0a0025;
+        public static int abs__title=0x7f0a002d;
+        public static int abs__up=0x7f0a0001;
+        public static int action_settings=0x7f0a0045;
+        public static int book_now=0x7f0a0014;
+        public static int buyButton=0x7f0a0010;
+        public static int buy_now=0x7f0a0015;
+        public static int buy_with_google=0x7f0a0016;
+        public static int classic=0x7f0a0017;
+        public static int disableHome=0x7f0a001c;
+        public static int edit_query=0x7f0a0038;
+        public static int grayscale=0x7f0a0018;
+        public static int holo_dark=0x7f0a000b;
+        public static int holo_light=0x7f0a000c;
+        public static int homeAsUp=0x7f0a001d;
+        public static int hybrid=0x7f0a0006;
+        public static int listMode=0x7f0a001a;
+        public static int map=0x7f0a0044;
+        public static int match_parent=0x7f0a0012;
+        public static int monochrome=0x7f0a0019;
+        public static int none=0x7f0a0007;
+        public static int normal=0x7f0a0008;
+        public static int production=0x7f0a000d;
+        public static int sandbox=0x7f0a000e;
+        public static int satellite=0x7f0a0009;
+        public static int selectionDetails=0x7f0a0011;
+        public static int showCustom=0x7f0a001e;
+        public static int showHome=0x7f0a001f;
+        public static int showTitle=0x7f0a0020;
+        public static int strict_sandbox=0x7f0a000f;
+        public static int tabMode=0x7f0a001b;
+        public static int terrain=0x7f0a000a;
+        public static int useLogo=0x7f0a0021;
+        public static int wrap_content=0x7f0a0013;
     }
     public static final class integer {
-        public static int abs__max_action_buttons=0x7f080001;
-        public static int google_play_services_version=0x7f080000;
+        public static int abs__max_action_buttons=0x7f070001;
+        public static int google_play_services_version=0x7f070000;
     }
     public static final class layout {
         public static int abs__action_bar_home=0x7f030000;
@@ -1722,7 +1722,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:adSize
         */
-        public static final int AdsAttrs_adSize = 0;
+        public static int AdsAttrs_adSize = 0;
         /**
           <p>
           @attr description
@@ -1742,7 +1742,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:adSizes
         */
-        public static final int AdsAttrs_adSizes = 1;
+        public static int AdsAttrs_adSizes = 1;
         /**
           <p>
           @attr description
@@ -1758,7 +1758,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:adUnitId
         */
-        public static final int AdsAttrs_adUnitId = 2;
+        public static int AdsAttrs_adUnitId = 2;
         /** Attributes that can be used with a MapAttrs.
            <p>Includes the following attributes:</p>
            <table>
@@ -1814,7 +1814,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:cameraBearing
         */
-        public static final int MapAttrs_cameraBearing = 1;
+        public static int MapAttrs_cameraBearing = 1;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#cameraTargetLat}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1828,7 +1828,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:cameraTargetLat
         */
-        public static final int MapAttrs_cameraTargetLat = 2;
+        public static int MapAttrs_cameraTargetLat = 2;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#cameraTargetLng}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1842,7 +1842,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:cameraTargetLng
         */
-        public static final int MapAttrs_cameraTargetLng = 3;
+        public static int MapAttrs_cameraTargetLng = 3;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#cameraTilt}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1856,7 +1856,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:cameraTilt
         */
-        public static final int MapAttrs_cameraTilt = 4;
+        public static int MapAttrs_cameraTilt = 4;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#cameraZoom}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1870,7 +1870,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:cameraZoom
         */
-        public static final int MapAttrs_cameraZoom = 5;
+        public static int MapAttrs_cameraZoom = 5;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#mapType}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1890,7 +1890,7 @@ containing a value of this type.
 </table>
           @attr name net.neurolab.musicmap.googlemaps:mapType
         */
-        public static final int MapAttrs_mapType = 0;
+        public static int MapAttrs_mapType = 0;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#uiCompass}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1904,7 +1904,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:uiCompass
         */
-        public static final int MapAttrs_uiCompass = 6;
+        public static int MapAttrs_uiCompass = 6;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#uiRotateGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1918,7 +1918,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:uiRotateGestures
         */
-        public static final int MapAttrs_uiRotateGestures = 7;
+        public static int MapAttrs_uiRotateGestures = 7;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#uiScrollGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1932,7 +1932,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:uiScrollGestures
         */
-        public static final int MapAttrs_uiScrollGestures = 8;
+        public static int MapAttrs_uiScrollGestures = 8;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#uiTiltGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1946,7 +1946,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:uiTiltGestures
         */
-        public static final int MapAttrs_uiTiltGestures = 9;
+        public static int MapAttrs_uiTiltGestures = 9;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#uiZoomControls}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1960,7 +1960,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:uiZoomControls
         */
-        public static final int MapAttrs_uiZoomControls = 10;
+        public static int MapAttrs_uiZoomControls = 10;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#uiZoomGestures}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1974,7 +1974,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:uiZoomGestures
         */
-        public static final int MapAttrs_uiZoomGestures = 11;
+        public static int MapAttrs_uiZoomGestures = 11;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#useViewLifecycle}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -1988,7 +1988,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:useViewLifecycle
         */
-        public static final int MapAttrs_useViewLifecycle = 12;
+        public static int MapAttrs_useViewLifecycle = 12;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#zOrderOnTop}
           attribute's value can be found in the {@link #MapAttrs} array.
@@ -2002,7 +2002,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:zOrderOnTop
         */
-        public static final int MapAttrs_zOrderOnTop = 13;
+        public static int MapAttrs_zOrderOnTop = 13;
         /**  Attributes used to style the Action Bar. 
            <p>Includes the following attributes:</p>
            <table>
@@ -2070,7 +2070,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:background
         */
-        public static final int SherlockActionBar_background = 2;
+        public static int SherlockActionBar_background = 2;
         /**
           <p>
           @attr description
@@ -2084,7 +2084,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:backgroundSplit
         */
-        public static final int SherlockActionBar_backgroundSplit = 3;
+        public static int SherlockActionBar_backgroundSplit = 3;
         /**
           <p>
           @attr description
@@ -2098,7 +2098,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:backgroundStacked
         */
-        public static final int SherlockActionBar_backgroundStacked = 12;
+        public static int SherlockActionBar_backgroundStacked = 12;
         /**
           <p>
           @attr description
@@ -2110,7 +2110,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:customNavigationLayout
         */
-        public static final int SherlockActionBar_customNavigationLayout = 13;
+        public static int SherlockActionBar_customNavigationLayout = 13;
         /**
           <p>
           @attr description
@@ -2133,7 +2133,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:displayOptions
         */
-        public static final int SherlockActionBar_displayOptions = 7;
+        public static int SherlockActionBar_displayOptions = 7;
         /**
           <p>
           @attr description
@@ -2145,7 +2145,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:divider
         */
-        public static final int SherlockActionBar_divider = 5;
+        public static int SherlockActionBar_divider = 5;
         /**
           <p>
           @attr description
@@ -2163,7 +2163,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:height
         */
-        public static final int SherlockActionBar_height = 4;
+        public static int SherlockActionBar_height = 4;
         /**
           <p>
           @attr description
@@ -2175,7 +2175,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:homeLayout
         */
-        public static final int SherlockActionBar_homeLayout = 14;
+        public static int SherlockActionBar_homeLayout = 14;
         /**
           <p>
           @attr description
@@ -2187,7 +2187,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:icon
         */
-        public static final int SherlockActionBar_icon = 10;
+        public static int SherlockActionBar_icon = 10;
         /**
           <p>
           @attr description
@@ -2199,7 +2199,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:indeterminateProgressStyle
         */
-        public static final int SherlockActionBar_indeterminateProgressStyle = 16;
+        public static int SherlockActionBar_indeterminateProgressStyle = 16;
         /**
           <p>
           @attr description
@@ -2218,7 +2218,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:itemPadding
         */
-        public static final int SherlockActionBar_itemPadding = 18;
+        public static int SherlockActionBar_itemPadding = 18;
         /**
           <p>
           @attr description
@@ -2230,7 +2230,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:logo
         */
-        public static final int SherlockActionBar_logo = 11;
+        public static int SherlockActionBar_logo = 11;
         /**
           <p>
           @attr description
@@ -2250,7 +2250,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:navigationMode
         */
-        public static final int SherlockActionBar_navigationMode = 6;
+        public static int SherlockActionBar_navigationMode = 6;
         /**
           <p>
           @attr description
@@ -2268,7 +2268,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:progressBarPadding
         */
-        public static final int SherlockActionBar_progressBarPadding = 17;
+        public static int SherlockActionBar_progressBarPadding = 17;
         /**
           <p>
           @attr description
@@ -2280,7 +2280,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:progressBarStyle
         */
-        public static final int SherlockActionBar_progressBarStyle = 15;
+        public static int SherlockActionBar_progressBarStyle = 15;
         /**
           <p>
           @attr description
@@ -2296,7 +2296,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:subtitle
         */
-        public static final int SherlockActionBar_subtitle = 9;
+        public static int SherlockActionBar_subtitle = 9;
         /**
           <p>
           @attr description
@@ -2308,7 +2308,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:subtitleTextStyle
         */
-        public static final int SherlockActionBar_subtitleTextStyle = 1;
+        public static int SherlockActionBar_subtitleTextStyle = 1;
         /**
           <p>
           @attr description
@@ -2324,7 +2324,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:title
         */
-        public static final int SherlockActionBar_title = 8;
+        public static int SherlockActionBar_title = 8;
         /**
           <p>
           @attr description
@@ -2336,7 +2336,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:titleTextStyle
         */
-        public static final int SherlockActionBar_titleTextStyle = 0;
+        public static int SherlockActionBar_titleTextStyle = 0;
         /** Attributes that can be used with a SherlockActionMenuItemView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2355,7 +2355,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #SherlockActionMenuItemView} array.
           @attr name android:minWidth
         */
-        public static final int SherlockActionMenuItemView_android_minWidth = 0;
+        public static int SherlockActionMenuItemView_android_minWidth = 0;
         /** Attributes that can be used with a SherlockActionMode.
            <p>Includes the following attributes:</p>
            <table>
@@ -2391,7 +2391,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:background
         */
-        public static final int SherlockActionMode_background = 2;
+        public static int SherlockActionMode_background = 2;
         /**
           <p>
           @attr description
@@ -2405,7 +2405,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:backgroundSplit
         */
-        public static final int SherlockActionMode_backgroundSplit = 3;
+        public static int SherlockActionMode_backgroundSplit = 3;
         /**
           <p>
           @attr description
@@ -2423,7 +2423,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:height
         */
-        public static final int SherlockActionMode_height = 4;
+        public static int SherlockActionMode_height = 4;
         /**
           <p>
           @attr description
@@ -2435,7 +2435,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:subtitleTextStyle
         */
-        public static final int SherlockActionMode_subtitleTextStyle = 1;
+        public static int SherlockActionMode_subtitleTextStyle = 1;
         /**
           <p>
           @attr description
@@ -2447,7 +2447,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:titleTextStyle
         */
-        public static final int SherlockActionMode_titleTextStyle = 0;
+        public static int SherlockActionMode_titleTextStyle = 0;
         /** Attributes that can be used with a SherlockActivityChooserView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2470,7 +2470,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           attribute's value can be found in the {@link #SherlockActivityChooserView} array.
           @attr name android:background
         */
-        public static final int SherlockActivityChooserView_android_background = 0;
+        public static int SherlockActivityChooserView_android_background = 0;
         /**
           <p>
           @attr description
@@ -2487,7 +2487,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:expandActivityOverflowButtonDrawable
         */
-        public static final int SherlockActivityChooserView_expandActivityOverflowButtonDrawable = 2;
+        public static int SherlockActivityChooserView_expandActivityOverflowButtonDrawable = 2;
         /**
           <p>
           @attr description
@@ -2503,7 +2503,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:initialActivityCount
         */
-        public static final int SherlockActivityChooserView_initialActivityCount = 1;
+        public static int SherlockActivityChooserView_initialActivityCount = 1;
         /**  Base attributes that are available to all groups. 
            <p>Includes the following attributes:</p>
            <table>
@@ -2536,7 +2536,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#checkableBehavior}.
           @attr name android:checkableBehavior
         */
-        public static final int SherlockMenuGroup_android_checkableBehavior = 5;
+        public static int SherlockMenuGroup_android_checkableBehavior = 5;
         /**
           <p>
           @attr description
@@ -2545,7 +2545,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#enabled}.
           @attr name android:enabled
         */
-        public static final int SherlockMenuGroup_android_enabled = 0;
+        public static int SherlockMenuGroup_android_enabled = 0;
         /**
           <p>
           @attr description
@@ -2554,7 +2554,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#id}.
           @attr name android:id
         */
-        public static final int SherlockMenuGroup_android_id = 1;
+        public static int SherlockMenuGroup_android_id = 1;
         /**
           <p>
           @attr description
@@ -2564,7 +2564,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#menuCategory}.
           @attr name android:menuCategory
         */
-        public static final int SherlockMenuGroup_android_menuCategory = 3;
+        public static int SherlockMenuGroup_android_menuCategory = 3;
         /**
           <p>
           @attr description
@@ -2574,7 +2574,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#orderInCategory}.
           @attr name android:orderInCategory
         */
-        public static final int SherlockMenuGroup_android_orderInCategory = 4;
+        public static int SherlockMenuGroup_android_orderInCategory = 4;
         /**
           <p>
           @attr description
@@ -2583,7 +2583,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#visible}.
           @attr name android:visible
         */
-        public static final int SherlockMenuGroup_android_visible = 2;
+        public static int SherlockMenuGroup_android_visible = 2;
         /**  Base attributes that are available to all Item objects. 
            <p>Includes the following attributes:</p>
            <table>
@@ -2646,7 +2646,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#actionLayout}.
           @attr name android:actionLayout
         */
-        public static final int SherlockMenuItem_android_actionLayout = 14;
+        public static int SherlockMenuItem_android_actionLayout = 14;
         /**
           <p>
           @attr description
@@ -2658,7 +2658,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#actionProviderClass}.
           @attr name android:actionProviderClass
         */
-        public static final int SherlockMenuItem_android_actionProviderClass = 16;
+        public static int SherlockMenuItem_android_actionProviderClass = 16;
         /**
           <p>
           @attr description
@@ -2669,7 +2669,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#actionViewClass}.
           @attr name android:actionViewClass
         */
-        public static final int SherlockMenuItem_android_actionViewClass = 15;
+        public static int SherlockMenuItem_android_actionViewClass = 15;
         /**
           <p>
           @attr description
@@ -2679,7 +2679,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#alphabeticShortcut}.
           @attr name android:alphabeticShortcut
         */
-        public static final int SherlockMenuItem_android_alphabeticShortcut = 9;
+        public static int SherlockMenuItem_android_alphabeticShortcut = 9;
         /**
           <p>
           @attr description
@@ -2688,7 +2688,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#checkable}.
           @attr name android:checkable
         */
-        public static final int SherlockMenuItem_android_checkable = 11;
+        public static int SherlockMenuItem_android_checkable = 11;
         /**
           <p>
           @attr description
@@ -2698,7 +2698,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#checked}.
           @attr name android:checked
         */
-        public static final int SherlockMenuItem_android_checked = 3;
+        public static int SherlockMenuItem_android_checked = 3;
         /**
           <p>
           @attr description
@@ -2707,7 +2707,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#enabled}.
           @attr name android:enabled
         */
-        public static final int SherlockMenuItem_android_enabled = 1;
+        public static int SherlockMenuItem_android_enabled = 1;
         /**
           <p>
           @attr description
@@ -2717,7 +2717,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#icon}.
           @attr name android:icon
         */
-        public static final int SherlockMenuItem_android_icon = 0;
+        public static int SherlockMenuItem_android_icon = 0;
         /**
           <p>
           @attr description
@@ -2726,7 +2726,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#id}.
           @attr name android:id
         */
-        public static final int SherlockMenuItem_android_id = 2;
+        public static int SherlockMenuItem_android_id = 2;
         /**
           <p>
           @attr description
@@ -2736,7 +2736,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#menuCategory}.
           @attr name android:menuCategory
         */
-        public static final int SherlockMenuItem_android_menuCategory = 5;
+        public static int SherlockMenuItem_android_menuCategory = 5;
         /**
           <p>
           @attr description
@@ -2746,7 +2746,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#numericShortcut}.
           @attr name android:numericShortcut
         */
-        public static final int SherlockMenuItem_android_numericShortcut = 10;
+        public static int SherlockMenuItem_android_numericShortcut = 10;
         /**
           <p>
           @attr description
@@ -2756,7 +2756,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#onClick}.
           @attr name android:onClick
         */
-        public static final int SherlockMenuItem_android_onClick = 12;
+        public static int SherlockMenuItem_android_onClick = 12;
         /**
           <p>
           @attr description
@@ -2766,7 +2766,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#orderInCategory}.
           @attr name android:orderInCategory
         */
-        public static final int SherlockMenuItem_android_orderInCategory = 6;
+        public static int SherlockMenuItem_android_orderInCategory = 6;
         /**
           <p>
           @attr description
@@ -2775,7 +2775,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#showAsAction}.
           @attr name android:showAsAction
         */
-        public static final int SherlockMenuItem_android_showAsAction = 13;
+        public static int SherlockMenuItem_android_showAsAction = 13;
         /**
           <p>
           @attr description
@@ -2784,7 +2784,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#title}.
           @attr name android:title
         */
-        public static final int SherlockMenuItem_android_title = 7;
+        public static int SherlockMenuItem_android_title = 7;
         /**
           <p>
           @attr description
@@ -2794,7 +2794,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#titleCondensed}.
           @attr name android:titleCondensed
         */
-        public static final int SherlockMenuItem_android_titleCondensed = 8;
+        public static int SherlockMenuItem_android_titleCondensed = 8;
         /**
           <p>
           @attr description
@@ -2803,7 +2803,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#visible}.
           @attr name android:visible
         */
-        public static final int SherlockMenuItem_android_visible = 4;
+        public static int SherlockMenuItem_android_visible = 4;
         /** Attributes that can be used with a SherlockMenuView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2845,7 +2845,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:headerBackground
         */
-        public static final int SherlockMenuView_headerBackground = 3;
+        public static int SherlockMenuView_headerBackground = 3;
         /**
           <p>
           @attr description
@@ -2857,7 +2857,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:horizontalDivider
         */
-        public static final int SherlockMenuView_horizontalDivider = 1;
+        public static int SherlockMenuView_horizontalDivider = 1;
         /**
           <p>
           @attr description
@@ -2871,7 +2871,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:itemBackground
         */
-        public static final int SherlockMenuView_itemBackground = 4;
+        public static int SherlockMenuView_itemBackground = 4;
         /**
           <p>
           @attr description
@@ -2887,7 +2887,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:itemIconDisabledAlpha
         */
-        public static final int SherlockMenuView_itemIconDisabledAlpha = 6;
+        public static int SherlockMenuView_itemIconDisabledAlpha = 6;
         /**
           <p>
           @attr description
@@ -2899,7 +2899,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:itemTextAppearance
         */
-        public static final int SherlockMenuView_itemTextAppearance = 0;
+        public static int SherlockMenuView_itemTextAppearance = 0;
         /**
           <p>
           @attr description
@@ -2915,7 +2915,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:preserveIconSpacing
         */
-        public static final int SherlockMenuView_preserveIconSpacing = 7;
+        public static int SherlockMenuView_preserveIconSpacing = 7;
         /**
           <p>
           @attr description
@@ -2927,7 +2927,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:verticalDivider
         */
-        public static final int SherlockMenuView_verticalDivider = 2;
+        public static int SherlockMenuView_verticalDivider = 2;
         /**
           <p>
           @attr description
@@ -2939,7 +2939,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:windowAnimationStyle
         */
-        public static final int SherlockMenuView_windowAnimationStyle = 5;
+        public static int SherlockMenuView_windowAnimationStyle = 5;
         /** Attributes that can be used with a SherlockSearchView.
            <p>Includes the following attributes:</p>
            <table>
@@ -2970,7 +2970,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#imeOptions}.
           @attr name android:imeOptions
         */
-        public static final int SherlockSearchView_android_imeOptions = 2;
+        public static int SherlockSearchView_android_imeOptions = 2;
         /**
           <p>
           @attr description
@@ -2979,7 +2979,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#inputType}.
           @attr name android:inputType
         */
-        public static final int SherlockSearchView_android_inputType = 1;
+        public static int SherlockSearchView_android_inputType = 1;
         /**
           <p>
           @attr description
@@ -2988,7 +2988,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           resource symbol {@link android.R.attr#maxWidth}.
           @attr name android:maxWidth
         */
-        public static final int SherlockSearchView_android_maxWidth = 0;
+        public static int SherlockSearchView_android_maxWidth = 0;
         /**
           <p>
           @attr description
@@ -3005,7 +3005,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:iconifiedByDefault
         */
-        public static final int SherlockSearchView_iconifiedByDefault = 3;
+        public static int SherlockSearchView_iconifiedByDefault = 3;
         /**
           <p>
           @attr description
@@ -3021,7 +3021,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:queryHint
         */
-        public static final int SherlockSearchView_queryHint = 4;
+        public static int SherlockSearchView_queryHint = 4;
         /** Attributes that can be used with a SherlockSpinner.
            <p>Includes the following attributes:</p>
            <table>
@@ -3062,7 +3062,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#dropDownHorizontalOffset}.
           @attr name android:dropDownHorizontalOffset
         */
-        public static final int SherlockSpinner_android_dropDownHorizontalOffset = 5;
+        public static int SherlockSpinner_android_dropDownHorizontalOffset = 5;
         /**
           <p>
           @attr description
@@ -3071,7 +3071,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#dropDownSelector}.
           @attr name android:dropDownSelector
         */
-        public static final int SherlockSpinner_android_dropDownSelector = 1;
+        public static int SherlockSpinner_android_dropDownSelector = 1;
         /**
           <p>
           @attr description
@@ -3081,7 +3081,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#dropDownVerticalOffset}.
           @attr name android:dropDownVerticalOffset
         */
-        public static final int SherlockSpinner_android_dropDownVerticalOffset = 6;
+        public static int SherlockSpinner_android_dropDownVerticalOffset = 6;
         /**
           <p>
           @attr description
@@ -3090,7 +3090,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#dropDownWidth}.
           @attr name android:dropDownWidth
         */
-        public static final int SherlockSpinner_android_dropDownWidth = 4;
+        public static int SherlockSpinner_android_dropDownWidth = 4;
         /**
           <p>
           @attr description
@@ -3099,7 +3099,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#gravity}.
           @attr name android:gravity
         */
-        public static final int SherlockSpinner_android_gravity = 0;
+        public static int SherlockSpinner_android_gravity = 0;
         /**
           <p>
           @attr description
@@ -3108,7 +3108,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#popupBackground}.
           @attr name android:popupBackground
         */
-        public static final int SherlockSpinner_android_popupBackground = 2;
+        public static int SherlockSpinner_android_popupBackground = 2;
         /**
           <p>
           @attr description
@@ -3118,7 +3118,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name android:popupPromptView
         */
-        public static final int SherlockSpinner_android_popupPromptView = 7;
+        public static int SherlockSpinner_android_popupPromptView = 7;
         /**
           <p>
           @attr description
@@ -3127,7 +3127,7 @@ containing a value of this type.
           resource symbol {@link android.R.attr#prompt}.
           @attr name android:prompt
         */
-        public static final int SherlockSpinner_android_prompt = 3;
+        public static int SherlockSpinner_android_prompt = 3;
         /** Attributes that can be used with a SherlockTheme.
            <p>Includes the following attributes:</p>
            <table>
@@ -3304,7 +3304,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarDivider
         */
-        public static final int SherlockTheme_actionBarDivider = 8;
+        public static int SherlockTheme_actionBarDivider = 8;
         /**
           <p>
           @attr description
@@ -3316,7 +3316,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarItemBackground
         */
-        public static final int SherlockTheme_actionBarItemBackground = 9;
+        public static int SherlockTheme_actionBarItemBackground = 9;
         /**
           <p>
           @attr description
@@ -3343,7 +3343,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarSize
         */
-        public static final int SherlockTheme_actionBarSize = 7;
+        public static int SherlockTheme_actionBarSize = 7;
         /**
           <p>
           @attr description
@@ -3358,7 +3358,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarSplitStyle
         */
-        public static final int SherlockTheme_actionBarSplitStyle = 5;
+        public static int SherlockTheme_actionBarSplitStyle = 5;
         /**
           <p>
           @attr description
@@ -3370,7 +3370,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarStyle
         */
-        public static final int SherlockTheme_actionBarStyle = 4;
+        public static int SherlockTheme_actionBarStyle = 4;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionBarTabBarStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3380,7 +3380,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionBarTabBarStyle
         */
-        public static final int SherlockTheme_actionBarTabBarStyle = 1;
+        public static int SherlockTheme_actionBarTabBarStyle = 1;
         /**
           <p>
           @attr description
@@ -3392,7 +3392,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarTabStyle
         */
-        public static final int SherlockTheme_actionBarTabStyle = 0;
+        public static int SherlockTheme_actionBarTabStyle = 0;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionBarTabTextStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3402,7 +3402,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionBarTabTextStyle
         */
-        public static final int SherlockTheme_actionBarTabTextStyle = 2;
+        public static int SherlockTheme_actionBarTabTextStyle = 2;
         /**
           <p>
           @attr description
@@ -3420,7 +3420,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionBarWidgetTheme
         */
-        public static final int SherlockTheme_actionBarWidgetTheme = 6;
+        public static int SherlockTheme_actionBarWidgetTheme = 6;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3430,7 +3430,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionButtonStyle
         */
-        public static final int SherlockTheme_actionButtonStyle = 52;
+        public static int SherlockTheme_actionButtonStyle = 52;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionDropDownStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3440,7 +3440,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionDropDownStyle
         */
-        public static final int SherlockTheme_actionDropDownStyle = 51;
+        public static int SherlockTheme_actionDropDownStyle = 51;
         /**
           <p>
           @attr description
@@ -3453,7 +3453,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionMenuTextAppearance
         */
-        public static final int SherlockTheme_actionMenuTextAppearance = 10;
+        public static int SherlockTheme_actionMenuTextAppearance = 10;
         /**
           <p>
           @attr description
@@ -3467,7 +3467,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionMenuTextColor
         */
-        public static final int SherlockTheme_actionMenuTextColor = 11;
+        public static int SherlockTheme_actionMenuTextColor = 11;
         /**
           <p>
           @attr description
@@ -3479,7 +3479,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionModeBackground
         */
-        public static final int SherlockTheme_actionModeBackground = 14;
+        public static int SherlockTheme_actionModeBackground = 14;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionModeCloseButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3489,7 +3489,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionModeCloseButtonStyle
         */
-        public static final int SherlockTheme_actionModeCloseButtonStyle = 13;
+        public static int SherlockTheme_actionModeCloseButtonStyle = 13;
         /**
           <p>
           @attr description
@@ -3501,7 +3501,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionModeCloseDrawable
         */
-        public static final int SherlockTheme_actionModeCloseDrawable = 16;
+        public static int SherlockTheme_actionModeCloseDrawable = 16;
         /**
           <p>
           @attr description
@@ -3513,7 +3513,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionModePopupWindowStyle
         */
-        public static final int SherlockTheme_actionModePopupWindowStyle = 18;
+        public static int SherlockTheme_actionModePopupWindowStyle = 18;
         /**
           <p>
           @attr description
@@ -3525,7 +3525,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionModeShareDrawable
         */
-        public static final int SherlockTheme_actionModeShareDrawable = 17;
+        public static int SherlockTheme_actionModeShareDrawable = 17;
         /**
           <p>
           @attr description
@@ -3537,7 +3537,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:actionModeSplitBackground
         */
-        public static final int SherlockTheme_actionModeSplitBackground = 15;
+        public static int SherlockTheme_actionModeSplitBackground = 15;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionModeStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3547,7 +3547,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionModeStyle
         */
-        public static final int SherlockTheme_actionModeStyle = 12;
+        public static int SherlockTheme_actionModeStyle = 12;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionOverflowButtonStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3557,7 +3557,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionOverflowButtonStyle
         */
-        public static final int SherlockTheme_actionOverflowButtonStyle = 3;
+        public static int SherlockTheme_actionOverflowButtonStyle = 3;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#actionSpinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3567,7 +3567,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:actionSpinnerItemStyle
         */
-        public static final int SherlockTheme_actionSpinnerItemStyle = 57;
+        public static int SherlockTheme_actionSpinnerItemStyle = 57;
         /**
           <p>
           @attr description
@@ -3579,7 +3579,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:activatedBackgroundIndicator
         */
-        public static final int SherlockTheme_activatedBackgroundIndicator = 65;
+        public static int SherlockTheme_activatedBackgroundIndicator = 65;
         /**
           <p>
           @attr description
@@ -3591,7 +3591,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:activityChooserViewStyle
         */
-        public static final int SherlockTheme_activityChooserViewStyle = 64;
+        public static int SherlockTheme_activityChooserViewStyle = 64;
         /**
           <p>
           @attr description
@@ -3603,7 +3603,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:buttonStyleSmall
         */
-        public static final int SherlockTheme_buttonStyleSmall = 19;
+        public static int SherlockTheme_buttonStyleSmall = 19;
         /**
           <p>
           @attr description
@@ -3615,7 +3615,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:dividerVertical
         */
-        public static final int SherlockTheme_dividerVertical = 50;
+        public static int SherlockTheme_dividerVertical = 50;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#dropDownHintAppearance}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3625,7 +3625,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:dropDownHintAppearance
         */
-        public static final int SherlockTheme_dropDownHintAppearance = 66;
+        public static int SherlockTheme_dropDownHintAppearance = 66;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#dropDownListViewStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3635,7 +3635,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:dropDownListViewStyle
         */
-        public static final int SherlockTheme_dropDownListViewStyle = 54;
+        public static int SherlockTheme_dropDownListViewStyle = 54;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#dropdownListPreferredItemHeight}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3651,7 +3651,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:dropdownListPreferredItemHeight
         */
-        public static final int SherlockTheme_dropdownListPreferredItemHeight = 56;
+        public static int SherlockTheme_dropdownListPreferredItemHeight = 56;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#homeAsUpIndicator}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3661,7 +3661,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:homeAsUpIndicator
         */
-        public static final int SherlockTheme_homeAsUpIndicator = 53;
+        public static int SherlockTheme_homeAsUpIndicator = 53;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#listPopupWindowStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3671,7 +3671,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:listPopupWindowStyle
         */
-        public static final int SherlockTheme_listPopupWindowStyle = 63;
+        public static int SherlockTheme_listPopupWindowStyle = 63;
         /**
           <p>
           @attr description
@@ -3689,7 +3689,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:listPreferredItemHeightSmall
         */
-        public static final int SherlockTheme_listPreferredItemHeightSmall = 44;
+        public static int SherlockTheme_listPreferredItemHeightSmall = 44;
         /**
           <p>
           @attr description
@@ -3707,7 +3707,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:listPreferredItemPaddingLeft
         */
-        public static final int SherlockTheme_listPreferredItemPaddingLeft = 45;
+        public static int SherlockTheme_listPreferredItemPaddingLeft = 45;
         /**
           <p>
           @attr description
@@ -3725,7 +3725,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:listPreferredItemPaddingRight
         */
-        public static final int SherlockTheme_listPreferredItemPaddingRight = 46;
+        public static int SherlockTheme_listPreferredItemPaddingRight = 46;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#popupMenuStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3735,7 +3735,7 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:popupMenuStyle
         */
-        public static final int SherlockTheme_popupMenuStyle = 55;
+        public static int SherlockTheme_popupMenuStyle = 55;
         /**
           <p>
           @attr description
@@ -3747,7 +3747,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchAutoCompleteTextView
         */
-        public static final int SherlockTheme_searchAutoCompleteTextView = 30;
+        public static int SherlockTheme_searchAutoCompleteTextView = 30;
         /**
           <p>
           @attr description
@@ -3759,7 +3759,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchDropdownBackground
         */
-        public static final int SherlockTheme_searchDropdownBackground = 31;
+        public static int SherlockTheme_searchDropdownBackground = 31;
         /**
           <p>
           @attr description
@@ -3777,7 +3777,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchResultListItemHeight
         */
-        public static final int SherlockTheme_searchResultListItemHeight = 41;
+        public static int SherlockTheme_searchResultListItemHeight = 41;
         /**
           <p>
           @attr description
@@ -3789,7 +3789,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewCloseIcon
         */
-        public static final int SherlockTheme_searchViewCloseIcon = 32;
+        public static int SherlockTheme_searchViewCloseIcon = 32;
         /**
           <p>
           @attr description
@@ -3801,7 +3801,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewEditQuery
         */
-        public static final int SherlockTheme_searchViewEditQuery = 36;
+        public static int SherlockTheme_searchViewEditQuery = 36;
         /**
           <p>
           @attr description
@@ -3813,7 +3813,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewEditQueryBackground
         */
-        public static final int SherlockTheme_searchViewEditQueryBackground = 37;
+        public static int SherlockTheme_searchViewEditQueryBackground = 37;
         /**
           <p>
           @attr description
@@ -3825,7 +3825,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewGoIcon
         */
-        public static final int SherlockTheme_searchViewGoIcon = 33;
+        public static int SherlockTheme_searchViewGoIcon = 33;
         /**
           <p>
           @attr description
@@ -3837,7 +3837,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewSearchIcon
         */
-        public static final int SherlockTheme_searchViewSearchIcon = 34;
+        public static int SherlockTheme_searchViewSearchIcon = 34;
         /**
           <p>
           @attr description
@@ -3849,7 +3849,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewTextField
         */
-        public static final int SherlockTheme_searchViewTextField = 38;
+        public static int SherlockTheme_searchViewTextField = 38;
         /**
           <p>
           @attr description
@@ -3861,7 +3861,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewTextFieldRight
         */
-        public static final int SherlockTheme_searchViewTextFieldRight = 39;
+        public static int SherlockTheme_searchViewTextFieldRight = 39;
         /**
           <p>
           @attr description
@@ -3873,7 +3873,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:searchViewVoiceIcon
         */
-        public static final int SherlockTheme_searchViewVoiceIcon = 35;
+        public static int SherlockTheme_searchViewVoiceIcon = 35;
         /**
           <p>
           @attr description
@@ -3885,7 +3885,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:selectableItemBackground
         */
-        public static final int SherlockTheme_selectableItemBackground = 20;
+        public static int SherlockTheme_selectableItemBackground = 20;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#spinnerDropDownItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3895,7 +3895,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:spinnerDropDownItemStyle
         */
-        public static final int SherlockTheme_spinnerDropDownItemStyle = 29;
+        public static int SherlockTheme_spinnerDropDownItemStyle = 29;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#spinnerItemStyle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3905,7 +3905,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           @attr name net.neurolab.musicmap.googlemaps:spinnerItemStyle
         */
-        public static final int SherlockTheme_spinnerItemStyle = 28;
+        public static int SherlockTheme_spinnerItemStyle = 28;
         /**
           <p>
           @attr description
@@ -3917,7 +3917,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textAppearanceLargePopupMenu
         */
-        public static final int SherlockTheme_textAppearanceLargePopupMenu = 22;
+        public static int SherlockTheme_textAppearanceLargePopupMenu = 22;
         /**
           <p>
           @attr description
@@ -3929,7 +3929,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textAppearanceListItemSmall
         */
-        public static final int SherlockTheme_textAppearanceListItemSmall = 47;
+        public static int SherlockTheme_textAppearanceListItemSmall = 47;
         /**
           <p>
           @attr description
@@ -3941,7 +3941,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textAppearanceSearchResultSubtitle
         */
-        public static final int SherlockTheme_textAppearanceSearchResultSubtitle = 43;
+        public static int SherlockTheme_textAppearanceSearchResultSubtitle = 43;
         /**
           <p>
           @attr description
@@ -3953,7 +3953,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textAppearanceSearchResultTitle
         */
-        public static final int SherlockTheme_textAppearanceSearchResultTitle = 42;
+        public static int SherlockTheme_textAppearanceSearchResultTitle = 42;
         /**
           <p>
           @attr description
@@ -3965,7 +3965,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textAppearanceSmall
         */
-        public static final int SherlockTheme_textAppearanceSmall = 24;
+        public static int SherlockTheme_textAppearanceSmall = 24;
         /**
           <p>
           @attr description
@@ -3977,7 +3977,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textAppearanceSmallPopupMenu
         */
-        public static final int SherlockTheme_textAppearanceSmallPopupMenu = 23;
+        public static int SherlockTheme_textAppearanceSmallPopupMenu = 23;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#textColorPrimary}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -3992,7 +3992,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:textColorPrimary
         */
-        public static final int SherlockTheme_textColorPrimary = 25;
+        public static int SherlockTheme_textColorPrimary = 25;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#textColorPrimaryDisableOnly}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4007,7 +4007,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:textColorPrimaryDisableOnly
         */
-        public static final int SherlockTheme_textColorPrimaryDisableOnly = 26;
+        public static int SherlockTheme_textColorPrimaryDisableOnly = 26;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#textColorPrimaryInverse}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4022,7 +4022,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:textColorPrimaryInverse
         */
-        public static final int SherlockTheme_textColorPrimaryInverse = 27;
+        public static int SherlockTheme_textColorPrimaryInverse = 27;
         /**
           <p>
           @attr description
@@ -4036,7 +4036,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:textColorSearchUrl
         */
-        public static final int SherlockTheme_textColorSearchUrl = 40;
+        public static int SherlockTheme_textColorSearchUrl = 40;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4050,7 +4050,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowActionBar
         */
-        public static final int SherlockTheme_windowActionBar = 59;
+        public static int SherlockTheme_windowActionBar = 59;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowActionBarOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4064,7 +4064,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowActionBarOverlay
         */
-        public static final int SherlockTheme_windowActionBarOverlay = 60;
+        public static int SherlockTheme_windowActionBarOverlay = 60;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowActionModeOverlay}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4078,7 +4078,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowActionModeOverlay
         */
-        public static final int SherlockTheme_windowActionModeOverlay = 61;
+        public static int SherlockTheme_windowActionModeOverlay = 61;
         /**
           <p>
           @attr description
@@ -4091,7 +4091,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:windowContentOverlay
         */
-        public static final int SherlockTheme_windowContentOverlay = 21;
+        public static int SherlockTheme_windowContentOverlay = 21;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowMinWidthMajor}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4107,7 +4107,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowMinWidthMajor
         */
-        public static final int SherlockTheme_windowMinWidthMajor = 48;
+        public static int SherlockTheme_windowMinWidthMajor = 48;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowMinWidthMinor}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4123,7 +4123,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowMinWidthMinor
         */
-        public static final int SherlockTheme_windowMinWidthMinor = 49;
+        public static int SherlockTheme_windowMinWidthMinor = 49;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowNoTitle}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4137,7 +4137,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowNoTitle
         */
-        public static final int SherlockTheme_windowNoTitle = 58;
+        public static int SherlockTheme_windowNoTitle = 58;
         /**
           <p>This symbol is the offset where the {@link net.neurolab.musicmap.googlemaps.R.attr#windowSplitActionBar}
           attribute's value can be found in the {@link #SherlockTheme} array.
@@ -4151,7 +4151,7 @@ theme attribute (in the form
 containing a value of this type.
           @attr name net.neurolab.musicmap.googlemaps:windowSplitActionBar
         */
-        public static final int SherlockTheme_windowSplitActionBar = 62;
+        public static int SherlockTheme_windowSplitActionBar = 62;
         /** Attributes that can be used with a SherlockView.
            <p>Includes the following attributes:</p>
            <table>
@@ -4170,7 +4170,7 @@ containing a value of this type.
           attribute's value can be found in the {@link #SherlockView} array.
           @attr name android:focusable
         */
-        public static final int SherlockView_android_focusable = 0;
+        public static int SherlockView_android_focusable = 0;
         /**  Attributes for the WalletFragment &lt;fragment&gt; tag 
            <p>Includes the following attributes:</p>
            <table>
@@ -4208,7 +4208,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:appTheme
         */
-        public static final int WalletFragmentOptions_appTheme = 0;
+        public static int WalletFragmentOptions_appTheme = 0;
         /**
           <p>
           @attr description
@@ -4228,7 +4228,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:environment
         */
-        public static final int WalletFragmentOptions_environment = 1;
+        public static int WalletFragmentOptions_environment = 1;
         /**
           <p>
           @attr description
@@ -4247,7 +4247,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:fragmentMode
         */
-        public static final int WalletFragmentOptions_fragmentMode = 3;
+        public static int WalletFragmentOptions_fragmentMode = 3;
         /**
           <p>
           @attr description
@@ -4259,7 +4259,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:fragmentStyle
         */
-        public static final int WalletFragmentOptions_fragmentStyle = 2;
+        public static int WalletFragmentOptions_fragmentStyle = 2;
         /**  Attributes that may be specified in a style resource to customize the look and feel of
          WalletFragment 
            <p>Includes the following attributes:</p>
@@ -4315,7 +4315,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:buyButtonAppearance
         */
-        public static final int WalletFragmentStyle_buyButtonAppearance = 3;
+        public static int WalletFragmentStyle_buyButtonAppearance = 3;
         /**
           <p>
           @attr description
@@ -4344,7 +4344,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:buyButtonHeight
         */
-        public static final int WalletFragmentStyle_buyButtonHeight = 0;
+        public static int WalletFragmentStyle_buyButtonHeight = 0;
         /**
           <p>
           @attr description
@@ -4364,7 +4364,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:buyButtonText
         */
-        public static final int WalletFragmentStyle_buyButtonText = 2;
+        public static int WalletFragmentStyle_buyButtonText = 2;
         /**
           <p>
           @attr description
@@ -4393,7 +4393,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:buyButtonWidth
         */
-        public static final int WalletFragmentStyle_buyButtonWidth = 1;
+        public static int WalletFragmentStyle_buyButtonWidth = 1;
         /**
           <p>
           @attr description
@@ -4407,7 +4407,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsBackground
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsBackground = 6;
+        public static int WalletFragmentStyle_maskedWalletDetailsBackground = 6;
         /**
           <p>
           @attr description
@@ -4421,7 +4421,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsButtonBackground
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsButtonBackground = 8;
+        public static int WalletFragmentStyle_maskedWalletDetailsButtonBackground = 8;
         /**
           <p>
           @attr description
@@ -4433,7 +4433,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsButtonTextAppearance
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance = 7;
+        public static int WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance = 7;
         /**
           <p>
           @attr description
@@ -4445,7 +4445,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsHeaderTextAppearance
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance = 5;
+        public static int WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance = 5;
         /**
           <p>
           @attr description
@@ -4464,7 +4464,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsLogoImageType
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsLogoImageType = 10;
+        public static int WalletFragmentStyle_maskedWalletDetailsLogoImageType = 10;
         /**
           <p>
           @attr description
@@ -4481,7 +4481,7 @@ containing a value of this type.
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsLogoTextColor
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsLogoTextColor = 9;
+        public static int WalletFragmentStyle_maskedWalletDetailsLogoTextColor = 9;
         /**
           <p>
           @attr description
@@ -4493,6 +4493,6 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name net.neurolab.musicmap.googlemaps:maskedWalletDetailsTextAppearance
         */
-        public static final int WalletFragmentStyle_maskedWalletDetailsTextAppearance = 4;
+        public static int WalletFragmentStyle_maskedWalletDetailsTextAppearance = 4;
     };
 }

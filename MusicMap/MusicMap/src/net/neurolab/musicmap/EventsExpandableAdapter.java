@@ -4,10 +4,10 @@ package net.neurolab.musicmap;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.fragments.Group;
 import net.neurolab.musicmap.interfaces.MainView;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,7 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 	private final ArrayList<Group> groups;
 	private MainView activity;
 	private LayoutInflater infalter;
-	private SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd.MM.yyyy.", Locale.getDefault());
+	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd.MM.yy.", Locale.getDefault());
 	
 	public EventsExpandableAdapter(Activity activity, ArrayList<Group> groups) {
 		this.activity = (MainView)activity;
@@ -75,6 +75,7 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 		return false;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		
@@ -90,16 +91,26 @@ public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 		return convertView;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		final Event child = (Event) getChild(groupPosition, childPosition);
-		TextView txtView = null;
+		
 		if (convertView == null) {
 			convertView = this.infalter.inflate(R.layout.events_list_item, null);
 		}
 		
-		txtView = (TextView) convertView.findViewById(R.id.itemTitle);
-		txtView.setText(child.getName());
+		String cityName = child.getIdLocation().getCity();
+		StringBuilder sb = new StringBuilder();
+		sb.append(cityName);
+		sb.setCharAt(0, Character.toUpperCase(sb.charAt(0))); 
+		cityName = sb.toString();
+		
+		((TextView) convertView.findViewById(R.id.itemTitle)).setText(child.getName());
+		((TextView) convertView.findViewById(R.id.itemLocation)).setText(child.getIdLocation().getName()
+				+ ", " + cityName);
+		
+		
 		convertView.setOnClickListener(new OnClickListener() {
 			
 			@Override

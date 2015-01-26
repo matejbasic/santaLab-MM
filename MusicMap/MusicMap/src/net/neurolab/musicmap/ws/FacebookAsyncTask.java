@@ -67,7 +67,7 @@ public class FacebookAsyncTask extends AsyncTask<Object, Void, Object[]> {
 		
 		if ( action == "getUserData") {
 			Request req = (Request) saveUserId(session, handler);
-			Response response = req.executeAndWait();
+			req.executeAndWait();
 			
 		}
 		return result;
