@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.neurolab.musicmap.MainActivity;
+import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.EventGenre;
 import net.neurolab.musicmap.db.EventGenre_2;
@@ -88,12 +89,13 @@ public class NotificationService extends Service {
 			new PollTask().execute();
 		}
 
-		
 	}
 
 	private class PollTask extends AsyncTask<Void, Void, Void> {
 
 		ArrayList<Event> events;
+		private NotificationData notification;
+		SharedPreferences sharedPreferences;
 
 		public PollTask() {
 			events = new ArrayList<Event>();
@@ -108,7 +110,7 @@ public class NotificationService extends Service {
 			if (!users.isEmpty()) {
 				for (User user : users) {
 					if (!user.getMmApiKey().isEmpty()) {
-						String location = MainActivity.preferredLocation;
+						String location = loadSavedPreferences();
 						Object paramsEvent[] = new Object[] { "user",
 								"getEvents", null, eventsHandler, location,
 								user.getMmApiKey() };
@@ -120,6 +122,19 @@ public class NotificationService extends Service {
 			}
 
 			return null;
+		}
+
+		public String loadSavedPreferences() {
+			sharedPreferences = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
+			String theLocation = sharedPreferences.getString("theLocation", "");
+			if (theLocation.equalsIgnoreCase("")
+					|| theLocation.equalsIgnoreCase(getResources().getString(
+							R.string.no_preferred_locations))) {
+				return "Zagreb";
+			} else
+				return theLocation;
+
 		}
 
 		MMAsyncResultHandler eventsHandler = new MMAsyncResultHandler() {
@@ -225,8 +240,10 @@ public class NotificationService extends Service {
 						}
 
 						if (updated) {
-							MainActivity.sendData("updated");
-							
+
+							notification = new NotificationData<Object>();
+							notification
+									.showNotification(getApplicationContext());
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

@@ -11,17 +11,14 @@ import net.neurolab.musicmap.dl.DataLoader.OnDataLoadedListener;
 import net.neurolab.musicmap.dl.DataLoaderSearch;
 import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.interfaces.MainView;
-import net.neurolab.musicmap.ns.NotificationData;
 import net.neurolab.musicmap.ns.NotificationService;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -38,7 +35,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -60,11 +56,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 	private FragmentTabMap ftm = null;
 	private FragmentTabList ftl = null;
 
-	public static String preferredLocation = "";
+	//public static String preferredLocation = "";
 
-
-	public static Context context;
-	static NotificationData<Object> notification;
 
 	String[] menu;
 	DrawerLayout dLayout;
@@ -82,7 +75,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		setContentView(R.layout.activity_main);
 
 		ActiveAndroid.initialize(this);
-		context = getApplicationContext();
+		//context = getApplicationContext();
 		
 		ftm = new FragmentTabMap();
 		ftl = new FragmentTabList();
@@ -254,7 +247,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 			//final EditText input = new EditText(MainActivity.this);
 			//input.setHint("Event name");
 
-			LayoutInflater li = LayoutInflater.from(context);
+			LayoutInflater li = LayoutInflater.from(getApplicationContext());
 			View promptsView = li.inflate(R.layout.search, null);
 			
 			
@@ -343,7 +336,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 	
 	public void savePreferences(String location) {
 		
-		preferredLocation = location;
+		//preferredLocation = location;
 		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		Log.i("MainActivity", "savePreferences");
 		editor = sharedPreferences.edit();
@@ -398,21 +391,7 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 	}
 
-	/**
-	 * @param str
-	 * sendData is static method used by NotificationService class to send the "updated" signal and create notification
-	 */
-	public static void sendData(String str) {
-		if (str.equalsIgnoreCase("updated")) {
-			System.out.println(str);
-			// create object
-			if (context != null) {
-				notification = new NotificationData<Object>();
-				notification.showNotification(context);
-			}
-		}
-	}
-
+		
 	@Override
 	public void navigateToSingleEvent(Long eventId) {
 		if (eventId != null) {
