@@ -12,6 +12,7 @@ import com.facebook.Session;
 import com.facebook.model.GraphUser;
 
 /**
+ * Task used for fetching facebook user data.<br>
  * 
  * params[0] -> Session(com.facebook.Session)<br>
  * params[1] -> String action<br>
@@ -19,6 +20,7 @@ import com.facebook.model.GraphUser;
  * params[3] -> ProgressDialog<br>
  * params[4] .> FacebookResultHandler<br>
  * 
+ * @author Basic
  */
 
 public class FacebookAsyncTask extends AsyncTask<Object, Void, Object[]> {

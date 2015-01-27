@@ -23,12 +23,22 @@ import org.json.JSONTokener;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-
+/**
+ * Task for downloading various data from MM WS.
+ * @author Basic
+ *
+ */
 public class MMAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String serviceUrl = "http://musicmap.azurewebsites.net/api";
 	//private String serviceUrl = "http://musicmap.cloudapp.net/api";
 	private String apiKey = "2c9s1rwf7578307";
 	
+	/**
+	 * Default procedure for HTTP GET Request
+	 * @param url
+	 * @return
+	 * response string
+	 */
 	private String httpGetRequest(String url) {
 		
 		String response = "";

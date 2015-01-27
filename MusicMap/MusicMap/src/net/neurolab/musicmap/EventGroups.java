@@ -1,7 +1,11 @@
 package net.neurolab.musicmap;
 
 import java.util.ArrayList;
-
+/**
+ * Singleton class used as an container for event details groups.
+ * @author Basic
+ *
+ */
 public class EventGroups {
 	private static EventGroups eventGroups;
 	public ArrayList<Object[]> listGroups = new ArrayList<Object[]>();

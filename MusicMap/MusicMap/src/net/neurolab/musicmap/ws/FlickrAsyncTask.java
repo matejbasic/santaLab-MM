@@ -19,6 +19,11 @@ import org.json.JSONTokener;
 
 import android.os.AsyncTask;
 
+/**
+ * Downloads image(.jpg) for given musician.
+ * @author Basic
+ *
+ */
 public class FlickrAsyncTask extends AsyncTask<Object, Void, Object[]> {
 	private String apiKey = "c08c4a39214b8bdd635718dc3caa22b0";
 	private String url = "https://api.flickr.com/services/rest/?method=flickr.photos.search";
@@ -104,10 +109,8 @@ public class FlickrAsyncTask extends AsyncTask<Object, Void, Object[]> {
 						String secret = photo.getString("secret");
 					
 						//https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
-						returnUrl = "https://farm"+ farmId + ".staticflickr.com/" + serverId + "/" + id + "_"+ secret + ".jpg";
-						
-					}
-					
+						returnUrl = "https://farm"+ farmId + ".staticflickr.com/" + serverId + "/" + id + "_"+ secret + ".jpg";				
+					}				
 				} 
 				catch (JSONException e) {	
 					e.printStackTrace();

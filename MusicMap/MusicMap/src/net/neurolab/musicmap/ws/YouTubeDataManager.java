@@ -16,6 +16,14 @@ import com.google.api.services.youtube.model.ResourceId;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 
+/**
+ * Calls and manages data from youtube API
+ * such as video title, id,... <br/>
+ * Used in search for videos of given musicians.
+ *  
+ * @author Basic
+ *
+ */
 public class YouTubeDataManager {	
 	private static YouTube yt;
 	private String apiKey = YouTubeDevKey.BROWSER_KEY;
@@ -63,7 +71,13 @@ public class YouTubeDataManager {
 		}
     	
     }
-	
+	/**
+	 * Searches for videos.
+	 * @param query
+	 * String, used in search
+	 * @param handler
+	 * YouTubeDataResultHandler, function for handling results
+	 */
 	public void setDataTask(String query, YouTubeDataResultHandler handler) {
 		ytDataTask ytTask = new ytDataTask();
         ytTask.execute(new Object[]{query, handler});

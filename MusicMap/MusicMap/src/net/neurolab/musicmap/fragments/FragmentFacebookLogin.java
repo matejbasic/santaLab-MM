@@ -23,7 +23,11 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
-
+/**
+ * Manages facebook login process.
+ * @author Basic
+ *
+ */
 public class FragmentFacebookLogin extends Fragment {
 	
 	private UiLifecycleHelper uiHelper;

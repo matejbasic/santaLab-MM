@@ -22,6 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+/**
+ * Displays and manages genre selection.
+ * @author Basic
+ *
+ */
 public class FragmentSetPreferredGenres extends Fragment {
 	
 	private Button btnSelectAll;

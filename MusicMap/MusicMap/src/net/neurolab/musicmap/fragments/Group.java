@@ -5,6 +5,13 @@ import java.util.Date;
 
 import net.neurolab.musicmap.db.Event;
 
+/**
+ * Represents group item in list of events
+ * (see EventsExpandableAdapter)
+ * 
+ * @author Basic
+ *
+ */
 public class Group {
 	private Date date;
 	private final ArrayList<Event> children;

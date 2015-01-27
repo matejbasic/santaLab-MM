@@ -3,7 +3,6 @@ package net.neurolab.musicmap;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.PreferredLocation;
 import net.neurolab.musicmap.db.User;
@@ -12,6 +11,7 @@ import net.neurolab.musicmap.dl.DataLoaderSearch;
 import net.neurolab.musicmap.fragments.FragmentTabList;
 import net.neurolab.musicmap.interfaces.MainView;
 import net.neurolab.musicmap.ns.NotificationService;
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -35,7 +35,6 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -43,9 +42,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Select;
-
 import net.neurolab.musicmap.googlemaps.FragmentTabMap;
-
+/**
+ * 
+ * @author Pintaric, Basic
+ *
+ */
 public class MainActivity extends SherlockFragmentActivity implements
 		OnDataLoadedListener, MainView {
 
@@ -211,11 +213,9 @@ public class MainActivity extends SherlockFragmentActivity implements
 					ftm.refresh();
 					
 				}
-				Log.i("mainActivity", "onItemClick");
 			}
 		});
 			
-		Log.i("mainActivity", "on create end");
 	}
 
 
@@ -225,12 +225,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 		getSupportMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
 	/**
-	 * onOptionsItemSelected handles MenuItem items selecting (as settings, setPreference or search) 
+	 * Handles MenuItem items selecting (as settings, setPreference or search)
 	 */
-	
-	
+	@SuppressLint("InflateParams")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
@@ -330,8 +329,8 @@ public class MainActivity extends SherlockFragmentActivity implements
 	}
 	
 	/** 
+	 * Saves the current location (selected in NavigationDrawer) as the (top) preferred one
 	 * @param location
-	 * savePreferences saves the current location (selected in NavigationDrawer) as the (top) preferred one
 	 */
 	
 	public void savePreferences(String location) {
@@ -346,11 +345,11 @@ public class MainActivity extends SherlockFragmentActivity implements
 	
 
 	/** 
+	 * Used to load data by calling DataLoaderSearch (for search purposes)
 	 * @param event
 	 * @param city
 	 * @param dateSince
 	 * @param dateUntil
-	 * searchForData is used to load data by calling DataLoaderSearch (for search purposes)
 	 */
 	private void searchForData(String event,/* String genre, String musician,*/
 			String city, long dateSince, long dateUntil) {
@@ -370,10 +369,10 @@ public class MainActivity extends SherlockFragmentActivity implements
 		}
 	}
 
-/**
- * onResume method sets alarm for NotificationService to start every x minutes/hours
- */
 
+	/**
+	 *  Sets alarm for NotificationService to start every x minutes/hours
+	 */
 	public void onResume() {
 		super.onResume();
 

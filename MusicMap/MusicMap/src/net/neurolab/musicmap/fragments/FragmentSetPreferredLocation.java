@@ -16,6 +16,11 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+/**
+ * Manages process of location selection.
+ * @author Basic
+ *
+ */
 public class FragmentSetPreferredLocation extends Fragment {
 	private EditText inputLocation;
 	private ProgressBar progressBar;
@@ -57,7 +62,13 @@ public class FragmentSetPreferredLocation extends Fragment {
 		
 		return view;
 	}
-
+	/**
+	 * Checks if location is valid and calls 
+	 * parent method for location processing.
+	 * @param location
+	 * String
+	 * @return
+	 */
 	private boolean checkLocation(String location) {
 		if (!location.isEmpty()) {
 			((SetPreferencesActivity)getActivity()).checkLocation(location);
@@ -71,7 +82,10 @@ public class FragmentSetPreferredLocation extends Fragment {
 			return false;
 		}
 	}
-	
+	/**
+	 * Displays message to inform user that
+	 * no location was entered.
+	 */
 	public void setNoLocationError() {
 		progressBar.setVisibility(View.INVISIBLE);
 		inputLocation.setEnabled(true);

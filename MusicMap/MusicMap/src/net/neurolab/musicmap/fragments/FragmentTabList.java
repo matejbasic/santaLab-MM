@@ -24,6 +24,13 @@ import android.widget.ExpandableListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+/**
+ * Manages list of events. <br/>
+ * Extends SherlockFragment and implements
+ * OnDataChangedListener.
+ * @author Basic
+ *
+ */
 public class FragmentTabList extends SherlockFragment implements
 		OnDataChangedListener {
 	private ArrayList<Group> groups = new ArrayList<Group>();
@@ -154,7 +161,11 @@ public class FragmentTabList extends SherlockFragment implements
 		}
 		return false;
 	}
-
+	/**
+	 * Loads saved preferences.
+	 * @return
+	 * saved location
+	 */
 	public String loadSavedPreferences() {
 		sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
@@ -177,10 +188,16 @@ public class FragmentTabList extends SherlockFragment implements
 	private SimpleDateFormat sdfDay = new SimpleDateFormat("dd",
 			Locale.getDefault());
 
-	// return values: 0 (dates are equal), < 0 (d2 is less than d1), > 0 (d2 is
-	// greater)
-	// util.Date methods are deprecated
-	// need better date type, this is ugly!
+	/**
+	 * Compare dates.
+	 * @param d1
+	 * Date
+	 * @param d2
+	 * Date
+	 * @return
+	 * 0 (dates are equal), < 0 (d2 is less than d1), > 0 (d2 is
+	 * greater)
+	 */
 	private int compareDates(Date d1, Date d2) {
 
 		if (Integer.parseInt(sdfYear.format(d1)) != Integer.parseInt(sdfYear
@@ -221,7 +238,11 @@ public class FragmentTabList extends SherlockFragment implements
 		return i;
 	}
 
-
+	/**
+	 * Loads list of Group objects .
+	 * @param groups
+	 * ArrayList of Group objects
+	 */
 	public void loadData(ArrayList<Group> groups){
 		
 		try{

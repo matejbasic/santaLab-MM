@@ -3,6 +3,7 @@ package net.neurolab.musicmap;
 import net.neurolab.musicmap.ws.YouTubeDataManager;
 import net.neurolab.musicmap.ws.YouTubeDataResultHandler;
 import net.neurolab.musicmap.ws.YouTubeDevKey;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -19,6 +20,13 @@ import android.widget.TextView;
 import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 
+/**
+ * Implements controls for list of different informations about event. <br/>
+ * Extends BaseExpandableListAdapter.
+ * 
+ * @author Basic
+ *
+ */
 public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 
 	private Activity activity;
@@ -89,6 +97,7 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		return false;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
@@ -122,6 +131,16 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		ll.addView(txtDesc);
 	}
 	
+	/**
+	 * Initialize youtubeDataManager and 
+	 * sets data needed for youtube player.
+	 * @param ll
+	 * LinearLayout
+	 * @param group
+	 * Object[]
+	 * @param groupPosition
+	 * int
+	 */
 	private void getYoutubeData(final LinearLayout ll, final Object[] group, final int groupPosition) {
 		if(ytDataManager == null) {
 			ytDataManager = new YouTubeDataManager();
@@ -137,7 +156,17 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 			}
 		});
 	}
-	
+	/**
+	 * Sets youtube player
+	 * @param ll
+	 * LinearLayout
+	 * @param group
+	 * Object[]
+	 * @param groupPosition
+	 * int
+	 * @param videoId
+	 * String
+	 */
 	private void setYoutubePlayer(LinearLayout ll, Object[] group, int groupPosition, String videoId) {
 		//add youtube video
 		if (!(Boolean)group[3]) {
@@ -160,6 +189,14 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		}
 	}
 	
+	/**
+	 * Sets "about musician" section that is represented 
+	 * as an item in expandable list.
+	 * @param ll
+	 * @param convertView
+	 * @param group
+	 * @param groupPosition
+	 */
 	private void setAboutMusician(LinearLayout ll, View convertView, Object[] group, int groupPosition) {
 		TextView txtDesc = new TextView(convertView.getContext());
 		txtDesc.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
@@ -178,6 +215,7 @@ public class EventDetailsExpandableAdapter extends BaseExpandableListAdapter {
 		getYoutubeData(ll, group, groupPosition);
 	}
 	
+	@SuppressLint("InflateParams")
 	@Override
 	public View getChildView(int groupPosition, int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {

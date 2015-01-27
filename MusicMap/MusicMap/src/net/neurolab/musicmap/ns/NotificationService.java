@@ -3,7 +3,6 @@ package net.neurolab.musicmap.ns;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.neurolab.musicmap.MainActivity;
 import net.neurolab.musicmap.R;
 import net.neurolab.musicmap.db.Event;
 import net.neurolab.musicmap.db.EventGenre;
@@ -94,6 +93,7 @@ public class NotificationService extends Service {
 	private class PollTask extends AsyncTask<Void, Void, Void> {
 
 		ArrayList<Event> events;
+		@SuppressWarnings("rawtypes")
 		private NotificationData notification;
 		SharedPreferences sharedPreferences;
 

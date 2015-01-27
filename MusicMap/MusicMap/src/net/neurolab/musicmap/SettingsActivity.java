@@ -3,7 +3,11 @@ package net.neurolab.musicmap;
 import net.neurolab.musicmap.fragments.SettingsFragment;
 import android.app.Activity;
 import android.os.Bundle;
-
+/**
+ * Displays settings options
+ * @author Santalab
+ *
+ */
 public class SettingsActivity extends Activity {
 
 	@Override

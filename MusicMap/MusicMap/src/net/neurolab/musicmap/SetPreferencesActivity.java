@@ -46,10 +46,8 @@ import android.util.Log;
 import com.activeandroid.query.Select;
 
 /**
- * 
+ * Activity for setting the preferred location and genres
  * @author Basic
- *
- * Activity for setting the preferred location and genres.
  */
 public class SetPreferencesActivity extends Activity {
 	private FragmentSetPreferredGenres fSetGenres;
@@ -266,6 +264,11 @@ public class SetPreferencesActivity extends Activity {
 		}	
 	}
 	
+	/**
+	 * Saves location to sharedPreferences
+	 * @param location
+	 * String
+	 */
 	public void savePreferences(String location) {
 		SharedPreferences sharedPreferences = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
@@ -274,19 +277,22 @@ public class SetPreferencesActivity extends Activity {
 		editor.putString("theLocation", location);
 		editor.commit();
 	}
-	
-	public void checkLocation(String name) {	
+	/**
+	 * Checks if location is already in database
+	 * @param locationName
+	 * String
+	 */
+	public void checkLocation(String locationName) {	
 		if (!locationCheck) {
 			locationCheck = true;
-			if (name != null && !name.isEmpty()) {
-				Location location = new Location().getLocation(name);
+			if (locationName != null && !locationName.isEmpty()) {
+				Location location = new Location().getLocation(locationName);
 				
 				if (location == null) {
-					Log.i("checkLocation", "null");
 					// preferred location can be just a city
 					// get lat, lng from google geocoding
 					getAddressTask mmTask = new getAddressTask();
-					mmTask.execute(new Object[] { name, getApplicationContext() });
+					mmTask.execute(new Object[] { locationName, getApplicationContext() });
 
 				} else {
 					// check if location is already preferred
@@ -309,7 +315,11 @@ public class SetPreferencesActivity extends Activity {
 		}
 	}
 
-	
+	/**
+	 * Saves genres, picked by user, in database.
+	 * @param genres
+	 * List of Genre objects
+	 */
 	public void setPreferedGenres(List<Genre> genres) {
 		PreferredGenre prefGenre;
 		for (Genre genre : genres) {
@@ -318,20 +328,26 @@ public class SetPreferencesActivity extends Activity {
 		}
 		navigateToHome();
 	}
-	
+	/**
+	 * Navigates to MainActivity.
+	 */
 	public void navigateToHome() {
 		Intent intent = new Intent(SetPreferencesActivity.this, MainActivity.class);
 		startActivity(intent);
 		finish();
 	}
-
+	/**
+	 * Navigates to LoginActivity.
+	 */
 	public void navigateToLogin() {
 		Intent intent = new Intent(SetPreferencesActivity.this, LoginActivity.class);
 		intent.putExtra("reason", "no-user");
 		startActivity(intent);
 		finish();
 	}
-	
+	/**
+	 * Shows fragment FragmentSetPreferredGenres.
+	 */
 	public void navigateToSetGenres() {
 		FragmentTransaction ft= getFragmentManager().beginTransaction();	
 		ft.replace(R.id.activitySetPreferences, fSetGenres);	
@@ -339,12 +355,17 @@ public class SetPreferencesActivity extends Activity {
 		
 		chooseLocation = false;
 	}
-
+	/**
+	 * Shows error message if no location is entered.
+	 */
 	public void setNoLocationError() {
 		fSetLocation.setNoLocationError();
 		
 	}
-	
+	/**
+	 * Checks if user data is valid.
+	 * @return
+	 */
 	public Boolean checkUser() {
 		List<User> users = new User().getAll();
 		if (users.isEmpty()) {
@@ -359,7 +380,10 @@ public class SetPreferencesActivity extends Activity {
 		}
 	}
 	
-	
+	/**
+	 * Checks if genres are in database.
+	 * If not, genres are downloaded from MM WS
+	 */
 	public void checkGenres() {
 		int sumGenres = new Genre().getSum();
 		if (sumGenres == 0) {

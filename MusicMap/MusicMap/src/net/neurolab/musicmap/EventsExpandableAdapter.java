@@ -17,6 +17,12 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
+/**
+ * Adapter that implements controls for list of events.<br/>
+ * Extends BaseExpandableListAdapter.
+ * @author Basic
+ *
+ */
 public class EventsExpandableAdapter extends BaseExpandableListAdapter {
 
 	private final ArrayList<Group> groups;

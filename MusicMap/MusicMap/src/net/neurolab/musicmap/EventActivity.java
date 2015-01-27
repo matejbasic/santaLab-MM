@@ -27,6 +27,16 @@ import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.squareup.picasso.Picasso;
 
+/**
+ * 
+ * Shows information about single event such as
+ * location, date, pictures and videos. <br/>
+ * Implements OnInitializedListener and extends
+ * YouTubeFailureRecoveryActivity.
+ * 
+ * @author Basic
+ *
+ */
 public class EventActivity extends YouTubeFailureRecoveryActivity implements OnInitializedListener {
 	private Event event;
 	private SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd.MM.yy.", Locale.getDefault());
@@ -171,9 +181,7 @@ public class EventActivity extends YouTubeFailureRecoveryActivity implements OnI
 	@Override
 	public void onInitializationFailure(Provider arg0,
 			YouTubeInitializationResult arg1) {
-		Log.i("Youtube player", "failed to init");
 		Toast.makeText(getApplicationContext(), R.string.yt_player_no_app_error, Toast.LENGTH_LONG).show();
-		
 	}
 
 	@Override

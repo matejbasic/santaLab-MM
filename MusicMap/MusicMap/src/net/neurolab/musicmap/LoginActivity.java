@@ -15,7 +15,6 @@ import net.neurolab.musicmap.ws.MMAsyncTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -37,17 +36,18 @@ import com.activeandroid.ActiveAndroid;
 
 /**
  * 
+ * First activity displayed to user. Checks connectivity and user data.
+ * If user is not signed via Facebook or as an guest, options for login are shown.<br/>
+ * Else, if preferred location was previously picked, action navigates to MainAcitvity. <br/>
+ * Else, action navigates to SetPreferencesActivity. <br/>
+ * Implements LoginView interface.
+ *
  * @author Basic
  * 
- * First activity displayed to user. Checks connectivity and user data.
- * If user is not signed via Facebook or as an guest, options for login are showed.
- * Else, activity navigates to setPreferences Activity or Main Activity.
- *
  */
 public class LoginActivity extends FragmentActivity implements LoginView {
 
 	private FragmentFacebookLogin fFacebookLogin;
-	private boolean userExist;
 	private boolean isInstanceSaved;
 	private static boolean connectionValid = false;
 	private ProgressBar progressBar;
@@ -58,6 +58,7 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 	private String idHash = null;
 	private String uniqueId = null;
 	private String userName = null;
+	
 	private class DependenciesTask extends AsyncTask<Context, Void, Boolean> {
 
 		@Override
@@ -272,15 +273,6 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		// active android initialization, must be in launch activity
 		ActiveAndroid.initialize(this);
 		isInstanceSaved = false;
-		this.userExist = false;
-		
-		Bundle extras = getIntent().getExtras();		
-		if (extras != null) {
-			String reason = extras.getString("reason");
-			if ( reason == "no-key") {
-				this.userExist = true;
-			}		
-		}
 		
 		if (savedInstanceState != null) {
 			isInstanceSaved = true;
@@ -345,14 +337,20 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		}		
 	}
 	
+	
 	@Override
 	public void getFbFragmentData(HashMap<String, String> data) {
 		if (data.containsKey("id") && data.containsKey("name")) {	
 			checkFbUser(data.get("name")
-					.toString(), data.get("id").toString(), LoginActivity.this);	
+					.toString(), data.get("id").toString());	
 		}
 	}
 
+	/**
+	 * Adds user to local database.
+	 * @param apiKey
+	 * @param fromFacebook
+	 */
 	private void addUserToDB(String apiKey, Boolean fromFacebook) {
 		//User user = new User(userId, firstLastName, facebookId, mmApiKey, password);
 		User user = null;	
@@ -365,6 +363,11 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		}
 		user.save();
 	}
+	/**
+	 * Adds MM WS API key to user
+	 * @param apiKey
+	 * @param fromFacebook
+	 */
 	private void addApiKeyToUser(String apiKey, Boolean fromFacebook) {
 		User user = new User();
 		if (fromFacebook) {
@@ -374,6 +377,10 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 			user.setApiKeyToUser(apiKey, false, this.userName);
 		}
 	}
+	/**
+	 * Checks user data and navigates to other activities
+	 * or, if user isn't logged in, shows options for login.
+	 */
 	private void checkUser() {
 		List<User> users = new User().getAll();
 		if (!users.isEmpty()) { 
@@ -389,18 +396,23 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 					else {
 						navigateToHome();
 					}
+					return;
 				}	
 			}
 			if (!isUserValid) {
 				setLoginButtons();
+				return;
 			}
-		}
-		else {
-			setLoginButtons();
-		}
+		}	
+		setLoginButtons();	
 	}
 	
-	public void checkFbUser(String userName, String fbId, Activity activity) {
+	/**
+	 * Checks facebook user data and adds user to local database.
+	 * @param userName: String
+	 * @param fbId: String
+	 */
+	public void checkFbUser(String userName, String fbId) {
 		
 		List<User> users = new User().getAll();
 		if (!users.isEmpty()) { //if user exist
@@ -426,7 +438,11 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		}
 		
 	}
-
+	
+	/**
+	 * Gets facebook user API key from MM WS
+	 * @param fbId
+	 */
 	private void getFbUserKey(String fbId) {
 		this.fbId = fbId;
 		this.idHash = String.valueOf(fbId.hashCode());
@@ -436,6 +452,10 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		Object params[] = new Object[]{"fbUser", "getKey", null, getFbUserKeyHandler, this.fbId, this.idHash};
 		mmTask.execute(params);
 	}
+	/**
+	 * Gets guest user API key from MM WS
+	 * @param userName
+	 */
 	private void getUserKey(String userName) {
 		this.idHash = String.valueOf(userName.hashCode());
 		this.userName = userName;
@@ -445,6 +465,11 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		mmTask.execute(params);
 	}
 	
+	/**
+	 * Adds new facebook user to MM WS database.
+	 * @param fbId
+	 * @param userName
+	 */
 	private void newFbUser(String fbId, String userName) {
 		this.idHash = String.valueOf(fbId.hashCode());
 		this.fbId = fbId;
@@ -454,6 +479,10 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		Object params[] = new Object[]{"fbUser", "add", null, addFbUserHandler, this.fbId, this.idHash, this.userName};
 		mmTask.execute(params);
 	}
+	/**
+	 * Adds new guest user to MM WS database.
+	 * @param uniqueId
+	 */
 	private void newUser(String uniqueId) {
 		this.idHash = String.valueOf(uniqueId.hashCode());
 		this.userName = uniqueId;
@@ -462,7 +491,10 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		Object params[] = new Object[]{"user", "add", null, addUserHandler, this.userName, this.idHash};
 		mmTask.execute(params);
 	}
-	
+	/**
+	 * Checks dependencies for normal app functioning.
+	 * @param context
+	 */
 	public void checkDependencies(Context context) {
 		DependenciesTask task = new DependenciesTask();
 		task.execute(context);
@@ -497,7 +529,11 @@ public class LoginActivity extends FragmentActivity implements LoginView {
 		btnCheckConnection.setVisibility(View.VISIBLE);
         newToast(R.string.no_connection_error, Toast.LENGTH_SHORT);
 	}
-
+	/**
+	 * Creates and shows new custom toast.
+	 * @param txtId: int, id of value in strings.xml
+	 * @param duration: int
+	 */
 	private void newToast(int txtId, int duration) {
 		LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
